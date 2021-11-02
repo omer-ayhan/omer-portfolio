@@ -14,7 +14,6 @@ import { Icon } from "@iconify/react";
 import MainTabs from "../Utilities/MainTabs";
 import Popup from "../Utilities/Popup";
 import { FormInput, props, tabObjects } from "../Utilities/StylesProvider";
-// import bg_projects from "/img/Background/bg_projects.svg";
 import MainTag from "../Utilities/MainTag";
 import MainButton from "../Utilities/MainButton";
 import Filter from "./Filter";
@@ -45,7 +44,6 @@ function Projects(): ReactElement {
     infinite: true,
     swipeToSlide: true,
     speed: 500,
-    lazyLoad: "ondemand",
     slidesToShow: 1,
     slidesToScroll: 1,
     appendDots: (dots: HTMLElement) => (
@@ -108,67 +106,6 @@ function Projects(): ReactElement {
           Projects
         </Typography>
       </Grid>
-      {/* <Grid
-        item
-        container
-        xs={12}
-        sx={{
-          ...stylesAll.utilities.gridDefault,
-          gap: "20px",
-        }}>
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          style={{ position: "relative" }}>
-          <FormInput
-            placeholder="Search"
-            id="search"
-            value={searchInput}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchInput(e.target.value)
-            }
-          />
-          <Icon id="search-icon" icon="fe:search" />
-          <span id="filter">
-            <Popup
-              btn={<Icon id="filter-icon" icon="fluent:filter-24-filled" />}
-              content={<Filter />}
-              isButton={false}
-              isMenuClosable={false}
-            />
-          </span>
-        </form>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            ...stylesAll.projects.tags.gridContainer,
-            flexDirection: "row",
-          }}>
-          <Grid
-            container
-            spacing={{ xs: 1 }}
-            justifyContent="center"
-            alignItems="center">
-            {tabObjects.projectTags.map(({ title, icon }, index) => (
-              <Grid key={index} item xs={2}>
-                <MainTag
-                  onClick={() => handleTags(stateTags, title)}
-                  sxBox={{
-                    ...stylesAll.projects.tags.container,
-                  }}
-                  sxText={{
-                    ...stylesAll.projects.tags.text,
-                  }}
-                  icon={icon}
-                  title={title}
-                  className={"project-tag-icons"}
-                  isClickable
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid> */}
       <Grid item xs={12}>
         <MainTabs
           spacing={{ ...stylesAll.projects.spacing }}
@@ -201,7 +138,7 @@ function Projects(): ReactElement {
                         : `0px 0px 16.3px ${colors.LightModeShadow}`,
                   }}>
                   {/* Image slider */}
-                  <Slider {...settings}>
+                  <Slider {...settings} lazyLoad="ondemand">
                     {img.map((imgFile, index) => (
                       <CardMedia
                         key={`${imgFile}-${index}`}
@@ -276,9 +213,7 @@ function Projects(): ReactElement {
               </Grid>
             ))}>
           <Grid
-            // item
             container
-            // xs={12}
             sx={{
               ...stylesAll.utilities.gridDefault,
               marginBottom: "50px",
