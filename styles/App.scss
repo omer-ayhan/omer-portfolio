@@ -40,9 +40,10 @@
 
   & #intro-img {
     position: absolute;
-    top: -3px;
-    right: 83px;
-    height: 425px;
+    top: 3.7px;
+    right: -40px;
+    width: 313px;
+    height: 449px;
   }
 
   & #about-img {
@@ -71,6 +72,7 @@
     display: none;
     position: absolute;
     width: 300px;
+    height: 300px;
     top: 120px;
     left: 55px;
     z-index: -999;
@@ -186,7 +188,8 @@
     & #intro-img {
       position: absolute;
       top: -41.6px;
-      right: 13.6px;
+      right: 12.5px;
+      width: 226.1px;
       height: 320px;
     }
 
@@ -216,8 +219,9 @@
 
     & #intro-img {
       position: absolute;
-      top: -18.6px;
-      right: 40.6px;
+      top: -18.4px;
+      right: 42.5px;
+      width: 266.5px;
       height: 375px;
     }
 
@@ -234,6 +238,7 @@
     & .intro-bg {
       display: block;
       width: 300px;
+      height: 300px;
       top: 112px;
       left: 130px;
     }
@@ -313,9 +318,10 @@
     }
     & #intro-img {
       position: absolute;
-      top: -20.5px;
-      right: -106px;
-      height: 430px;
+      top: -12.8px;
+      right: -103.3px;
+      width: 300px;
+      height: 422px;
     }
 
     & #search {
@@ -380,9 +386,10 @@
 
     & #intro-img {
       position: absolute;
-      top: 2.5px;
+      top: 3.7px;
       right: -40px;
-      height: 450px;
+      width: 313px;
+      height: 449px;
     }
 
     & #search {
@@ -428,6 +435,7 @@
 
     & .intro-bg {
       width: 320px;
+      height: 320px;
     }
 
     & .about-bg {
@@ -471,9 +479,10 @@
 
     & #intro-img {
       position: absolute;
-      top: 5.3px;
-      right: -214px;
-      height: 620px;
+      top: -11.7px;
+      right: -218px;
+      width: 453px;
+      height: 640px;
     }
 
     & #about-illustration-bg {
@@ -544,6 +553,7 @@
 
     & .intro-bg {
       width: 430px;
+      height: 430px;
       top: 140px;
     }
 

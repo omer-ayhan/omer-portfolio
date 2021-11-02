@@ -213,7 +213,6 @@ const stylesAll = {
           xs: 300,
           Mobile_L: 400,
           Laptop: 300,
-          Laptop_M: 400,
         },
         right: { xs: 0, Mobile_L: 20, Tablet: "-20%", Laptop: "18%" },
       },
@@ -621,7 +620,7 @@ const stylesAll = {
         paddingBottom: "20px",
         marginLeft: {
           xs: 0,
-          Laptop: "40px",
+          // Laptop: "40px",
         },
         transition: ".3s ease",
         justifyContent: "start",
