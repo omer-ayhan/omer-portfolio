@@ -1,0 +1,14 @@
+{
+  "name": "Ömer Ayhan",
+  "short_name": "Ömer Ayhan",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ]
+}

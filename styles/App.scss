@@ -1,0 +1,577 @@
+.css-ptiqhd-MuiSvgIcon-root {
+  width: 3em !important;
+  height: 3em !important;
+}
+.nav-icons {
+  width: 40px;
+  height: 40px;
+}
+
+.App {
+  & a {
+    text-decoration: none;
+  }
+
+  & .logo {
+    width: 95px;
+    height: 95px;
+  }
+
+  & #illustration-bg {
+    height: 490px;
+  }
+  & #about-illustration-bg {
+    height: 425px;
+  }
+
+  #intro {
+    .slides-wrapper {
+      max-width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  #projects {
+    .image-slider {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  & #intro-img {
+    position: absolute;
+    top: -3px;
+    right: 83px;
+    height: 425px;
+  }
+
+  & #about-img {
+    position: absolute;
+    top: 91.38px;
+    left: 102.75px;
+    height: 350px;
+  }
+
+  & #intro_illustration {
+    position: absolute;
+    top: -116px;
+    left: 9px;
+    width: 440px;
+  }
+
+  & #about_illustration {
+    position: absolute;
+    bottom: -68px;
+    left: 19px;
+    width: 500px;
+    z-index: -999;
+  }
+
+  & .intro-bg {
+    display: none;
+    position: absolute;
+    width: 300px;
+    top: 120px;
+    left: 55px;
+    z-index: -999;
+  }
+
+  & .about-bg {
+    display: none;
+    position: absolute;
+    width: 810px;
+    bottom: -70px;
+    right: -52px;
+    z-index: -999;
+  }
+
+  & .projects-bg {
+    display: none;
+    position: absolute;
+    top: -30px;
+    right: -138px;
+    width: 170px;
+    z-index: -999;
+  }
+
+  & .blogs-bg {
+    display: none;
+    position: absolute;
+    top: 38px;
+    left: -79px;
+    width: 210px;
+    z-index: -999;
+  }
+
+  & .contact-bg {
+    display: none;
+    position: absolute;
+    top: -9px;
+    right: -8px;
+    width: 196px;
+    z-index: -999;
+  }
+
+  & #search {
+    font-family: "Rubik", sans-serif;
+    padding: 0 45px;
+    width: 950px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  & #search-icon {
+    position: absolute;
+    color: #757c7c;
+    top: 13px;
+    left: 14px;
+    width: 25px;
+    height: 25px;
+  }
+
+  & #filter-icon {
+    width: 33px;
+    height: 33px;
+  }
+
+  & #filter {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+  }
+
+  & .contact-form {
+    font-family: "Rubik", sans-serif;
+    width: 100%;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 1.3rem;
+
+    &.message-form {
+      padding: 10px;
+      min-height: 230px;
+      resize: none;
+    }
+  }
+
+  & .social-icons {
+    width: 33px;
+    height: 33px;
+  }
+
+  & .tab-icons {
+    width: 50px;
+    height: 50px;
+  }
+
+  & .skills-icons {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 320px) {
+  .App {
+    & #intro_illustration {
+      position: absolute;
+      top: -200px;
+      left: 3px;
+      width: 290px;
+    }
+
+    & #illustration-bg {
+      height: 320px;
+    }
+
+    & #intro-img {
+      position: absolute;
+      top: -41.6px;
+      right: 13.6px;
+      height: 320px;
+    }
+
+    & #search {
+      width: 210px;
+    }
+
+    & .card-tag-icons {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (min-width: 425px) {
+  .App {
+    & #intro_illustration {
+      position: absolute;
+      top: -149px;
+      left: 13px;
+      width: 360px;
+    }
+
+    & #illustration-bg {
+      height: 420px;
+    }
+
+    & #intro-img {
+      position: absolute;
+      top: -18.6px;
+      right: 40.6px;
+      height: 375px;
+    }
+
+    & #search {
+      width: 275px;
+    }
+
+    & .card-tag-icons,
+    & .project-tag-icons {
+      width: 20px;
+      height: 20px;
+    }
+
+    & .intro-bg {
+      display: block;
+      width: 300px;
+      top: 112px;
+      left: 130px;
+    }
+
+    & .about-bg {
+      display: block;
+      width: 800px;
+      bottom: 142px;
+      right: 15px;
+    }
+
+    & .projects-bg {
+      display: block;
+      right: -97px;
+    }
+
+    & .blogs-bg {
+      display: block;
+      top: -43px;
+      left: -30px;
+      width: 220px;
+    }
+
+    & .contact-bg {
+      display: block;
+      top: -47px;
+      right: -48px;
+      width: 196px;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .App {
+    margin: 0 20px;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .App {
+    margin: 0 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .App {
+    margin: 0 60px;
+    & #search {
+      width: 550px;
+    }
+    & .intro-bg {
+      left: 35px;
+    }
+
+    & .about-bg {
+      bottom: 145px;
+      right: -36px;
+    }
+
+    & .blogs-bg {
+      top: 45px;
+      left: -60px;
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1268px) {
+  .App {
+    & #illustration-bg {
+      height: 480px;
+    }
+    & #intro_illustration {
+      position: absolute;
+      top: -120px;
+      left: 7px;
+      width: 420px;
+    }
+    & #intro-img {
+      position: absolute;
+      top: -20.5px;
+      right: -106px;
+      height: 430px;
+    }
+
+    & #search {
+      width: 855px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .App {
+    & #about-illustration-bg {
+      height: 425px;
+    }
+    & #about_illustration {
+      position: absolute;
+      top: -123px;
+      left: 0px;
+      width: 500px;
+      z-index: -999;
+    }
+    & #about-img {
+      position: absolute;
+      top: 81.5px;
+      left: 83.9px;
+      height: 350px;
+    }
+
+    & .project-tag-icons {
+      width: 25px;
+      height: 25px;
+    }
+
+    & .intro-bg {
+      top: 105px;
+      left: 100px;
+    }
+
+    & .about-bg {
+      bottom: -76px;
+    }
+
+    & .blogs-bg {
+      top: 45px;
+      left: -32px;
+    }
+  }
+}
+
+@media (min-width: 1269px) {
+  .App {
+    margin: 0 120px;
+    & #illustration-bg {
+      height: 535px;
+    }
+
+    & #intro_illustration {
+      position: absolute;
+      top: -90px;
+      left: 17px;
+      width: 450px;
+    }
+
+    & #intro-img {
+      position: absolute;
+      top: 2.5px;
+      right: -40px;
+      height: 450px;
+    }
+
+    & #search {
+      width: 1000px;
+    }
+
+    & .project-tag-icons {
+      width: 27px;
+      height: 28px;
+    }
+
+    & .projects-bg {
+      right: -137px;
+    }
+
+    & .blogs-bg {
+      left: -62px;
+    }
+  }
+}
+
+@media (min-width: 1439px) {
+  .App {
+    margin: 0 120px;
+
+    & #illustration-bg {
+      height: 535px;
+    }
+
+    & #intro_illustration {
+      position: absolute;
+      top: -90px;
+      left: 17px;
+      width: 450px;
+    }
+
+    & #intro-img {
+      position: absolute;
+      top: 2.5px;
+      right: -40px;
+      height: 450px;
+    }
+
+    & .intro-bg {
+      width: 320px;
+    }
+
+    & .about-bg {
+      right: -29px;
+      bottom: -63px;
+      width: 850px;
+    }
+
+    & .projects-bg {
+      width: 178px;
+      right: -154px;
+    }
+
+    & .blogs-bg {
+      width: 243px;
+    }
+
+    & .contact-bg {
+      top: -35px;
+      width: 223px;
+    }
+  }
+}
+
+@media (min-width: 1900px) {
+  .nav-icons {
+    width: 51px;
+    height: 51px;
+  }
+  .App {
+    & #illustration-bg {
+      height: 760px;
+    }
+
+    & #intro_illustration {
+      position: absolute;
+      top: 14px;
+      left: 30px;
+      width: 620px;
+    }
+
+    & #intro-img {
+      position: absolute;
+      top: 5.3px;
+      right: -214px;
+      height: 620px;
+    }
+
+    & #about-illustration-bg {
+      height: 605px;
+    }
+
+    & #about_illustration {
+      position: absolute;
+      top: -60px;
+      left: 4px;
+      width: 660px;
+      z-index: -999;
+    }
+
+    & #about-img {
+      position: absolute;
+      top: 94px;
+      left: 111px;
+      height: 470px;
+    }
+
+    & .contact-form {
+      height: 70px;
+      font-size: 1.5rem;
+    }
+
+    & #search {
+      padding: 0 58px;
+      width: 1480px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+
+    & #search-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    & #filter-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    & .social-icons {
+      width: 49px;
+      height: 49px;
+    }
+
+    & .card-tag-icons {
+      width: 26px;
+      height: 26px;
+    }
+
+    & .project-tag-icons {
+      width: 33px;
+      height: 33px;
+    }
+
+    & .tab-icons {
+      width: 65px;
+      height: 65px;
+    }
+
+    & .logo {
+      width: 120px;
+      height: 120px;
+    }
+
+    & .intro-bg {
+      width: 430px;
+      top: 140px;
+    }
+
+    & .about-bg {
+      right: -31px;
+      bottom: -63px;
+      width: 1170px;
+    }
+
+    & .projects-bg {
+      width: 245px;
+      right: -154px;
+      top: -60px;
+    }
+
+    & .blogs-bg {
+      width: 335px;
+      left: -96px;
+    }
+
+    & .contact-bg {
+      width: 300px;
+      right: 150px;
+    }
+
+    & .skills-icons {
+      width: 90px;
+      height: 90px;
+    }
+  }
+}

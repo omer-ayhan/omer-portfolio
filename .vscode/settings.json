@@ -1,0 +1,10 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "extensionName": ".css",
+      "format": "compressed",
+      "savePath": "/styles/"
+    }
+  ],
+  "editor.linkedEditing": true
+}
