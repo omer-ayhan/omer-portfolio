@@ -122,9 +122,6 @@ const Intro = () => {
           sx={{
             position: "relative",
             ...stylesAll.intro.introImg.container,
-            "@media (min-width: 1269px)": {
-              width: 400,
-            },
           }}>
           <object id="illustration-bg" type="image/svg+xml" data={intro_svg}>
             svg-animation

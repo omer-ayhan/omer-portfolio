@@ -215,6 +215,12 @@ const stylesAll = {
           Laptop: 300,
         },
         right: { xs: 0, Mobile_L: 20, Tablet: "-20%", Laptop: "18%" },
+        "@media (min-width: 500px) and (max-width:768px)": {
+          left: "12%",
+        },
+        "@media (min-width: 1269px)": {
+          width: 400,
+        },
       },
     },
   },
