@@ -953,9 +953,9 @@ const tabObjects = {
     { title: "NodeJS", icon: "logos:nodejs" },
   ],
   blogsCard: [
-    { title: "My Blog Title", img: project_img },
-    { title: "My Blog Title", img: project_img },
-    { title: "My Blog Title", img: project_img },
+    { title: "Coming Soon", img: project_img },
+    { title: "Coming Soon", img: project_img },
+    { title: "Coming Soon", img: project_img },
   ],
 };
 
