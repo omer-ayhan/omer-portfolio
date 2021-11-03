@@ -83,13 +83,21 @@ function Blogs(): ReactElement {
                         : `0px 0px 16.3px ${colors.LightModeShadow}`,
                     flexDirection: "column",
                   }}>
-                  <CardMedia
-                    sx={{ objectFit: "contain" }}
-                    component="img"
-                    width="100%"
-                    height="100%"
-                    src={img}
-                    alt={title}
+                  <ImageSSR
+                    comp="div"
+                    sx={{
+                      position: "relative",
+                      width: "100%",
+                      height: {
+                        xs: "145px",
+                        Laptop: "155px",
+                        Laptop_M: "170px",
+                        Laptop_L: "190px",
+                        FourK: "275px",
+                      },
+                    }}
+                    path={img}
+                    objectFit="contain"
                   />
                   <CardContent sx={{ width: "100%", padding: 0 }}>
                     <Typography

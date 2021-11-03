@@ -1,11 +1,9 @@
 import React, { ReactElement, useState } from "react";
-import Image from "next/image";
 import {
   Box,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Grid,
   List,
   Typography,
@@ -146,7 +144,12 @@ function Projects(): ReactElement {
                         sx={{
                           position: "relative",
                           width: "100%",
-                          height: "165px",
+                          height: {
+                            xs: "145px",
+                            Mobile_L: "165px",
+                            Laptop_M: "170px",
+                            FourK: "250px",
+                          },
                         }}
                         path={imgFile}
                         objectFit="contain"
