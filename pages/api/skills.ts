@@ -6,7 +6,7 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
   switch (req.method) {
     case "GET":
       try {
-        const db = await connectToDB("Skills");
+        const db = await connectToDB();
         const collection = db.collection("skillCards");
 
         const skills = await collection
@@ -16,9 +16,9 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
 
         return resStatus(200).json({ skills });
       } catch (err) {
-        resStatus(500).send(`Server Error: ${err}`);
+        resStatus(500).json(`Server Error: ${err}`);
       }
     default:
-      return res.status(401).send({ message: "unreachable method" });
+      return res.status(401).json({ message: "unreachable method" });
   }
 }

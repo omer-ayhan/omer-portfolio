@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap");
 
-html,
-body {
+html {
   overflow-x: hidden;
 }
 
@@ -9,6 +8,7 @@ body,
 textarea {
   margin: 0;
   padding: 0;
+  overflow: hidden;
   position: relative;
   min-height: calc(100% - 170px);
   font-family: "Rubik", sans-serif;
