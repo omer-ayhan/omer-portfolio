@@ -2,9 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { Grid, Typography, Box } from "@mui/material";
 import { linksMain, props } from "./Utilities/StylesProvider";
-// import intro_svg from "../public/img/Intro_Img/intro_illustration_animated2.svg";
-// import intro_img from "../public/img/Intro_Img/intro_illustration_photo.png";
-// import bg_intro from "../public/img/Background/bg_intro.svg";
 import MainButton from "./Utilities/MainButton";
 import SvgImages from "./Utilities/SvgImages";
 import Slider from "react-slick";
@@ -38,17 +35,7 @@ const Intro = () => {
       justifyContent="center"
       alignItems="center">
       <Grid item xs={12} md={6}>
-        {/* <span className="intro-bg">
-          <Image
-            src={bg_intro}
-            layout="fill"
-            className={"image-element"}
-            alt=""
-          />
-        </span> */}
         <ImageSSR className="intro-bg" path={bg_intro} />
-
-        {/* <img className="intro-bg" src={bg_intro} alt="" /> */}
         <Box
           sx={{
             ...stylesAll.intro.introBox.container,
@@ -143,18 +130,7 @@ const Intro = () => {
             svg-animation
           </object>
           <SvgImages svgType="intro" />
-          {/* <div className={"image-container"}>
-            <Image
-              src={intro_img}
-              layout="fill"
-              className={"image"}
-              alt=""
-              objectFit="cover"
-            />
-          </div> */}
           <ImageSSR id="intro-img" path={intro_img} />
-
-          {/* <img id="intro-img" src={intro_img} alt="" /> */}
         </Box>
       </Grid>
     </Grid>
