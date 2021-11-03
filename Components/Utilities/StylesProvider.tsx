@@ -327,8 +327,8 @@ const stylesAll = {
       Mobile_M: 4.5,
       Tablet: 2.5,
       Laptop: 1,
-      Laptop_M: 0,
-      FourK: 4,
+      Laptop_M: 4,
+      FourK: 6.7,
     },
     rowSpacing: { xs: 4, Laptop: 3.5, Laptop_M: 4.5 },
     projectsWidth: {
@@ -364,6 +364,7 @@ const stylesAll = {
         alignItems: "start",
         justifyContent: "start",
         padding: "20px",
+        marginBottom: { xs: 0, FourK: "35px" },
         gap: "12px",
         borderRadius: "20px",
         transition: "inherit",
@@ -623,10 +624,8 @@ const stylesAll = {
     },
     tabPanel: {
       container: {
-        paddingBottom: "20px",
         marginLeft: {
           xs: 0,
-          // Laptop: "40px",
         },
         transition: ".3s ease",
         justifyContent: "start",
