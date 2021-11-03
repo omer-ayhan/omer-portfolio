@@ -1,11 +1,10 @@
 import React from "react";
-import Image from "next/image";
 import { Grid, Typography, Box } from "@mui/material";
 import { linksMain, props } from "./Utilities/StylesProvider";
 import MainButton from "./Utilities/MainButton";
 import SvgImages from "./Utilities/SvgImages";
 import Slider from "react-slick";
-import { ImageSSR } from "./Utilities/Image";
+import { ImageSSR } from "./Utilities/ImageSSR";
 
 const Intro = () => {
   const { stylesAll } = props;

@@ -1,13 +1,10 @@
 import React, { ReactElement } from "react";
-import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
-// import about_svg from "/img/About_Img/about_illustration_animated.svg";
-// import about_img from "../../public/About_Img/about_illustration_photo.png";
-// import bg_about from "../../public/Background/bg_about.svg";
 import { props } from "../Utilities/StylesProvider";
 import MainButton from "../Utilities/MainButton";
 import SvgImages from "../Utilities/SvgImages";
 import SocialIcons from "./SocialIcons";
+import { ImageSSR } from "../Utilities/ImageSSR";
 
 function About(): ReactElement {
   const { stylesAll } = props;
@@ -40,10 +37,9 @@ function About(): ReactElement {
               svg-animation
             </object>
             <SvgImages svgType="about" />
-            <img
+            <ImageSSR
               id="about-img"
-              src="/img/About_Img/about_illustration_photo.png"
-              alt=""
+              path="/img/About_Img/about_illustration_photo.png"
             />
           </Box>
           <SocialIcons sxBox={{ flexDirection: "column" }} />
@@ -62,7 +58,8 @@ function About(): ReactElement {
           alignItems: { xs: "center", Laptop: "start" },
         }}
         order={{ xs: 2, Laptop: 3 }}>
-        <img className="about-bg" src="/img/Background/bg_about.svg" alt="" />
+        {/* <img className="about-bg" src="/img/Background/bg_about.svg" alt="" /> */}
+        <ImageSSR className="about-bg" path="/img/Background/bg_about.svg" />
         <Grid item xs={12}>
           <Typography
             variant="h3"

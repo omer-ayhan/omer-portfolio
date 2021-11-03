@@ -81,7 +81,8 @@
   & .about-bg {
     display: none;
     position: absolute;
-    width: 810px;
+    width: 901px;
+    height: 225px;
     bottom: -70px;
     right: -52px;
     z-index: -999;
@@ -245,9 +246,10 @@
 
     & .about-bg {
       display: block;
-      width: 800px;
-      bottom: 142px;
-      right: 15px;
+      width: 901px;
+      height: 225px;
+      bottom: 356px;
+      right: -19px;
     }
 
     & .projects-bg {
@@ -294,8 +296,8 @@
     }
 
     & .about-bg {
-      bottom: 145px;
-      right: -36px;
+      bottom: 65px;
+      right: -94px;
     }
 
     & .blogs-bg {
@@ -344,8 +346,9 @@
     }
     & #about-img {
       position: absolute;
-      top: 81.5px;
+      top: 82.2px;
       left: 83.9px;
+      width: 360px;
       height: 350px;
     }
 
@@ -360,7 +363,7 @@
     }
 
     & .about-bg {
-      bottom: -76px;
+      bottom: -100px;
     }
 
     & .blogs-bg {
@@ -441,7 +444,6 @@
     & .about-bg {
       right: -29px;
       bottom: -63px;
-      width: 850px;
     }
 
     & .projects-bg {
@@ -499,8 +501,9 @@
 
     & #about-img {
       position: absolute;
-      top: 94px;
-      left: 111px;
+      top: 95.4px;
+      left: 113px;
+      width: 480px;
       height: 470px;
     }
 
@@ -559,8 +562,9 @@
 
     & .about-bg {
       right: -31px;
-      bottom: -63px;
-      width: 1170px;
+      bottom: -120px;
+      width: 1200px;
+      height: 300px;
     }
 
     & .projects-bg {
