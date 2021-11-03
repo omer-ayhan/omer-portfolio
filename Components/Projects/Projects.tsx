@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from "react";
+import Image from "next/image";
 import {
   Box,
   Card,
@@ -139,14 +140,16 @@ function Projects(): ReactElement {
                   {/* Image slider */}
                   <Slider {...settings} lazyLoad="ondemand">
                     {img.map((imgFile, index) => (
-                      <CardMedia
+                      <ImageSSR
                         key={`${imgFile}-${index}`}
-                        sx={{ objectFit: "contain" }}
-                        component="img"
-                        width="100%"
-                        height="100%"
-                        src={imgFile}
-                        alt={title}
+                        comp="div"
+                        sx={{
+                          position: "relative",
+                          width: "100%",
+                          height: "165px",
+                        }}
+                        path={imgFile}
+                        objectFit="contain"
                       />
                     ))}
                   </Slider>

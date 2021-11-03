@@ -1,11 +1,15 @@
-import React from "react";
+import React, { ElementType } from "react";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 interface Props {
   className?: string;
   id?: string;
   path: string;
   alt?: string;
+  sx?: object;
+  objectFit?: "cover" | "contain" | "fill";
+  comp?: ElementType<any>;
 }
 
 export const ImageSSR = ({
@@ -13,10 +17,12 @@ export const ImageSSR = ({
   id = "",
   path,
   alt = "",
+  sx = {},
+  comp = "span",
   ...rest
 }: Props) => {
   return (
-    <span className={className} id={id}>
+    <Box component={comp} className={className} id={id} sx={{ ...sx }}>
       <Image
         src={path}
         layout="fill"
@@ -24,6 +30,6 @@ export const ImageSSR = ({
         alt={alt}
         {...rest}
       />
-    </span>
+    </Box>
   );
 };
