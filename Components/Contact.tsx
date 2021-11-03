@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react";
-import Image from "next/image";
 import { Grid, Typography } from "@mui/material";
 import { FormInput, props } from "./Utilities/StylesProvider";
-// import bg_contact from "../public/img/Background/bg_contact.svg";
 import MainButton from "./Utilities/MainButton";
+import { ImageSSR } from "./Utilities/ImageSSR";
 
 function Contact(): ReactElement {
   const { stylesAll } = props;
@@ -17,7 +16,7 @@ function Contact(): ReactElement {
         ...stylesAll.contact.container,
         position: "relative",
       }}>
-      <img className="contact-bg" src="/img/Background/bg_contact.svg" alt="" />
+      <ImageSSR className="contact-bg" path="/img/Background/bg_contact.svg" />
       <Grid
         item
         xs={12}
