@@ -9,7 +9,6 @@ import {
   List,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 import { Icon } from "@iconify/react";
 import MainTabs from "../Utilities/MainTabs";
 import Popup from "../Utilities/Popup";
@@ -21,6 +20,7 @@ import { useAppSelector, useAppDispatch } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import Truncation from "./Truncation";
 import Slider from "react-slick";
+import { ImageSSR } from "../Utilities/ImageSSR";
 
 function Projects(): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
@@ -85,10 +85,9 @@ function Projects(): ReactElement {
         position: "relative",
       }}
       spacing={1}>
-      <img
+      <ImageSSR
         className="projects-bg"
-        src="/img/Background/bg_projects.svg"
-        alt=""
+        path="/img/Background/bg_projects.svg"
       />
       <Grid
         item
