@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import Image from "next/image";
 import {
   Card,
   CardActions,
@@ -11,8 +10,8 @@ import {
   Box,
 } from "@mui/material";
 import { props, tabObjects } from "./Utilities/StylesProvider";
-// import bg_blogs from "../public/img/Background/bg_blogs.svg";
 import MainButton from "./Utilities/MainButton";
+import { ImageSSR } from "./Utilities/ImageSSR";
 
 function Blogs(): ReactElement {
   const { stylesAll, colors } = props;
@@ -23,7 +22,7 @@ function Blogs(): ReactElement {
       spacing={0}
       columnSpacing={{ Laptop: 5, FourK: 2 }}
       sx={{ ...stylesAll.utilities.gridContainer, position: "relative" }}>
-      <img className="blogs-bg" src="/img/Background/bg_blogs.svg" alt="" />
+      <ImageSSR className="blogs-bg" path="/img/Background/bg_blogs.svg" />
       <Grid item xs={12}>
         <Typography
           variant="h3"

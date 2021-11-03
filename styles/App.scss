@@ -102,7 +102,8 @@
     position: absolute;
     top: 38px;
     left: -79px;
-    width: 210px;
+    width: 225px;
+    height: 283px;
     z-index: -999;
   }
 
@@ -262,8 +263,9 @@
     & .blogs-bg {
       display: block;
       top: -43px;
-      left: -30px;
-      width: 220px;
+      left: -31px;
+      width: 225px;
+      height: 283px;
     }
 
     & .contact-bg {
@@ -303,8 +305,8 @@
     }
 
     & .blogs-bg {
-      top: 45px;
-      left: -60px;
+      top: 37px;
+      left: -67px;
     }
   }
 }
@@ -370,7 +372,7 @@
 
     & .blogs-bg {
       top: 45px;
-      left: -32px;
+      left: -20px;
     }
   }
 }
@@ -411,7 +413,8 @@
     }
 
     & .blogs-bg {
-      left: -62px;
+      left: -35px;
+      top: -10px;
     }
   }
 }
@@ -454,6 +457,7 @@
 
     & .blogs-bg {
       width: 243px;
+      height: 305px;
     }
 
     & .contact-bg {
@@ -577,6 +581,7 @@
 
     & .blogs-bg {
       width: 335px;
+      height: 420px;
       left: -96px;
     }
 
