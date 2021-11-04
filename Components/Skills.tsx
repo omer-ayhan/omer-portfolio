@@ -58,7 +58,7 @@ function Skills(): ReactElement {
           spacing={{ ...stylesAll.skills.spacings }}
           cardWidth={{ ...stylesAll.skills.skillsWidth }}
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
-          apiRequest={"api/skills"}
+          apiRequest={{ url: process.env.SKILLS, category: "skills" }}
           contents={tabObjects.skillsCard.map(({ title, icon }, index) => (
             <Grid
               key={`${title}-${index}`}

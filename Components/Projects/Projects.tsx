@@ -111,7 +111,7 @@ function Projects(): ReactElement {
           rowSpacing={{ ...stylesAll.projects.rowSpacing }}
           cardWidth={{ ...stylesAll.projects.projectsWidth }}
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
-          apiRequest={"api/projects?collection_name=projectTabs"}
+          apiRequest={{ url: process.env.PROJECTS, category: "projects" }}
           contents={tabObjects.projectsCard
             .filter(
               ({ title, desc, tags }) =>

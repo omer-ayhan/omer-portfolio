@@ -1,14 +1,6 @@
 import { Db, MongoClient } from "mongodb";
-import "dotenv/config";
 
 let cachedDB: Db;
-
-declare var process: {
-  env: {
-    MONGODB_URI: string;
-    DB_NAME: string;
-  };
-};
 
 const connectToDB = async () => {
   if (cachedDB) {

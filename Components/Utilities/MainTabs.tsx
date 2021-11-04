@@ -69,7 +69,7 @@ interface IAppProps {
   cardHeight: string | number | object;
   spacing?: object | { xs: 1 };
   rowSpacing?: object;
-  apiRequest: string;
+  apiRequest: { url: string; category: string };
 }
 type TabDataTypes = {
   title: string;
@@ -99,10 +99,8 @@ function MainTabs({
   React.useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      // axios get request
-      // save data to tabData as an array of objects
       axios
-        .get(apiRequest)
+        .get(apiRequest.url)
         .then((res: AxiosResponse) => {
           setTabData(res.data);
         })
@@ -115,7 +113,6 @@ function MainTabs({
       isMounted = false;
     };
   }, [apiRequest]);
-  console.log(tabData);
 
   return (
     <Box>
