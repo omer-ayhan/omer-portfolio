@@ -8,17 +8,19 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
       try {
         const db = await connectToDB();
         const collection = db.collection("skillCards");
-
+        if (!collection) {
+          resStatus(500).json({ message: "Collection was not found" });
+        }
         const skillsData = await collection
           .find({})
           .toArray()
-          .catch((err) => err);
+          .catch((err) => resStatus(500).json({ message: err }));
 
         return resStatus(200).json({ skillsData });
       } catch (err) {
         resStatus(500).json(`Server Error: ${err}`);
       }
     default:
-      return res.status(401).json({ message: "unreachable method" });
+      return res.status(405).json({ message: "Method Not Allowed" });
   }
 }
