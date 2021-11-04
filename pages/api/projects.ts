@@ -10,7 +10,7 @@ export default async function projects(
   switch (req.method) {
     case "GET":
       try {
-        if (collection_name === undefined) {
+        if (!collection_name) {
           return resStatus(404).json({
             message: "Please specifiy a collection name",
           });
