@@ -119,7 +119,6 @@ function a11yProps(index: number, ariaName?: string | "tabpanel") {
 interface IAppProps {
   children?: React.ReactNode | HTMLElement;
   ariaName?: string | "tabpanel";
-  contents?: JSX.Element | JSX.Element[];
   cardWidth: string | number | object;
   cardHeight: string | number | object;
   spacing?: object | { xs: 1 };
@@ -147,7 +146,6 @@ function MainTabs({
   children,
   ariaName,
   apiRequest,
-  contents,
   cardWidth,
   searchInput = "",
   cardHeight,
