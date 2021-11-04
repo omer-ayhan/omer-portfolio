@@ -37,44 +37,44 @@ function Projects(): ReactElement {
     }
   };
 
-  const settings = {
-    className: "image-slider",
-    dots: true,
-    arrows: false,
-    infinite: true,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    appendDots: (dots: HTMLElement) => (
-      <Box
-        sx={{
-          ...stylesAll.utilities.flexDefault,
-          ...stylesAll.projects.card.slider.container,
-          position: "relative",
-        }}>
-        <List
-          sx={{
-            ...stylesAll.utilities.flexDefault,
-            ...stylesAll.projects.card.slider.list.container,
-            "& li": {
-              ...stylesAll.projects.card.slider.list.listChild.container,
-            },
-            ".slick-active": {
-              background: (theme) => theme.palette.secondary.main,
-            },
-          }}>
-          {dots}
-        </List>
-      </Box>
-    ),
-    customPaging: () => (
-      <Box
-        sx={{
-          ...stylesAll.projects.card.slider.list.listChild.dots,
-        }}></Box>
-    ),
-  };
+  // const settings = {
+  //   className: "image-slider",
+  //   dots: true,
+  //   arrows: false,
+  //   infinite: true,
+  //   swipeToSlide: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   appendDots: (dots: HTMLElement) => (
+  //     <Box
+  //       sx={{
+  //         ...stylesAll.utilities.flexDefault,
+  //         ...stylesAll.projects.card.slider.container,
+  //         position: "relative",
+  //       }}>
+  //       <List
+  //         sx={{
+  //           ...stylesAll.utilities.flexDefault,
+  //           ...stylesAll.projects.card.slider.list.container,
+  //           "& li": {
+  //             ...stylesAll.projects.card.slider.list.listChild.container,
+  //           },
+  //           ".slick-active": {
+  //             background: (theme) => theme.palette.secondary.main,
+  //           },
+  //         }}>
+  //         {dots}
+  //       </List>
+  //     </Box>
+  //   ),
+  //   customPaging: () => (
+  //     <Box
+  //       sx={{
+  //         ...stylesAll.projects.card.slider.list.listChild.dots,
+  //       }}></Box>
+  //   ),
+  // };
 
   return (
     <Grid
@@ -112,112 +112,114 @@ function Projects(): ReactElement {
           cardWidth={{ ...stylesAll.projects.projectsWidth }}
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
           apiRequest={{ url: process.env.PROJECTS, category: "projects" }}
-          contents={tabObjects.projectsCard
-            .filter(
-              ({ title, desc, tags }) =>
-                (stateTags.length === 0 ||
-                  tags.some(
-                    ({ title }) =>
-                      title.toUpperCase() ===
-                      stateTags[stateTags.indexOf(title.toUpperCase())]
-                  )) &&
-                (searchInput === "" ||
-                  title.toUpperCase().includes(searchInput.toUpperCase()) ||
-                  desc.toUpperCase().includes(searchInput.toUpperCase()))
-            )
-            .map(({ title, desc, img, tags, link }, index) => (
-              <Grid key={`${title}-${index}`} item xs={12} lg={6} md={4}>
-                <Card
-                  sx={{
-                    ...stylesAll.projects.card.container,
-                    flexDirection: "column",
-                    boxShadow: (theme) =>
-                      theme.palette.mode === "dark"
-                        ? `0px 0px 16.3px ${colors.DarkModeShadow}`
-                        : `0px 0px 16.3px ${colors.LightModeShadow}`,
-                  }}>
-                  {/* Image slider */}
-                  <Slider {...settings} lazyLoad="ondemand">
-                    {img.map((imgFile, index) => (
-                      <ImageSSR
-                        key={`${imgFile}-${index}`}
-                        comp="div"
-                        sx={{
-                          position: "relative",
-                          width: "100%",
-                          height: {
-                            xs: "145px",
-                            Mobile_L: "165px",
-                            Laptop_M: "170px",
-                            FourK: "250px",
-                          },
-                        }}
-                        path={imgFile}
-                        objectFit="contain"
-                      />
-                    ))}
-                  </Slider>
+          searchInput={searchInput}
+          // contents={tabObjects.projectsCard
+          //   .filter(
+          //     ({ title, desc, tags }) =>
+          //       (stateTags.length === 0 ||
+          //         tags.some(
+          //           ({ title }) =>
+          //             title.toUpperCase() ===
+          //             stateTags[stateTags.indexOf(title.toUpperCase())]
+          //         )) &&
+          //       (searchInput === "" ||
+          //         title.toUpperCase().includes(searchInput.toUpperCase()) ||
+          //         desc.toUpperCase().includes(searchInput.toUpperCase()))
+          //   )
+          //   .map(({ title, desc, img, tags, link }, index) => (
+          //     <Grid key={`${title}-${index}`} item xs={12} lg={6} md={4}>
+          //       <Card
+          //         sx={{
+          //           ...stylesAll.projects.card.container,
+          //           flexDirection: "column",
+          //           boxShadow: (theme) =>
+          //             theme.palette.mode === "dark"
+          //               ? `0px 0px 16.3px ${colors.DarkModeShadow}`
+          //               : `0px 0px 16.3px ${colors.LightModeShadow}`,
+          //         }}>
+          //         {/* Image slider */}
+          //         <Slider {...settings} lazyLoad="ondemand">
+          //           {img.map((imgFile, index) => (
+          //             <ImageSSR
+          //               key={`${imgFile}-${index}`}
+          //               comp="div"
+          //               sx={{
+          //                 position: "relative",
+          //                 width: "100%",
+          //                 height: {
+          //                   xs: "145px",
+          //                   Mobile_L: "165px",
+          //                   Laptop_M: "170px",
+          //                   FourK: "250px",
+          //                 },
+          //               }}
+          //               path={imgFile}
+          //               objectFit="contain"
+          //             />
+          //           ))}
+          //         </Slider>
 
-                  <CardContent
-                    sx={{ width: "100%", minHeight: "110px", padding: 0 }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        ...stylesAll.projects.card.text.title,
-                        textTransform: "capitalize",
-                        textAlign: "start",
-                      }}>
-                      {title}
-                    </Typography>
-                    <Truncation text={desc} />
-                  </CardContent>
-                  <CardContent
-                    sx={{
-                      width: "100%",
-                      transition: ".3s ease",
-                      padding: 0,
-                    }}>
-                    <Grid
-                      container
-                      spacing={{ xs: 1, Laptop_M: 1 }}
-                      justifyContent="space-between"
-                      alignItems="center">
-                      {tags.map(({ title, icon }) => (
-                        <Grid key={`${title}-${index}`} item xs={4}>
-                          <MainTag
-                            sxBox={{
-                              ...stylesAll.projects.card.tags.container,
-                            }}
-                            sxText={{
-                              ...stylesAll.projects.card.tags.text,
-                            }}
-                            icon={icon}
-                            title={title}
-                            className={"card-tag-icons"}
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </CardContent>
-                  <CardActions sx={{ padding: 0 }}>
-                    <MainButton
-                      sxButton={{
-                        ...stylesAll.projects.card.buttons.container,
-                      }}
-                      sxLink={{
-                        ...stylesAll.utilities.buttons.link,
-                      }}
-                      sxText={{
-                        ...stylesAll.projects.card.buttons.text,
-                        textAlign: "center",
-                      }}
-                      btn_name={"See More"}
-                      to={link}
-                    />
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}>
+          //         <CardContent
+          //           sx={{ width: "100%", minHeight: "110px", padding: 0 }}>
+          //           <Typography
+          //             variant="h6"
+          //             sx={{
+          //               ...stylesAll.projects.card.text.title,
+          //               textTransform: "capitalize",
+          //               textAlign: "start",
+          //             }}>
+          //             {title}
+          //           </Typography>
+          //           <Truncation text={desc} />
+          //         </CardContent>
+          //         <CardContent
+          //           sx={{
+          //             width: "100%",
+          //             transition: ".3s ease",
+          //             padding: 0,
+          //           }}>
+          //           <Grid
+          //             container
+          //             spacing={{ xs: 1, Laptop_M: 1 }}
+          //             justifyContent="space-between"
+          //             alignItems="center">
+          //             {tags.map(({ title, icon }) => (
+          //               <Grid key={`${title}-${index}`} item xs={4}>
+          //                 <MainTag
+          //                   sxBox={{
+          //                     ...stylesAll.projects.card.tags.container,
+          //                   }}
+          //                   sxText={{
+          //                     ...stylesAll.projects.card.tags.text,
+          //                   }}
+          //                   icon={icon}
+          //                   title={title}
+          //                   className={"card-tag-icons"}
+          //                 />
+          //               </Grid>
+          //             ))}
+          //           </Grid>
+          //         </CardContent>
+          //         <CardActions sx={{ padding: 0 }}>
+          //           <MainButton
+          //             sxButton={{
+          //               ...stylesAll.projects.card.buttons.container,
+          //             }}
+          //             sxLink={{
+          //               ...stylesAll.utilities.buttons.link,
+          //             }}
+          //             sxText={{
+          //               ...stylesAll.projects.card.buttons.text,
+          //               textAlign: "center",
+          //             }}
+          //             btn_name={"See More"}
+          //             to={link}
+          //           />
+          //         </CardActions>
+          //       </Card>
+          //     </Grid>
+          //   ))}
+        >
           <Grid
             container
             sx={{
