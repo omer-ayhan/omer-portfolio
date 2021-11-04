@@ -129,7 +129,7 @@ interface IAppProps {
 type TabDataTypes = {
   title: string;
   icon: string;
-  id: string;
+  _id: string;
   items: TabDataItems[];
 };
 
@@ -362,9 +362,9 @@ function MainTabs({
           scrollButtons="auto"
           allowScrollButtonsMobile
           selectionFollowsFocus>
-          {tabData.map(({ title, icon, id }, index) => (
+          {tabData.map(({ title, icon, _id }, index) => (
             <Tab
-              key={`${icon}-${id}`}
+              key={`${icon}-${_id}`}
               sx={{
                 ...stylesAll.mainTabs.tabs.element,
               }}
@@ -389,7 +389,7 @@ function MainTabs({
         {children}
         {tabData.map((tab, index) => (
           <TabPanel
-            key={`${tab.title}-${tab.id}`}
+            key={`${tab.title}-${tab._id}`}
             spacing={spacing}
             rowSpacing={rowSpacing}
             cardWidth={cardWidth}

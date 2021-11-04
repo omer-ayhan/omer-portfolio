@@ -3,7 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import MainTabs from "./Utilities/MainTabs";
 import { props } from "./Utilities/StylesProvider";
 function Skills(): ReactElement {
-  const { stylesAll, colors } = props;
+  const { stylesAll } = props;
 
   return (
     <Grid

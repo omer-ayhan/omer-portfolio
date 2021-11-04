@@ -17,6 +17,28 @@ function Projects(): ReactElement {
   const { stylesAll } = props;
   const [searchInput, setSearchInput] = useState("");
 
+  const [tagData, setTagData] = React.useState<
+    Array<{ title: string; icon: string; _id: string }>
+  >([]);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      axios
+        .get(process.env.PROJECT_TAGS)
+        .then((res: AxiosResponse) => {
+          setTagData(res.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          return;
+        });
+    }
+    return (): void => {
+      isMounted = false;
+    };
+  }, []);
+
   const handleTags = (tags: string[], title: string) => {
     let titleText = title.toUpperCase();
     if (tags.includes(titleText)) {
@@ -102,8 +124,8 @@ function Projects(): ReactElement {
                 spacing={1}
                 justifyContent="center"
                 alignItems="center">
-                {tabObjects.projectTags.map(({ title, icon }, index) => (
-                  <Grid key={index} item xs={2} mx="3.5px">
+                {tagData.map(({ title, icon, _id }, index) => (
+                  <Grid key={_id} item xs={2} mx="3.5px">
                     <MainTag
                       onClick={() => handleTags(stateTags, title)}
                       sxBox={{

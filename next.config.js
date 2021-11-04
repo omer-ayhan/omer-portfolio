@@ -8,5 +8,6 @@ module.exports = {
     DB_NAME: process.env.DB_NAME,
     SKILLS: process.env.SKILLS,
     PROJECTS: process.env.PROJECTS,
+    PROJECT_TAGS: process.env.PROJECT_TAGS,
   },
 };

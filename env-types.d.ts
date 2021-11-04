@@ -7,6 +7,7 @@ declare global {
       DB_NAME: string;
       SKILLS: string;
       PROJECTS: string;
+      PROJECT_TAGS: string;
     }
   }
 }
