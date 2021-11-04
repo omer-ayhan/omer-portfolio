@@ -4,9 +4,37 @@ import MainTabs from "./Utilities/MainTabs";
 import { Icon } from "@iconify/react";
 import { props, tabObjects } from "./Utilities/StylesProvider";
 import { adjustTextColor } from "./Utilities/ColorUtils/adjustColor";
-
+import axios, { AxiosResponse } from "axios";
+type TabDataTypes = {
+  title: string;
+  icon: string;
+};
 function Skills(): ReactElement {
   const { stylesAll, colors } = props;
+  const [tabData, setTabData] = React.useState<object & Array<TabDataTypes>>(
+    []
+  );
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      // axios get request
+      // save data to tabData as an array of objects
+      axios
+        .get("api/skills")
+        .then((res: AxiosResponse) => {
+          setTabData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <Grid
       id="skills"
@@ -30,7 +58,7 @@ function Skills(): ReactElement {
           spacing={{ ...stylesAll.skills.spacings }}
           cardWidth={{ ...stylesAll.skills.skillsWidth }}
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
-          tabSection={tabObjects.skillsTab}
+          apiRequest={"api/skills"}
           contents={tabObjects.skillsCard.map(({ title, icon }, index) => (
             <Grid
               key={`${title}-${index}`}

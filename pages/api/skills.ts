@@ -16,7 +16,7 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
           .toArray()
           .catch((err) => resStatus(500).json({ message: err }));
 
-        return resStatus(200).json({ skillsData });
+        return resStatus(200).json(skillsData);
       } catch (err) {
         resStatus(500).json(`Server Error: ${err}`);
       }

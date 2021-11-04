@@ -20,6 +20,7 @@ import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import Truncation from "./Truncation";
 import Slider from "react-slick";
 import { ImageSSR } from "../Utilities/ImageSSR";
+import axios, { AxiosResponse } from "axios";
 
 function Projects(): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
@@ -110,7 +111,7 @@ function Projects(): ReactElement {
           rowSpacing={{ ...stylesAll.projects.rowSpacing }}
           cardWidth={{ ...stylesAll.projects.projectsWidth }}
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
-          tabSection={tabObjects.projectsTab}
+          apiRequest={"api/projects?collection_name=projectTabs"}
           contents={tabObjects.projectsCard
             .filter(
               ({ title, desc, tags }) =>

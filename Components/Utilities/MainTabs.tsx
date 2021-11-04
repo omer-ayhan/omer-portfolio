@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Tabs, Tab, Typography, Box, Grid } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { props } from "./StylesProvider";
+import axios, { AxiosResponse } from "axios";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,18 +64,22 @@ function a11yProps(index: number, ariaName?: string | "tabpanel") {
 interface IAppProps {
   children?: React.ReactNode | HTMLElement;
   ariaName?: string | "tabpanel";
-  tabSection: Array<{ title: string; icon: string }>;
   contents: JSX.Element | JSX.Element[];
   cardWidth: string | number | object;
   cardHeight: string | number | object;
   spacing?: object | { xs: 1 };
   rowSpacing?: object;
+  apiRequest: string;
 }
+type TabDataTypes = {
+  title: string;
+  icon: string;
+};
 
 function MainTabs({
   children,
   ariaName,
-  tabSection,
+  apiRequest,
   contents,
   cardWidth,
   cardHeight,
@@ -86,6 +91,31 @@ function MainTabs({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const [tabData, setTabData] = React.useState<object & Array<TabDataTypes>>(
+    []
+  );
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      // axios get request
+      // save data to tabData as an array of objects
+      axios
+        .get(apiRequest)
+        .then((res: AxiosResponse) => {
+          setTabData(res.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          return;
+        });
+    }
+    return (): void => {
+      isMounted = false;
+    };
+  }, [apiRequest]);
+  console.log(tabData);
 
   return (
     <Box>
@@ -114,7 +144,7 @@ function MainTabs({
           scrollButtons="auto"
           allowScrollButtonsMobile
           selectionFollowsFocus>
-          {tabSection.map(({ title, icon }, index) => (
+          {tabData.map(({ title, icon }, index) => (
             <Tab
               key={`${title}-${index}`}
               sx={{

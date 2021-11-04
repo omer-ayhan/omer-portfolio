@@ -9,12 +9,12 @@ export default async function projects(
   const { collection_name } = req.query;
   switch (req.method) {
     case "GET":
+      if (!collection_name) {
+        return resStatus(404).json({
+          message: "Please specifiy a collection name",
+        });
+      }
       try {
-        if (!collection_name) {
-          return resStatus(404).json({
-            message: "Please specifiy a collection name",
-          });
-        }
         const db = await connectToDB();
         const collection = db.collection(collection_name.toString());
 
@@ -23,7 +23,7 @@ export default async function projects(
           .toArray()
           .catch((err) => err);
 
-        return resStatus(200).json({ projectsData });
+        return resStatus(200).json(projectsData);
       } catch (err) {
         resStatus(500).json(`Server Error: ${err}`);
       }
