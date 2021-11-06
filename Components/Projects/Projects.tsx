@@ -10,34 +10,63 @@ import { useAppSelector, useAppDispatch } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import { ImageSSR } from "../Utilities/ImageSSR";
 import axios, { AxiosResponse } from "axios";
-
+type TagDataTypes = {
+  _id: string;
+  title: string;
+  icon: string;
+};
 function Projects(): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
   const dispatch = useAppDispatch();
   const { stylesAll } = props;
   const [searchInput, setSearchInput] = useState("");
+  const [tagData, setTagData] = React.useState<Array<TagDataTypes>>([]);
 
-  const [tagData, setTagData] = React.useState<
-    Array<{ title: string; icon: string; _id: string }>
-  >([]);
-
-  React.useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
+  React.useEffect(
+    () => {
+      const abortController = new AbortController();
+      const signal = abortController.signal;
       axios
-        .get(process.env.PROJECT_TAGS)
+        .get(process.env.PROJECT_TAGS, {
+          method: "GET",
+          signal: signal,
+        })
         .then((res: AxiosResponse) => {
-          setTagData(res.data);
+          setTagData(
+            res.data.map((tag: TagDataTypes) => ({
+              title: tag.title,
+              icon: tag.icon,
+              _id: tag._id,
+            }))
+          );
         })
         .catch((err) => {
           console.log(err.message);
           return;
         });
-    }
-    return (): void => {
-      isMounted = false;
-    };
-  }, []);
+
+      return (): void => {
+        abortController.abort();
+      };
+    },
+    // cleanup for api
+    //   const abortController = new AbortController();
+    //   const signal = abortController.signal;
+    //     axios
+    //       .get(process.env.PROJECT_TAGS, {signal})
+    //       .then((res: AxiosResponse) => {
+    //         setTagData(res.data);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err.message);
+    //         return;
+    //       });
+    //   return (): void => {
+    //     isMounted = false;
+    //   };
+    // },
+    []
+  );
 
   const handleTags = (tags: string[], title: string) => {
     let titleText = title.toUpperCase();
@@ -124,7 +153,7 @@ function Projects(): ReactElement {
                 spacing={1}
                 justifyContent="center"
                 alignItems="center">
-                {tagData.map(({ title, icon, _id }, index) => (
+                {tagData.map(({ title, icon, _id }) => (
                   <Grid key={_id} item xs={2} mx="3.5px">
                     <MainTag
                       onClick={() => handleTags(stateTags, title)}

@@ -1,7 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 
 let cachedDB: Db;
-
 const connectToDB = async () => {
   if (cachedDB) {
     return Promise.resolve(cachedDB);

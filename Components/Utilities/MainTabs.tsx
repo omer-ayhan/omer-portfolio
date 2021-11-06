@@ -162,20 +162,23 @@ function MainTabs({
   const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
 
   React.useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      axios
-        .get(apiRequest.url)
-        .then((res: AxiosResponse) => {
-          setTabData(res.data);
-        })
-        .catch((err) => {
-          console.log(err.message);
-          return;
-        });
-    }
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    axios
+      .get(apiRequest.url, {
+        method: "GET",
+        signal: signal,
+      })
+      .then((res: AxiosResponse) => {
+        setTabData(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        return;
+      });
+
     return (): void => {
-      isMounted = false;
+      abortController.abort();
     };
   }, [apiRequest]);
 

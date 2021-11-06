@@ -8,7 +8,6 @@ import {
   PaletteMode,
 } from "@mui/material";
 import { styled } from "@mui/system";
-// import project_img from "../../public/img/project_img.jpg";
 import { useAppSelector } from "../../context/hooks";
 
 const project_img = "/img/project_img.jpg";
