@@ -9,5 +9,6 @@ module.exports = {
     SKILLS: process.env.SKILLS,
     PROJECTS: process.env.PROJECTS,
     PROJECT_TAGS: process.env.PROJECT_TAGS,
+    ABLY_API_KEY: process.env.ABLY_API_KEY,
   },
 };

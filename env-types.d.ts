@@ -8,6 +8,7 @@ declare global {
       SKILLS: string;
       PROJECTS: string;
       PROJECT_TAGS: string;
+      ABLY_API_KEY: string;
     }
   }
 }

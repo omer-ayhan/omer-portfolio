@@ -1,4 +1,5 @@
 import connectToDB from "../../lib/database";
+import Ably from "ably/promises";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default async function skills(req: VercelRequest, res: VercelResponse) {
@@ -7,6 +8,7 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
     case "GET":
       try {
         const db = await connectToDB();
+        const realtime = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
         const collection = db.collection("skillCards");
         if (!collection) {
           resStatus(500).json({ message: "Collection was not found" });
@@ -16,6 +18,21 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
           .toArray()
           .catch((err) => resStatus(500).json({ message: err }));
 
+        collection.watch().on("change", (change) => {
+          switch (change.operationType) {
+            case "insert" || "delete":
+              realtime.channels
+                .get("skillCards")
+                .publish("newSkillCard", change.fullDocument);
+              break;
+            case "replace":
+              realtime.channels
+                .get("skillCards")
+                .publish("updatedSkillCard", change.fullDocument);
+            default:
+              break;
+          }
+        });
         return resStatus(200).json(skillsData);
       } catch (err) {
         resStatus(500).json(`Server Error: ${err}`);
