@@ -8,27 +8,37 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
     case "GET":
       try {
         const db = await connectToDB();
-        const realtime = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
+        const realtime = new Ably.Realtime(
+          "NUENiQ.y8uDcw:HpShiptVfMBFM-BuRraN6bea9ZlCgAV3Yv_wMlVVXps"
+        );
+
         const collection = db.collection("skillCards");
         if (!collection) {
           resStatus(500).json({ message: "Collection was not found" });
         }
-        const skillsData = await collection
+        let skillsData = await collection
           .find({})
           .toArray()
           .catch((err) => resStatus(500).json({ message: err }));
-
-        collection.watch().on("change", (change) => {
+        const channel = realtime.channels.get("skillsChannel");
+        collection.watch().on("change", async (change) => {
           switch (change.operationType) {
-            case "insert" || "delete":
-              realtime.channels
-                .get("skillCards")
-                .publish("newSkillCard", change.fullDocument);
+            case "insert":
+              skillsData = await collection.find({}).toArray();
+              channel.publish("newSkills", skillsData);
+              break;
+            case "delete":
+              skillsData = await collection.find({}).toArray();
+              channel.publish("newSkills", skillsData);
+              break;
+            case "update":
+              skillsData = await collection.find({}).toArray();
+              channel.publish("newSkills", skillsData);
               break;
             case "replace":
-              realtime.channels
-                .get("skillCards")
-                .publish("updatedSkillCard", change.fullDocument);
+              skillsData = await collection.find({}).toArray();
+              channel.publish("newSkills", skillsData);
+              break;
             default:
               break;
           }
@@ -38,6 +48,6 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
         resStatus(500).json(`Server Error: ${err}`);
       }
     default:
-      return res.status(405).json({ message: "Method Not Allowed" });
+      return resStatus(405).json({ message: "Method Not Allowed" });
   }
 }

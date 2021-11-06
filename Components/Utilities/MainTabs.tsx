@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   Tabs,
   Tab,
@@ -14,6 +14,7 @@ import { Icon } from "@iconify/react";
 import { props } from "./StylesProvider";
 import { useAppSelector } from "../../context/hooks";
 import axios, { AxiosResponse } from "axios";
+import useChannels from "./useChannels";
 import Slider from "react-slick";
 import { ImageSSR } from "./ImageSSR";
 import Truncation from "../Projects/Truncation";
@@ -152,7 +153,8 @@ function MainTabs({
   spacing,
   rowSpacing,
 }: IAppProps): ReactElement {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [channelData, setChannelData] = useState<object[]>([]);
   const stateTags = useAppSelector((state) => state.projects.tags);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -160,6 +162,12 @@ function MainTabs({
   };
 
   const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
+
+  useChannels("skillsChannel", "newSkills", (cards) => {
+    setTabData([...cards.data]);
+  });
+
+  console.log(tabData);
 
   React.useEffect(() => {
     const abortController = new AbortController();
