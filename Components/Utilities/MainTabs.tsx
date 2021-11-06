@@ -164,10 +164,10 @@ function MainTabs({
   const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
 
   useChannels("skillsChannel", "newSkills", (cards) => {
-    setTabData([...cards.data]);
+    setChannelData(cards.data);
   });
 
-  console.log(tabData);
+  console.log("channel", channelData);
 
   React.useEffect(() => {
     const abortController = new AbortController();

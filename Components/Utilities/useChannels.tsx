@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import Ably from "ably/promises";
 
-const realtime = new Ably.Realtime(
-  "NUENiQ.y8uDcw:HpShiptVfMBFM-BuRraN6bea9ZlCgAV3Yv_wMlVVXps"
-);
+const realtime = new Ably.Realtime(process.env.ABLY_API_KEY);
+
+realtime.auth.requestToken({
+  clientId: process.env.ABLY_CLIENT_ID,
+});
+
 async function useChannels(
   channelName: string,
   eventName: string,

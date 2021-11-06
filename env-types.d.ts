@@ -9,6 +9,7 @@ declare global {
       PROJECTS: string;
       PROJECT_TAGS: string;
       ABLY_API_KEY: string;
+      ABLY_CLIENT_ID: string;
     }
   }
 }

@@ -1,4 +1,5 @@
-import connectToDB from "../../lib/database";
+import connectToDB from "../../lib/database.js";
+import { Db } from "mongodb";
 import Ably from "ably/promises";
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
@@ -7,10 +8,11 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
   switch (req.method) {
     case "GET":
       try {
-        const db = await connectToDB();
-        const realtime = new Ably.Realtime(
-          "NUENiQ.y8uDcw:HpShiptVfMBFM-BuRraN6bea9ZlCgAV3Yv_wMlVVXps"
-        );
+        const db: Db = await connectToDB();
+        const realtime = new Ably.Realtime(process.env.ABLY_API_KEY);
+        realtime.auth.requestToken({
+          clientId: process.env.ABLY_CLIENT_ID,
+        });
 
         const collection = db.collection("skillCards");
         if (!collection) {
@@ -21,27 +23,70 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
           .toArray()
           .catch((err) => resStatus(500).json({ message: err }));
         const channel = realtime.channels.get("skillsChannel");
-        collection.watch().on("change", async (change) => {
+        const changeStream = collection.watch([], {
+          fullDocument: "updateLookup",
+        });
+        let newChangeStream;
+
+        changeStream.once("change", async (change) => {
+          let skillsChange;
+          const resumeToken = changeStream.resumeToken;
           switch (change.operationType) {
             case "insert":
-              skillsData = await collection.find({}).toArray();
-              channel.publish("newSkills", skillsData);
+              console.log(change.documentKey);
+              skillsChange = change.fullDocument;
+              channel.publish("newSkills", skillsChange);
+              changeStream.close();
               break;
             case "delete":
-              skillsData = await collection.find({}).toArray();
-              channel.publish("newSkills", skillsData);
+              console.log(change.documentKey);
+              skillsChange = change.documentKey;
+              channel.publish("newSkills", skillsChange);
+              changeStream.close();
               break;
             case "update":
-              skillsData = await collection.find({}).toArray();
-              channel.publish("newSkills", skillsData);
+              skillsChange = change.fullDocument;
+              channel.publish("newSkills", skillsChange);
               break;
-            case "replace":
-              skillsData = await collection.find({}).toArray();
-              channel.publish("newSkills", skillsData);
-              break;
+            // case "replace":
+            //   skillsData = await collection.find({}).toArray();
+            //   channel.publish("newSkills", skillsData);
+            //   break;
             default:
               break;
           }
+
+          newChangeStream = collection.watch([], {
+            resumeAfter: resumeToken,
+            fullDocument: "updateLookup",
+          });
+
+          newChangeStream.on("change", (change) => {
+            switch (change.operationType) {
+              case "insert":
+                console.log(change.documentKey);
+                skillsChange = change.fullDocument;
+                channel.publish("newSkills", skillsChange);
+                changeStream.close();
+                break;
+              case "delete":
+                console.log(change.documentKey);
+                skillsChange = change.documentKey;
+                channel.publish("newSkills", skillsChange);
+                changeStream.close();
+                break;
+              case "update":
+                skillsChange = change.fullDocument;
+                channel.publish("newSkills", skillsChange);
+                break;
+              // case "replace":
+              //   skillsData = await collection.find({}).toArray();
+              //   channel.publish("newSkills", skillsData);
+              //   break;
+              default:
+                break;
+            }
+          });
         });
         return resStatus(200).json(skillsData);
       } catch (err) {
