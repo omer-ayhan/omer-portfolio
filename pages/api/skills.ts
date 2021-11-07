@@ -27,12 +27,34 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
         const changeStream = collection.watch([], {
           fullDocument: "updateLookup",
         });
-
         let newChangeStream;
 
-        changeStream.once("change", async (change) => {
+        changeStream.once("change", (change) => {
+          // let skillsChange;
           const resumeToken = changeStream.resumeToken;
           skillEmitters(change, channel, changeStream);
+          // switch (change.operationType) {
+          //   case "insert":
+          //     skillsChange = change.fullDocument;
+          //     channel.publish("newSkills", skillsChange);
+          //     changeStream.close();
+          //     break;
+          //   case "delete":
+          //     skillsChange = change.documentKey;
+          //     channel.publish("newSkills", skillsChange);
+          //     changeStream.close();
+          //     break;
+          //   case "update":
+          //     skillsChange = change.fullDocument;
+          //     channel.publish("newSkills", skillsChange);
+          //     break;
+          //   // case "replace":
+          //   //   skillsData = await collection.find({}).toArray();
+          //   //   channel.publish("newSkills", skillsData);
+          //   //   break;
+          //   default:
+          //     break;
+          // }
 
           newChangeStream = collection.watch([], {
             resumeAfter: resumeToken,
@@ -41,6 +63,31 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
 
           newChangeStream.on("change", (change) => {
             skillEmitters(change, channel, changeStream);
+
+            // switch (change.operationType) {
+            //   case "insert":
+            //     console.log(change.fullDocument);
+            //     skillsChange = change.fullDocument;
+            //     channel.publish("newSkills", skillsChange);
+            //     changeStream.close();
+            //     break;
+            //   case "delete":
+            //     console.log(change.documentKey);
+            //     skillsChange = change.documentKey;
+            //     channel.publish("newSkills", skillsChange);
+            //     changeStream.close();
+            //     break;
+            //   case "update":
+            //     skillsChange = change.fullDocument;
+            //     channel.publish("newSkills", skillsChange);
+            //     break;
+            //   // case "replace":
+            //   //   skillsData = await collection.find({}).toArray();
+            //   //   channel.publish("newSkills", skillsData);
+            //   //   break;
+            //   default:
+            //     break;
+            // }
           });
         });
         return resStatus(200).json(skillsData);
@@ -60,20 +107,22 @@ const skillEmitters = (
   let skillsChange;
   switch (change.operationType) {
     case "insert":
-      console.log(change.documentKey);
       skillsChange = change.fullDocument;
+      console.log(skillsChange);
       channel.publish("newSkills", skillsChange);
       changeStream.close();
       break;
     case "delete":
-      console.log(change.documentKey);
       skillsChange = change.documentKey;
+      console.log(skillsChange);
       channel.publish("newSkills", skillsChange);
       changeStream.close();
       break;
     case "update":
       skillsChange = change.fullDocument;
+      console.log(skillsChange);
       channel.publish("newSkills", skillsChange);
+      changeStream.close();
       break;
     // case "replace":
     //   skillsData = await collection.find({}).toArray();

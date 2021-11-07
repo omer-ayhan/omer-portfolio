@@ -167,8 +167,6 @@ function MainTabs({
     setChannelData(cards.data);
   });
 
-  console.log("channel", channelData);
-
   React.useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
