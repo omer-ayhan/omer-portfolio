@@ -9,22 +9,22 @@ realtime.auth.requestToken({
 
 async function useChannels(
   channelName: string,
-  eventName: string,
-  channelCallBack: (data: any) => void,
+  channelCallBack: () => void,
   dependancy: React.DependencyList = []
 ) {
   const channel = realtime.channels.get(channelName);
 
-  const onMount = () => {
-    channel.subscribe(eventName, (data) => channelCallBack(data));
-  };
+  // const onMount = () => {
+  //   channel.subscribe(eventName, (data) => channelCallBack(data));
+  // };
 
   const onUnMount = () => {
     channel.unsubscribe();
   };
 
   const useEffectHook = () => {
-    onMount();
+    // onMount();
+    channelCallBack();
     return () => onUnMount();
   };
 

@@ -108,20 +108,17 @@ const skillEmitters = (
   switch (change.operationType) {
     case "insert":
       skillsChange = change.fullDocument;
-      console.log(skillsChange);
-      channel.publish("newSkills", skillsChange);
+      channel.publish("newSkill", skillsChange);
       changeStream.close();
       break;
     case "delete":
       skillsChange = change.documentKey;
-      console.log(skillsChange);
-      channel.publish("newSkills", skillsChange);
+      channel.publish("deletedSkill", skillsChange);
       changeStream.close();
       break;
     case "update":
       skillsChange = change.fullDocument;
-      console.log(skillsChange);
-      channel.publish("newSkills", skillsChange);
+      channel.publish("updatedSkill", skillsChange);
       changeStream.close();
       break;
     // case "replace":

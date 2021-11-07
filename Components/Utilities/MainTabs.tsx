@@ -163,8 +163,17 @@ function MainTabs({
 
   const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
 
-  useChannels("skillsChannel", "newSkills", (cards) => {
-    setChannelData(cards.data);
+  const channel = useChannels("skillsChannel", async () => {
+    const channelData = await channel;
+    channelData.subscribe("newSkill", (card) => {
+      setChannelData(card.data);
+    });
+    channelData.subscribe("updatedSkill", (card) => {
+      setChannelData(card.data);
+    });
+    channelData.subscribe("deletedSkill", (card) => {
+      setChannelData(card.data);
+    });
   });
 
   React.useEffect(() => {
