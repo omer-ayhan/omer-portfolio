@@ -154,7 +154,7 @@ function MainTabs({
   rowSpacing,
 }: IAppProps): ReactElement {
   const [value, setValue] = useState(0);
-  const [channelData, setChannelData] = useState<object[]>([]);
+  const [channels, setChannelData] = useState<object[]>([]);
   const stateTags = useAppSelector((state) => state.projects.tags);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -165,14 +165,18 @@ function MainTabs({
 
   const channel = useChannels("skillsChannel", async () => {
     const channelData = await channel;
-    channelData.subscribe("newSkill", (card) => {
+    await channelData.subscribe("newSkill", (card) => {
+      setTabData((prevItems) => [...prevItems, card.data]);
+      setChannelData((getchannel) => [...getchannel, card.data]);
+      return;
+    });
+    await channelData.subscribe("updatedSkill", (card) => {
       setChannelData(card.data);
     });
-    channelData.subscribe("updatedSkill", (card) => {
-      setChannelData(card.data);
-    });
-    channelData.subscribe("deletedSkill", (card) => {
-      setChannelData(card.data);
+    await channelData.subscribe("deletedSkill", (card) => {
+      setTabData((tabData) =>
+        tabData.filter((tab) => tab._id !== card.data._id)
+      );
     });
   });
 

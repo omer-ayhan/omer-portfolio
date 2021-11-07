@@ -32,7 +32,7 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
         changeStream.once("change", (change) => {
           // let skillsChange;
           const resumeToken = changeStream.resumeToken;
-          skillEmitters(change, channel, changeStream);
+          // skillEmitters(change, channel, changeStream);
           // switch (change.operationType) {
           //   case "insert":
           //     skillsChange = change.fullDocument;
