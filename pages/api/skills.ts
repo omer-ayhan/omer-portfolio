@@ -1,7 +1,8 @@
 import connectToDB from "../../lib/database.js";
-import { Db } from "mongodb";
+import { ChangeStream, ChangeStreamDocument, Db } from "mongodb";
 import Ably from "ably/promises";
 import { VercelRequest, VercelResponse } from "@vercel/node";
+import { Types } from "ably";
 
 export default async function skills(req: VercelRequest, res: VercelResponse) {
   const resStatus = (httpCode: number) => res.status(httpCode);
@@ -26,35 +27,12 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
         const changeStream = collection.watch([], {
           fullDocument: "updateLookup",
         });
+
         let newChangeStream;
 
         changeStream.once("change", async (change) => {
-          let skillsChange;
           const resumeToken = changeStream.resumeToken;
-          switch (change.operationType) {
-            case "insert":
-              console.log(change.documentKey);
-              skillsChange = change.fullDocument;
-              channel.publish("newSkills", skillsChange);
-              changeStream.close();
-              break;
-            case "delete":
-              console.log(change.documentKey);
-              skillsChange = change.documentKey;
-              channel.publish("newSkills", skillsChange);
-              changeStream.close();
-              break;
-            case "update":
-              skillsChange = change.fullDocument;
-              channel.publish("newSkills", skillsChange);
-              break;
-            // case "replace":
-            //   skillsData = await collection.find({}).toArray();
-            //   channel.publish("newSkills", skillsData);
-            //   break;
-            default:
-              break;
-          }
+          skillEmitters(change, channel, changeStream);
 
           newChangeStream = collection.watch([], {
             resumeAfter: resumeToken,
@@ -62,30 +40,7 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
           });
 
           newChangeStream.on("change", (change) => {
-            switch (change.operationType) {
-              case "insert":
-                console.log(change.documentKey);
-                skillsChange = change.fullDocument;
-                channel.publish("newSkills", skillsChange);
-                changeStream.close();
-                break;
-              case "delete":
-                console.log(change.documentKey);
-                skillsChange = change.documentKey;
-                channel.publish("newSkills", skillsChange);
-                changeStream.close();
-                break;
-              case "update":
-                skillsChange = change.fullDocument;
-                channel.publish("newSkills", skillsChange);
-                break;
-              // case "replace":
-              //   skillsData = await collection.find({}).toArray();
-              //   channel.publish("newSkills", skillsData);
-              //   break;
-              default:
-                break;
-            }
+            skillEmitters(change, channel, changeStream);
           });
         });
         return resStatus(200).json(skillsData);
@@ -96,3 +51,35 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
       return resStatus(405).json({ message: "Method Not Allowed" });
   }
 }
+
+const skillEmitters = (
+  change: ChangeStreamDocument,
+  channel: Types.RealtimeChannelPromise,
+  changeStream: ChangeStream
+) => {
+  let skillsChange;
+  switch (change.operationType) {
+    case "insert":
+      console.log(change.documentKey);
+      skillsChange = change.fullDocument;
+      channel.publish("newSkills", skillsChange);
+      changeStream.close();
+      break;
+    case "delete":
+      console.log(change.documentKey);
+      skillsChange = change.documentKey;
+      channel.publish("newSkills", skillsChange);
+      changeStream.close();
+      break;
+    case "update":
+      skillsChange = change.fullDocument;
+      channel.publish("newSkills", skillsChange);
+      break;
+    // case "replace":
+    //   skillsData = await collection.find({}).toArray();
+    //   channel.publish("newSkills", skillsData);
+    //   break;
+    default:
+      break;
+  }
+};
