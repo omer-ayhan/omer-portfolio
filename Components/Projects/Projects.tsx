@@ -10,6 +10,8 @@ import { useAppSelector, useAppDispatch } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import { ImageSSR } from "../Utilities/ImageSSR";
 import axios, { AxiosResponse } from "axios";
+import useChannels from "../Utilities/useChannels";
+
 type TagDataTypes = {
   _id: string;
   title: string;
@@ -21,6 +23,31 @@ function Projects(): ReactElement {
   const { stylesAll } = props;
   const [searchInput, setSearchInput] = useState("");
   const [tagData, setTagData] = React.useState<Array<TagDataTypes>>([]);
+
+  useChannels(
+    "projectTags",
+    (channel) => {
+      channel.subscribe("insertCard", (tag) => {
+        setTagData([...tag.data]);
+      });
+      channel.subscribe("updateCard", (tag) => {
+        setTagData((tagData) => [
+          ...tagData.map((item) => {
+            if (item._id === tag.data._id) {
+              return tag.data;
+            }
+            return item;
+          }),
+        ]);
+      });
+      channel.subscribe("deleteCard", (tag) => {
+        setTagData((tagData) =>
+          tagData.filter((item) => item._id !== tag.data._id)
+        );
+      });
+    },
+    []
+  );
 
   React.useEffect(() => {
     const abortController = new AbortController();

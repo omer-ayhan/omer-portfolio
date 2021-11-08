@@ -1,7 +1,6 @@
 import connectToDB from "../../lib/database.js";
-import { ChangeStreamDocument, Collection, Db } from "mongodb";
+import { Db } from "mongodb";
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { Types } from "ably";
 import connectToAbly from "../../lib/connectToAbly";
 import cardEmitters from "../../lib/changeEvents";
 
@@ -38,27 +37,3 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
       return resStatus(405).json({ message: "Method Not Allowed" });
   }
 }
-
-// const skillEmitters = async (
-//   change: ChangeStreamDocument,
-//   channel: Types.RealtimeChannelPromise,
-//   collection: Collection
-// ) => {
-//   let skillsChange;
-//   switch (change.operationType) {
-//     case "insert":
-//       skillsChange = await collection.find({}).toArray();
-//       channel.publish("newSkill", skillsChange);
-//       break;
-//     case "delete":
-//       skillsChange = change.documentKey;
-//       channel.publish("deletedSkill", skillsChange);
-//       break;
-//     case "update":
-//       skillsChange = change.fullDocument;
-//       channel.publish("updatedSkill", skillsChange);
-//       break;
-//     default:
-//       break;
-//   }
-// };
