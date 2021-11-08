@@ -25,14 +25,26 @@ export default async function projects(
         const projectsData = await collection
           .find({})
           .toArray()
-          .catch((err) => err);
+          .catch((err) =>
+            resStatus(500).json({
+              message: "Error fetching projects",
+              error: err.message,
+            })
+          );
         const channel = realtime.channels.get(collection_name.toString());
         const changeStream = collection.watch([], {
           fullDocument: "updateLookup",
         });
 
         changeStream.on("change", async (change) => {
-          await cardEmitters(change, channel, collection);
+          try {
+            await cardEmitters(change, channel, collection);
+          } catch (err) {
+            resStatus(500).json({
+              message: "Error emitting change event",
+              error: err,
+            });
+          }
         });
 
         return resStatus(200).json(projectsData);

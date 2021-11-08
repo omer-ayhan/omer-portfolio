@@ -26,7 +26,14 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
         });
 
         changeStream.on("change", async (change) => {
-          await cardEmitters(change, channel, collection);
+          try {
+            await cardEmitters(change, channel, collection);
+          } catch (err) {
+            resStatus(500).json({
+              message: "Error emitting change event",
+              error: err,
+            });
+          }
         });
 
         return resStatus(200).json(skillsData);
