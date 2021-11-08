@@ -22,51 +22,32 @@ function Projects(): ReactElement {
   const [searchInput, setSearchInput] = useState("");
   const [tagData, setTagData] = React.useState<Array<TagDataTypes>>([]);
 
-  React.useEffect(
-    () => {
-      const abortController = new AbortController();
-      const signal = abortController.signal;
-      axios
-        .get(process.env.PROJECT_TAGS, {
-          method: "GET",
-          signal: signal,
-        })
-        .then((res: AxiosResponse) => {
-          setTagData(
-            res.data.map((tag: TagDataTypes) => ({
-              title: tag.title,
-              icon: tag.icon,
-              _id: tag._id,
-            }))
-          );
-        })
-        .catch((err) => {
-          console.log(err.message);
-          return;
-        });
+  React.useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    axios
+      .get(process.env.PROJECT_TAGS, {
+        method: "GET",
+        signal: signal,
+      })
+      .then((res: AxiosResponse) => {
+        setTagData(
+          res.data.map((tag: TagDataTypes) => ({
+            title: tag.title,
+            icon: tag.icon,
+            _id: tag._id,
+          }))
+        );
+      })
+      .catch((err) => {
+        console.log(err.message);
+        return;
+      });
 
-      return (): void => {
-        abortController.abort();
-      };
-    },
-    // cleanup for api
-    //   const abortController = new AbortController();
-    //   const signal = abortController.signal;
-    //     axios
-    //       .get(process.env.PROJECT_TAGS, {signal})
-    //       .then((res: AxiosResponse) => {
-    //         setTagData(res.data);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err.message);
-    //         return;
-    //       });
-    //   return (): void => {
-    //     isMounted = false;
-    //   };
-    // },
-    []
-  );
+    return (): void => {
+      abortController.abort();
+    };
+  }, []);
 
   const handleTags = (tags: string[], title: string) => {
     let titleText = title.toUpperCase();
@@ -112,7 +93,8 @@ function Projects(): ReactElement {
           cardWidth={{ ...stylesAll.projects.projectsWidth }}
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
           apiRequest={{ url: process.env.PROJECTS, category: "projects" }}
-          searchInput={searchInput}>
+          searchInput={searchInput}
+          channelName="projectTabs">
           <Grid
             container
             sx={{

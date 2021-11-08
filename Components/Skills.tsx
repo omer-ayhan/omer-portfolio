@@ -29,6 +29,7 @@ function Skills(): ReactElement {
           cardWidth={{ ...stylesAll.skills.skillsWidth }}
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
           apiRequest={{ url: process.env.SKILLS, category: "skills" }}
+          channelName="skillsChannel"
         />
       </Grid>
     </Grid>

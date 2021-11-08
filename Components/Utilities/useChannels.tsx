@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import Ably from "ably/promises";
 import { Types } from "ably";
-import connectToAbly from "../../lib/connectToAbly";
-const realtime = connectToAbly();
+const realtime = new Ably.Realtime.Promise({
+  authUrl: "http://localhost:3000/api/createTokenRequest",
+});
 
 function useChannels(
   channelName: string,

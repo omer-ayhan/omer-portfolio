@@ -1,5 +1,8 @@
 import connectToDB from "../../lib/database";
 import { VercelRequest, VercelResponse } from "@vercel/node";
+import { Db } from "mongodb";
+import cardEmitters from "../../lib/changeEvents";
+import connectToAbly from "../../lib/connectToAbly";
 
 export default async function projects(
   req: VercelRequest,
@@ -15,13 +18,22 @@ export default async function projects(
         });
       }
       try {
-        const db = await connectToDB();
+        const db: Db = await connectToDB();
+        const realtime = connectToAbly();
         const collection = db.collection(collection_name.toString());
 
         const projectsData = await collection
           .find({})
           .toArray()
           .catch((err) => err);
+        const channel = realtime.channels.get(collection_name.toString());
+        const changeStream = collection.watch([], {
+          fullDocument: "updateLookup",
+        });
+
+        changeStream.on("change", async (change) => {
+          await cardEmitters(change, channel, collection);
+        });
 
         return resStatus(200).json(projectsData);
       } catch (err) {

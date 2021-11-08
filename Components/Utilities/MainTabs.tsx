@@ -126,6 +126,7 @@ interface IAppProps {
   rowSpacing?: object;
   apiRequest: { url: string; category: string };
   searchInput?: string;
+  channelName: string;
 }
 type TabDataTypes = {
   title: string;
@@ -152,6 +153,7 @@ function MainTabs({
   cardHeight,
   spacing,
   rowSpacing,
+  channelName,
 }: IAppProps): ReactElement {
   const [value, setValue] = useState(0);
   const stateTags = useAppSelector((state) => state.projects.tags);
@@ -162,26 +164,30 @@ function MainTabs({
 
   const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
 
-  useChannels("skillsChannel", (channel) => {
-    channel.subscribe("newSkill", (card) => {
-      setTabData([...card.data]);
-    });
-    channel.subscribe("updatedSkill", (card) => {
-      setTabData((tabData) => [
-        ...tabData.map((item) => {
-          if (item._id === card.data._id) {
-            return card.data;
-          }
-          return item;
-        }),
-      ]);
-    });
-    channel.subscribe("deletedSkill", (card) => {
-      setTabData((tabData) =>
-        tabData.filter((tab) => tab._id !== card.data._id)
-      );
-    });
-  });
+  useChannels(
+    channelName,
+    (channel) => {
+      channel.subscribe("insertCard", (card) => {
+        setTabData([...card.data]);
+      });
+      channel.subscribe("updateCard", (card) => {
+        setTabData((tabData) => [
+          ...tabData.map((item) => {
+            if (item._id === card.data._id) {
+              return card.data;
+            }
+            return item;
+          }),
+        ]);
+      });
+      channel.subscribe("deleteCard", (card) => {
+        setTabData((tabData) =>
+          tabData.filter((tab) => tab._id !== card.data._id)
+        );
+      });
+    },
+    [channelName]
+  );
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
