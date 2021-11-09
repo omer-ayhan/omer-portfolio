@@ -47,7 +47,6 @@ function App() {
         />
         <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
         <link rel="manifest" href="/manifest.json" />
-        <title>Ömer Ayhan</title>
       </Head>
       <StylesProvider>
         <Box className="App">

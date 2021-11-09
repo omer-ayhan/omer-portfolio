@@ -100,6 +100,7 @@ const Intro = () => {
                       }
                     : ""),
                   ...stylesAll.utilities.buttons.container,
+                  zIndex: 5,
                 }}
                 sxLink={{
                   ...stylesAll.utilities.buttons.link,
