@@ -1,10 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import connectToAbly from "../../lib/connectToAbly";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   switch (req.method) {
     case "GET":
       try {

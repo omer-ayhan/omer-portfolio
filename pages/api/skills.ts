@@ -10,7 +10,6 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
     case "GET":
       try {
         const db: Db = await connectToDB();
-        const realtime = connectToAbly();
 
         const collection = db.collection("skillCards");
         if (!collection) {
@@ -20,13 +19,15 @@ export default async function skills(req: VercelRequest, res: VercelResponse) {
           .find({})
           .toArray()
           .catch((err) => resStatus(500).json({ message: err }));
-        const channel = realtime.channels.get("skillsChannel");
         const changeStream = collection.watch([], {
           fullDocument: "updateLookup",
         });
 
         changeStream.on("change", async (change) => {
           try {
+            const realtime = connectToAbly();
+            const channel = realtime.channels.get("skillsChannel");
+            console.log("skills change");
             await cardEmitters(change, channel, collection);
           } catch (err) {
             resStatus(500).json({

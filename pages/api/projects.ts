@@ -19,7 +19,6 @@ export default async function projects(
       }
       try {
         const db: Db = await connectToDB();
-        const realtime = connectToAbly();
         const collection = db.collection(collection_name.toString());
 
         const projectsData = await collection
@@ -31,13 +30,15 @@ export default async function projects(
               error: err.message,
             })
           );
-        const channel = realtime.channels.get(collection_name.toString());
         const changeStream = collection.watch([], {
           fullDocument: "updateLookup",
         });
 
         changeStream.on("change", async (change) => {
           try {
+            const realtime = connectToAbly();
+            const channel = realtime.channels.get(collection_name.toString());
+            console.log("projects change");
             await cardEmitters(change, channel, collection);
           } catch (err) {
             resStatus(500).json({

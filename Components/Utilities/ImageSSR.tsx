@@ -10,6 +10,7 @@ interface Props {
   sx?: object;
   objectFit?: "cover" | "contain" | "fill";
   comp?: ElementType<any>;
+  priorty?: boolean;
 }
 
 export const ImageSSR = ({
@@ -19,16 +20,18 @@ export const ImageSSR = ({
   alt = "",
   sx = {},
   comp = "span",
-  ...rest
+  objectFit = "cover",
+  priorty = false,
 }: Props) => {
   return (
     <Box component={comp} className={className} id={id} sx={{ ...sx }}>
       <Image
         src={path}
         layout="fill"
-        className={"image-element"}
+        className="image-element"
         alt={alt}
-        {...rest}
+        objectFit={objectFit}
+        priority={priorty}
       />
     </Box>
   );

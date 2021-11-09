@@ -34,7 +34,7 @@ const Intro = () => {
       justifyContent="center"
       alignItems="center">
       <Grid item xs={12} md={6}>
-        <ImageSSR className="intro-bg" path={bg_intro} />
+        <ImageSSR className="intro-bg" path={bg_intro} priorty />
         <Box
           sx={{
             ...stylesAll.intro.introBox.container,
@@ -126,7 +126,7 @@ const Intro = () => {
             svg-animation
           </object>
           <SvgImages svgType="intro" />
-          <ImageSSR id="intro-img" path={intro_img} />
+          <ImageSSR className="intro-img" path={intro_img} priorty />
         </Box>
       </Grid>
     </Grid>
