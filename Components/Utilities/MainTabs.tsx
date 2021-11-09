@@ -76,10 +76,10 @@ function TabPanel({
   children,
   index,
   value,
-  ariaName,
+  ariaName = "tabpanel",
   cardWidth,
   cardHeight,
-  spacing,
+  spacing = { xs: 1 },
   rowSpacing,
   ...rest
 }: TabPanelProps): ReactElement {
@@ -122,7 +122,7 @@ interface IAppProps {
   ariaName?: string | "tabpanel";
   cardWidth: string | number | object;
   cardHeight: string | number | object;
-  spacing?: object | { xs: 1 };
+  spacing?: object | { xs: number };
   rowSpacing?: object;
   apiRequest: { url: string; category: string };
   searchInput?: string;
@@ -146,12 +146,12 @@ type TabDataItems = {
 
 function MainTabs({
   children,
-  ariaName,
+  ariaName = "tabpanel",
   apiRequest,
   cardWidth,
   searchInput = "",
   cardHeight,
-  spacing,
+  spacing = { xs: 1 },
   rowSpacing,
   channelName,
 }: IAppProps): ReactElement {
@@ -188,6 +188,7 @@ function MainTabs({
     },
     [channelName]
   );
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
