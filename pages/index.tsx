@@ -18,6 +18,7 @@ import { GetStaticProps } from "next";
 import cardEmitters from "../lib/changeEvents";
 import connectToAbly from "../lib/connectToAbly";
 import type { Realtime, Types } from "ably";
+import axios from "axios";
 type TabDataTypes = {
   title: string;
   icon: string;
@@ -76,15 +77,15 @@ function App({ skillsData, projectsData, tagsData }: Props) {
       </Head>
       <StylesProvider>
         <Box className="App">
-          {/* <BackToTop />
+          <BackToTop />
           <Navbar />
           <Intro />
-          <About /> */}
+          <About />
           <Skills tabData={skillsData} />
           <Projects tabData={[projectsData, tagsData]} />
-          {/* <Blogs />
+          <Blogs />
           <Contact />
-          <Footer /> */}
+          <Footer />
         </Box>
       </StylesProvider>
     </>
@@ -95,29 +96,25 @@ export const getStaticProps: GetStaticProps = async () => {
   const db: Db = await connectToDB();
   const realtime = connectToAbly();
 
-  // const collection = db.collection("skillCards");
-  // let skillsData = await collection.find({}).toArray();
-  // const channel = realtime.channels.get("skillsChannel");
-
   const skillsData = await Definecollection(
     db,
     // @ts-ignore
     realtime,
-    "skillCards",
+    "skillCards"
   );
 
   const projectsData = await Definecollection(
     db,
     // @ts-ignore
     realtime,
-    "projectTabs",
+    "projectTabs"
   );
 
   const tagsData = await Definecollection(
     db,
     // @ts-ignore
     realtime,
-    "projectTags",
+    "projectTags"
   );
 
   return {
@@ -147,7 +144,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Definecollection = async (
   db: Db,
   realtime: Realtime,
-  collectionName: string,
+  collectionName: string
 ) => {
   const collection = db.collection(collectionName);
   let data = await collection.find({}).toArray();

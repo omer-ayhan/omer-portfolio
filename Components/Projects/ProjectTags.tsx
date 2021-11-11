@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import axios, { AxiosResponse } from "axios";
 import React, { ReactElement } from "react";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
@@ -62,35 +61,8 @@ function ProjectTags({ incomingData }: Props): ReactElement {
         );
       });
     },
-    []
+    [incomingData]
   );
-
-  // React.useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const signal = abortController.signal;
-  //   axios
-  //     .get(process.env.PROJECT_TAGS, {
-  //       method: "GET",
-  //       signal: signal,
-  //     })
-  //     .then((res: AxiosResponse) => {
-  //       setTagData(
-  //         res.data.map((tag: TagDataTypes) => ({
-  //           title: tag.title,
-  //           icon: tag.icon,
-  //           _id: tag._id,
-  //         }))
-  //       );
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //       return;
-  //     });
-
-  //   return (): void => {
-  //     abortController.abort();
-  //   };
-  // }, []);
 
   const handleTags = (tags: string[], title: string) => {
     let titleText = title.toUpperCase();

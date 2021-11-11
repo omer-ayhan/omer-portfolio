@@ -13,9 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Ömer Ayhan</title>
       </Head>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          {() => <Component {...pageProps} />}
-        </PersistGate>
+        {/* <PersistGate persistor={persistor}> */}
+        <Component {...pageProps} />
+        {/* </PersistGate> */}
       </Provider>
     </>
   );

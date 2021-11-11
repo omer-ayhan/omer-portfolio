@@ -71,6 +71,7 @@ function Contact(): ReactElement {
                 sx={{
                   "& textarea": {
                     height: "100%",
+                    overflowY: "scroll",
                   },
                 }}
                 inputComponent="textarea"

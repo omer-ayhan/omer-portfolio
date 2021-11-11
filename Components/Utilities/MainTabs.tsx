@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   Tabs,
   Tab,
@@ -13,7 +13,6 @@ import {
 import { Icon } from "@iconify/react";
 import { props } from "./StylesProvider";
 import { useAppSelector } from "../../context/hooks";
-import axios, { AxiosResponse } from "axios";
 import useChannels from "./useChannels";
 import Slider from "react-slick";
 import { ImageSSR } from "./ImageSSR";
@@ -189,29 +188,8 @@ function MainTabs({
         );
       });
     },
-    [channelName]
+    [incomingData]
   );
-
-  // useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const signal = abortController.signal;
-  //   axios
-  //     .get(apiRequest.url, {
-  //       method: "GET",
-  //       signal: signal,
-  //     })
-  //     .then((res: AxiosResponse) => {
-  //       setTabData(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //       return;
-  //     });
-
-  //   return (): void => {
-  //     abortController.abort();
-  //   };
-  // }, [apiRequest]);
 
   const setSectionContent = (items: Array<TabDataItems>) => {
     switch (apiRequest.category) {
