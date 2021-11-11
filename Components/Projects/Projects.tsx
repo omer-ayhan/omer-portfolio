@@ -6,11 +6,29 @@ import Popup from "../Utilities/Popup";
 import { FormInput, props } from "../Utilities/StylesProvider";
 import Filter from "./Filter";
 import { ImageSSR } from "../Utilities/ImageSSR";
-import useChannels from "../Utilities/useChannels";
 import ProjectTags from "./ProjectTags";
 
+type TabDataTypes = {
+  title: string;
+  icon: string;
+  _id: string;
+  items: TabDataItems[];
+};
+
+type TabDataItems = {
+  title: string;
+  desc: string;
+  icon: string;
+  img: string[];
+  link: string;
+  tags: Array<TabDataItems>;
+};
+interface Props {
+  tabData: Array<TabDataTypes[]>;
+}
+
 const { stylesAll } = props;
-function Projects(): ReactElement {
+function Projects({ tabData }: Props): ReactElement {
   const [searchInput, setSearchInput] = useState("");
 
   return (
@@ -50,6 +68,7 @@ function Projects(): ReactElement {
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
           apiRequest={{ url: process.env.PROJECTS, category: "projects" }}
           searchInput={searchInput}
+          incomingData={tabData[0]}
           channelName="projectTabs">
           <Grid
             container

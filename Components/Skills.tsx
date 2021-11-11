@@ -1,9 +1,30 @@
 import React, { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import MainTabs from "./Utilities/MainTabs";
-import { props } from "./Utilities/StylesProvider";
-function Skills(): ReactElement {
-  const { stylesAll } = props;
+import { props as StyleProps } from "./Utilities/StylesProvider";
+
+type TabDataTypes = {
+  title: string;
+  icon: string;
+  _id: string;
+  items: TabDataItems[];
+};
+
+type TabDataItems = {
+  title: string;
+  desc: string;
+  icon: string;
+  img: string[];
+  link: string;
+  tags: Array<TabDataItems>;
+};
+interface Props {
+  tabData: Array<TabDataTypes>;
+}
+
+function Skills({ tabData }: Props): ReactElement {
+  const { stylesAll } = StyleProps;
+  // console.log(skillsData);
 
   return (
     <Grid
@@ -30,6 +51,7 @@ function Skills(): ReactElement {
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
           apiRequest={{ url: process.env.SKILLS, category: "skills" }}
           channelName="skillsChannel"
+          incomingData={tabData}
         />
       </Grid>
     </Grid>

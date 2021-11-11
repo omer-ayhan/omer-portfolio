@@ -15,10 +15,10 @@ import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 
+const { stylesAll } = props;
 function Filter() {
   const projectState = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
-  const { stylesAll } = props;
   const [filterInput, setFilterInput] = useState<string>("");
   const [filterCats, setFilterCats] = useState({
     alphabetic: {

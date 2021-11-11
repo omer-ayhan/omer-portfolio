@@ -24,12 +24,12 @@ import {
   adjustColorShade,
 } from "../Utilities/ColorUtils/adjustColor";
 
+const { stylesAll, colors: colorsAll } = props;
 const SetColor = () => {
   const colors = useAppSelector((state) => state.nav);
   const dispatch = useAppDispatch();
   const escapeNonHex = (hex: string) =>
     hex.replace(/([^0-9A-F]+)/gi, "").substr(0, 6);
-  const { stylesAll, colors: colorsAll } = props;
   const [colorCat, setColorCat] = useState<string>("Primary");
   const [colorInput, setColorInput] = useState<string>(
     escapeNonHex(colors.Primary)

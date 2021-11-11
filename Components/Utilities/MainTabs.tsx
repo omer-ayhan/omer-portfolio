@@ -127,6 +127,7 @@ interface IAppProps {
   apiRequest: { url: string; category: string };
   searchInput?: string;
   channelName: string;
+  incomingData: Array<TabDataTypes>;
 }
 type TabDataTypes = {
   title: string;
@@ -154,6 +155,7 @@ function MainTabs({
   spacing = { xs: 1 },
   rowSpacing,
   channelName,
+  incomingData,
 }: IAppProps): ReactElement {
   const [value, setValue] = useState(0);
   const stateTags = useAppSelector((state) => state.projects.tags);
@@ -162,7 +164,8 @@ function MainTabs({
     setValue(newValue);
   };
 
-  const [tabData, setTabData] = React.useState<Array<TabDataTypes>>([]);
+  const [tabData, setTabData] =
+    React.useState<Array<TabDataTypes>>(incomingData);
 
   useChannels(
     channelName,
@@ -189,26 +192,26 @@ function MainTabs({
     [channelName]
   );
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    axios
-      .get(apiRequest.url, {
-        method: "GET",
-        signal: signal,
-      })
-      .then((res: AxiosResponse) => {
-        setTabData(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        return;
-      });
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+  //   const signal = abortController.signal;
+  //   axios
+  //     .get(apiRequest.url, {
+  //       method: "GET",
+  //       signal: signal,
+  //     })
+  //     .then((res: AxiosResponse) => {
+  //       setTabData(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //       return;
+  //     });
 
-    return (): void => {
-      abortController.abort();
-    };
-  }, [apiRequest]);
+  //   return (): void => {
+  //     abortController.abort();
+  //   };
+  // }, [apiRequest]);
 
   const setSectionContent = (items: Array<TabDataItems>) => {
     switch (apiRequest.category) {

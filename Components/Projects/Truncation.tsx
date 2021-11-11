@@ -6,9 +6,9 @@ interface Props {
   text: string;
 }
 
+const { stylesAll } = props;
 const Truncation = ({ text }: Props) => {
   const [showText, setShowText] = React.useState(false);
-  const { stylesAll } = props;
 
   const truncate = () => {
     if (text.length > 99) {

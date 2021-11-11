@@ -12,8 +12,34 @@ import Contact from "../Components/Contact";
 import Footer from "../Components/Footer";
 import { useAppSelector } from "../context/hooks";
 import { BackToTop } from "../Components/BackToTop";
+import connectToDB from "../lib/database";
+import { Db } from "mongodb";
+import { GetStaticProps } from "next";
+import cardEmitters from "../lib/changeEvents";
+import connectToAbly from "../lib/connectToAbly";
+import type { Realtime, Types } from "ably";
+type TabDataTypes = {
+  title: string;
+  icon: string;
+  _id: string;
+  items: TabDataItems[];
+};
 
-function App() {
+type TabDataItems = {
+  title: string;
+  desc: string;
+  icon: string;
+  img: string[];
+  link: string;
+  tags: Array<TabDataItems>;
+};
+interface Props {
+  skillsData: Array<TabDataTypes>;
+  projectsData: Array<TabDataTypes>;
+  tagsData: Array<TabDataTypes>;
+}
+
+function App({ skillsData, projectsData, tagsData }: Props) {
   const themeMode = useAppSelector((state) => state.nav.isDarkMode);
   const { colors } = props;
   React.useEffect(() => {
@@ -50,19 +76,96 @@ function App() {
       </Head>
       <StylesProvider>
         <Box className="App">
-          <BackToTop />
+          {/* <BackToTop />
           <Navbar />
           <Intro />
-          <About />
-          <Skills />
-          <Projects />
-          <Blogs />
+          <About /> */}
+          <Skills tabData={skillsData} />
+          <Projects tabData={[projectsData, tagsData]} />
+          {/* <Blogs />
           <Contact />
-          <Footer />
+          <Footer /> */}
         </Box>
       </StylesProvider>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const db: Db = await connectToDB();
+  const realtime = connectToAbly();
+
+  // const collection = db.collection("skillCards");
+  // let skillsData = await collection.find({}).toArray();
+  // const channel = realtime.channels.get("skillsChannel");
+
+  const skillsData = await Definecollection(
+    db,
+    // @ts-ignore
+    realtime,
+    "skillCards",
+    "skillsChannel"
+  );
+
+  const projectsData = await Definecollection(
+    db,
+    // @ts-ignore
+    realtime,
+    "projectTabs",
+    "skillsChannel"
+  );
+
+  const tagsData = await Definecollection(
+    db,
+    // @ts-ignore
+    realtime,
+    "projectTabs",
+    "skillsChannel"
+  );
+
+  return {
+    props: {
+      skillsData: skillsData.map((item) => ({
+        _id: item._id.toString(),
+        title: item.title,
+        icon: item.icon,
+        items: item.items,
+      })),
+      projectsData: projectsData.map((item) => ({
+        _id: item._id.toString(),
+        title: item.title,
+        icon: item.icon,
+        items: item.items,
+      })),
+      tagsData: tagsData.map((item) => ({
+        _id: item._id.toString(),
+        title: item.title,
+        icon: item.icon,
+      })),
+    },
+    revalidate: 10,
+  };
+};
+
+const Definecollection = async (
+  db: Db,
+  realtime: Realtime,
+  collectionName: string,
+  channelName: string
+) => {
+  const collection = db.collection(collectionName);
+  let data = await collection.find({}).toArray();
+  // @ts-ignore
+  const channel: Types.RealtimeChannelPromise =
+    realtime.channels.get(channelName);
+  const changeStream = collection.watch([], {
+    fullDocument: "updateLookup",
+  });
+  changeStream.on("change", async (change) => {
+    console.log("skills change");
+    await cardEmitters(change, channel, collection);
+  });
+  return data;
+};
 
 export default App;

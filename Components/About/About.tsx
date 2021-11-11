@@ -6,8 +6,8 @@ import SvgImages from "../Utilities/SvgImages";
 import SocialIcons from "./SocialIcons";
 import { ImageSSR } from "../Utilities/ImageSSR";
 
+const { stylesAll } = props;
 function About(): ReactElement {
-  const { stylesAll } = props;
   return (
     <Grid
       id="about"
@@ -58,7 +58,6 @@ function About(): ReactElement {
           alignItems: { xs: "center", Laptop: "start" },
         }}
         order={{ xs: 2, Laptop: 3 }}>
-        {/* <img className="about-bg" src="/img/Background/bg_about.svg" alt="" /> */}
         <ImageSSR className="about-bg" path="/img/Background/bg_about.svg" />
         <Grid item xs={12}>
           <Typography
