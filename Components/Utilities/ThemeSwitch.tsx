@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { StyledSwitch, props } from "./StylesProvider";

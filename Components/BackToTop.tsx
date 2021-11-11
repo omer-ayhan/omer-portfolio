@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Fab, useScrollTrigger, Zoom } from "@mui/material";
 import SmoothScroll from "./Utilities/ScrollUtils/SmoothScroll";
 import { Icon } from "@iconify/react";

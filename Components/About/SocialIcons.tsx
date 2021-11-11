@@ -1,11 +1,11 @@
-import React from "react";
+import { ReactElement } from "react";
 import { Link, Box } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { linksMain, props } from "../Utilities/StylesProvider";
 
 const { stylesAll } = props;
 
-function SocialIcons({ sxBox }: { sxBox: object }): React.ReactElement {
+function SocialIcons({ sxBox }: { sxBox: object }): ReactElement {
   return (
     <Box
       sx={{

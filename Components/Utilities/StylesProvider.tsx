@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactElement } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Input,
@@ -1031,7 +1031,7 @@ function StylesProvider({ children }: Props) {
 }
 
 const StyledSwitch = styled(
-  (props: SwitchProps): React.ReactElement => (
+  (props: SwitchProps): ReactElement => (
     <Switch
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple
@@ -1088,9 +1088,7 @@ const StyledSwitch = styled(
 }));
 
 const FormInput = styled(
-  (props: InputProps): React.ReactElement => (
-    <Input disableUnderline {...props} />
-  )
+  (props: InputProps): ReactElement => <Input disableUnderline {...props} />
 )(({ theme }) => ({
   borderColor: theme.palette.secondary.main,
   outlineColor: `${theme.palette.secondary.main}3a`,

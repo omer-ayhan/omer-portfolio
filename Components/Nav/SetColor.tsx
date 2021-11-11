@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
 import {
   Alert,
   Box,
@@ -42,11 +42,11 @@ const SetColor = () => {
     setColorInput(escapeNonHex(colors[event.target.value]));
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setColorInput(escapeNonHex(event.target.value));
   };
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (event?: SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -132,7 +132,7 @@ const SetColor = () => {
       <TextField
         value={colorInput}
         onChange={handleInputChange}
-        onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) =>
+        onKeyDown={(event: KeyboardEvent<HTMLInputElement>) =>
           event.key === "Enter" && applyColor()
         }
         InputProps={{

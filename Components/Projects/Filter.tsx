@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import {
   Box,
   Chip,
@@ -29,7 +29,7 @@ function Filter() {
     },
   });
 
-  const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInput = (event: KeyboardEvent<HTMLInputElement>) => {
     if (
       !projectState.tags.includes(filterInput.toUpperCase()) &&
       (event.key === "Enter" ||
@@ -49,7 +49,7 @@ function Filter() {
         flexDirection: "column",
       }}>
       <TextField
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
           setFilterInput(event.target.value)
         }
         onKeyDown={handleInput}

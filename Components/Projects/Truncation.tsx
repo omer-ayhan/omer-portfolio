@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link, Typography } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 
@@ -8,7 +8,7 @@ interface Props {
 
 const { stylesAll } = props;
 const Truncation = ({ text }: Props) => {
-  const [showText, setShowText] = React.useState(false);
+  const [showText, setShowText] = useState(false);
 
   const truncate = () => {
     if (text.length > 99) {

@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { ElementType } from "react";
 import Image from "next/image";
 import { Box } from "@mui/material";
 

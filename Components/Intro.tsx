@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import { linksMain, props } from "./Utilities/StylesProvider";
 import MainButton from "./Utilities/MainButton";

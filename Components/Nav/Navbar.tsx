@@ -1,4 +1,10 @@
-import * as React from "react";
+import {
+  ReactElement,
+  cloneElement,
+  useState,
+  KeyboardEvent,
+  MouseEvent,
+} from "react";
 import {
   AppBar,
   Box,
@@ -25,7 +31,7 @@ import { useAppSelector, useAppDispatch } from "../../context/hooks";
 type Anchor = "right";
 
 interface Props {
-  children: React.ReactElement;
+  children: ReactElement;
 }
 const { colors, stylesAll } = props;
 
@@ -36,7 +42,7 @@ const ElevationScroll = (Props: Props) => {
     threshold: 0,
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     sx: {
       ...stylesAll.navbar.appBar,
       background: (theme: Theme) =>
@@ -51,21 +57,20 @@ const ElevationScroll = (Props: Props) => {
   });
 };
 
-function Navbar(): React.ReactElement {
+function Navbar(): ReactElement {
   const theme = useAppSelector((state) => state.nav);
   const dispatch = useAppDispatch();
-  const [swipe, setSwipe] = React.useState({
+  const [swipe, setSwipe] = useState({
     right: false,
   });
 
   const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
+    (anchor: Anchor, open: boolean) => (event: KeyboardEvent | MouseEvent) => {
       if (
         event &&
         event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
+        ((event as KeyboardEvent).key === "Tab" ||
+          (event as KeyboardEvent).key === "Shift")
       ) {
         return;
       }

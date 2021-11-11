@@ -18,7 +18,6 @@ import { GetStaticProps } from "next";
 import cardEmitters from "../lib/changeEvents";
 import connectToAbly from "../lib/connectToAbly";
 import type { Realtime, Types } from "ably";
-import axios from "axios";
 type TabDataTypes = {
   title: string;
   icon: string;
@@ -51,12 +50,6 @@ function App({ skillsData, projectsData, tagsData }: Props) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
         <link
           rel="stylesheet"
           type="text/css"
@@ -146,19 +139,24 @@ const Definecollection = async (
   realtime: Realtime,
   collectionName: string
 ) => {
-  const collection = db.collection(collectionName);
-  let data = await collection.find({}).toArray();
-  // @ts-ignore
-  const channel: Types.RealtimeChannelPromise =
-    realtime.channels.get(collectionName);
-  const changeStream = collection.watch([], {
-    fullDocument: "updateLookup",
-  });
-  changeStream.on("change", async (change) => {
-    console.log("skills change");
-    await cardEmitters(change, channel, collection);
-  });
-  return data;
+  try {
+    const collection = db.collection(collectionName);
+    let data = await collection.find({}).toArray();
+    // @ts-ignore
+    const channel: Types.RealtimeChannelPromise =
+      realtime.channels.get(collectionName);
+    const changeStream = collection.watch([], {
+      fullDocument: "updateLookup",
+    });
+    changeStream.on("change", async (change) => {
+      console.log("skills change");
+      await cardEmitters(change, channel, collection);
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
 
 export default App;

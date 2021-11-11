@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React, { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import MainTag from "../Utilities/MainTag";
@@ -36,8 +36,7 @@ const { stylesAll } = props;
 function ProjectTags({ incomingData }: Props): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
   const dispatch = useAppDispatch();
-  const [tagData, setTagData] =
-    React.useState<Array<TagDataTypes>>(incomingData);
+  const [tagData, setTagData] = useState<Array<TagDataTypes>>(incomingData);
 
   useChannels(
     "projectTags",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, MouseEvent, ReactElement, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { Typography, Box } from "@mui/material";
 import { props } from "./StylesProvider";
@@ -12,7 +12,7 @@ interface Props {
   icon: string;
   title: string;
   isClickable?: boolean;
-  onClick?: (ev: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: (ev: MouseEvent<HTMLDivElement>) => void;
 }
 
 const MainTag = ({
@@ -23,12 +23,12 @@ const MainTag = ({
   title,
   onClick = undefined,
   isClickable = false,
-}: Props): React.ReactElement => {
+}: Props): ReactElement => {
   const projectState = useAppSelector((state) => state.projects.tags);
   const { colors } = props;
   const [toggle, setToggle] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let isMounted = true;
     if (projectState.includes(title.toUpperCase()) && isMounted) {
       setToggle(true);

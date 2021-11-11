@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState, ReactNode, SyntheticEvent } from "react";
 import {
   Tabs,
   Tab,
@@ -22,7 +22,7 @@ import MainButton from "./MainButton";
 import { adjustTextColor } from "./ColorUtils/adjustColor";
 
 interface TabPanelProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   index: number;
   value: number;
   ariaName?: string | "tabpanel";
@@ -117,7 +117,7 @@ function a11yProps(index: number, ariaName?: string | "tabpanel") {
 }
 
 interface IAppProps {
-  children?: React.ReactNode | HTMLElement;
+  children?: ReactNode | HTMLElement;
   ariaName?: string | "tabpanel";
   cardWidth: string | number | object;
   cardHeight: string | number | object;
@@ -159,12 +159,11 @@ function MainTabs({
   const [value, setValue] = useState(0);
   const stateTags = useAppSelector((state) => state.projects.tags);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const [tabData, setTabData] =
-    React.useState<Array<TabDataTypes>>(incomingData);
+  const [tabData, setTabData] = useState<Array<TabDataTypes>>(incomingData);
 
   useChannels(
     channelName,

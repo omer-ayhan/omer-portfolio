@@ -1,11 +1,11 @@
-import React from "react";
+import { FC, ReactElement } from "react";
 import { useAppSelector } from "../../context/hooks";
 
 type Props = {
   svgType: "logo" | "intro" | "about" | "colorSet";
 };
 
-const SvgImages: React.FC<Props> = ({ svgType }): React.ReactElement => {
+const SvgImages: FC<Props> = ({ svgType }): ReactElement => {
   const colors = useAppSelector((state) => state.nav);
 
   const handleSvg = (svgType: string) => {

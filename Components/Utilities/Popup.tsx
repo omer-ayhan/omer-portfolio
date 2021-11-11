@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC, ReactElement, MouseEvent, useState } from "react";
 import Popover from "@mui/material/Popover";
 import { IconButton, IconButtonProps, Button, Box } from "@mui/material";
 import { ButtonProps } from "@mui/material/Button";
@@ -13,7 +13,7 @@ export interface Props {
   isMenuClosable?: boolean;
 }
 
-const Popup: React.FC<Props & IconButtonProps & ButtonProps> = ({
+const Popup: FC<Props & IconButtonProps & ButtonProps> = ({
   isButton,
   startIcon,
   varText = "text",
@@ -21,12 +21,10 @@ const Popup: React.FC<Props & IconButtonProps & ButtonProps> = ({
   color,
   btn,
   isMenuClosable = true,
-}): React.ReactElement => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+}): ReactElement => {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

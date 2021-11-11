@@ -1,4 +1,4 @@
-import React from "react";
+import { MouseEventHandler, ReactElement } from "react";
 import { Button, Link, Typography } from "@mui/material";
 import SmoothScroll from "./ScrollUtils/SmoothScroll";
 import { adjustTextColor } from "./ColorUtils/adjustColor";
@@ -13,7 +13,7 @@ interface Props {
   variant?: "contained" | "outlined" | "text";
   textColor?: string;
   allowScroll?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const MainButton = ({
@@ -27,7 +27,7 @@ const MainButton = ({
   variant = "contained",
   allowScroll = false,
   onClick = undefined,
-}: Props): React.ReactElement => {
+}: Props): ReactElement => {
   return (
     <SmoothScroll toId={to} duration={1500} allowScroll={allowScroll}>
       <Button
