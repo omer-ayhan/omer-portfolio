@@ -1,16 +1,15 @@
 import { useEffect } from "react";
-import Ably from "ably/promises";
-import { Types } from "ably";
-const realtime = new Ably.Realtime.Promise({
-  authUrl: "http://localhost:3000/api/createTokenRequest",
-});
-
+import { Realtime, Types } from "ably";
+import connectToAbly from "../../lib/connectToAbly";
+let cachedAbly: Realtime | undefined;
+const realtime = connectToAbly(process.env.ABLY_USER, cachedAbly);
 function useChannels(
   channelName: string,
-  channelCallBack: (channel: Types.RealtimeChannelPromise) => void,
+  channelCallBack: (channel: Types.RealtimeChannelCallbacks) => void,
   dependancy: React.DependencyList = []
 ) {
-  const channel = realtime.channels.get(channelName);
+  const channel: Types.RealtimeChannelCallbacks =
+    realtime.channels.get(channelName);
 
   const onUnMount = () => {
     channel.unsubscribe();

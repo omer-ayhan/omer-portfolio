@@ -8,7 +8,8 @@ declare global {
       SKILLS: string;
       PROJECTS: string;
       PROJECT_TAGS: string;
-      ABLY_API_KEY: string;
+      ABLY_PUBLISH: process.env.ABLY_PUBLISH;
+      ABLY_USER: process.env.ABLY_USER;
       ABLY_CLIENT_ID: string;
     }
   }

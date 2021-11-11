@@ -18,6 +18,7 @@ import { GetStaticProps } from "next";
 import cardEmitters from "../lib/changeEvents";
 import connectToAbly from "../lib/connectToAbly";
 import type { Realtime, Types } from "ably";
+
 type TabDataTypes = {
   title: string;
   icon: string;
@@ -50,12 +51,7 @@ function App({ skillsData, projectsData, tagsData }: Props) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          charSet="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
+
         <link
           rel="stylesheet"
           type="text/css"
@@ -86,29 +82,15 @@ function App({ skillsData, projectsData, tagsData }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  let cachedAbly: Realtime | undefined;
   const db: Db = await connectToDB();
-  const realtime = connectToAbly();
+  const realtime = connectToAbly(process.env.ABLY_PUBLISH, cachedAbly);
 
-  const skillsData = await Definecollection(
-    db,
-    // @ts-ignore
-    realtime,
-    "skillCards"
-  );
+  const skillsData = await Definecollection(db, realtime, "skillCards");
 
-  const projectsData = await Definecollection(
-    db,
-    // @ts-ignore
-    realtime,
-    "projectTabs"
-  );
+  const projectsData = await Definecollection(db, realtime, "projectTabs");
 
-  const tagsData = await Definecollection(
-    db,
-    // @ts-ignore
-    realtime,
-    "projectTags"
-  );
+  const tagsData = await Definecollection(db, realtime, "projectTags");
 
   return {
     props: {
@@ -149,7 +131,6 @@ const Definecollection = async (
       fullDocument: "updateLookup",
     });
     changeStream.on("change", async (change) => {
-      console.log("skills change");
       await cardEmitters(change, channel, collection);
     });
     return data;

@@ -1,14 +1,10 @@
-import Ably from "ably/promises";
+import { Realtime } from "ably";
 
-let cachedAbly: Ably.Realtime | undefined;
-const connectToAbly = () => {
+const connectToAbly = (token: string, cachedAbly: Realtime | undefined) => {
   if (cachedAbly) {
     return cachedAbly;
   } else {
-    const realtime = new Ably.Realtime(process.env.ABLY_API_KEY);
-    realtime.auth.requestToken({
-      clientId: process.env.ABLY_CLIENT_ID,
-    });
+    const realtime = new Realtime({ key: token });
     cachedAbly = realtime;
     return cachedAbly;
   }
