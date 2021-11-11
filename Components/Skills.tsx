@@ -24,7 +24,6 @@ interface Props {
 
 function Skills({ tabData }: Props): ReactElement {
   const { stylesAll } = StyleProps;
-  // console.log(skillsData);
 
   return (
     <Grid
@@ -50,7 +49,7 @@ function Skills({ tabData }: Props): ReactElement {
           cardWidth={{ ...stylesAll.skills.skillsWidth }}
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
           apiRequest={{ url: process.env.SKILLS, category: "skills" }}
-          channelName="skillsChannel"
+          channelName="skillCards"
           incomingData={tabData}
         />
       </Grid>

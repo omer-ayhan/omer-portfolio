@@ -104,7 +104,6 @@ export const getStaticProps: GetStaticProps = async () => {
     // @ts-ignore
     realtime,
     "skillCards",
-    "skillsChannel"
   );
 
   const projectsData = await Definecollection(
@@ -112,15 +111,13 @@ export const getStaticProps: GetStaticProps = async () => {
     // @ts-ignore
     realtime,
     "projectTabs",
-    "skillsChannel"
   );
 
   const tagsData = await Definecollection(
     db,
     // @ts-ignore
     realtime,
-    "projectTabs",
-    "skillsChannel"
+    "projectTags",
   );
 
   return {
@@ -151,13 +148,12 @@ const Definecollection = async (
   db: Db,
   realtime: Realtime,
   collectionName: string,
-  channelName: string
 ) => {
   const collection = db.collection(collectionName);
   let data = await collection.find({}).toArray();
   // @ts-ignore
   const channel: Types.RealtimeChannelPromise =
-    realtime.channels.get(channelName);
+    realtime.channels.get(collectionName);
   const changeStream = collection.watch([], {
     fullDocument: "updateLookup",
   });

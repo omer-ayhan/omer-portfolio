@@ -105,7 +105,7 @@ function Projects({ tabData }: Props): ReactElement {
                 ...stylesAll.projects.tags.gridContainer,
                 flexDirection: "row",
               }}>
-              <ProjectTags />
+              <ProjectTags incomingData={tabData[1]} />
             </Grid>
           </Grid>
         </MainTabs>

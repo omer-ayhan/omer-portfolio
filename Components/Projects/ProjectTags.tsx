@@ -7,7 +7,24 @@ import MainTag from "../Utilities/MainTag";
 import { props } from "../Utilities/StylesProvider";
 import useChannels from "../Utilities/useChannels";
 
-interface Props {}
+interface Props {
+  incomingData: Array<TabDataTypes>;
+}
+type TabDataTypes = {
+  title: string;
+  icon: string;
+  _id: string;
+  items: TabDataItems[];
+};
+
+type TabDataItems = {
+  title: string;
+  desc: string;
+  icon: string;
+  img: string[];
+  link: string;
+  tags: Array<TabDataItems>;
+};
 
 type TagDataTypes = {
   _id: string;
@@ -17,10 +34,11 @@ type TagDataTypes = {
 
 const { stylesAll } = props;
 
-function ProjectTags({}: Props): ReactElement {
+function ProjectTags({ incomingData }: Props): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
   const dispatch = useAppDispatch();
-  const [tagData, setTagData] = React.useState<Array<TagDataTypes>>([]);
+  const [tagData, setTagData] =
+    React.useState<Array<TagDataTypes>>(incomingData);
 
   useChannels(
     "projectTags",
@@ -47,32 +65,32 @@ function ProjectTags({}: Props): ReactElement {
     []
   );
 
-  React.useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    axios
-      .get(process.env.PROJECT_TAGS, {
-        method: "GET",
-        signal: signal,
-      })
-      .then((res: AxiosResponse) => {
-        setTagData(
-          res.data.map((tag: TagDataTypes) => ({
-            title: tag.title,
-            icon: tag.icon,
-            _id: tag._id,
-          }))
-        );
-      })
-      .catch((err) => {
-        console.log(err.message);
-        return;
-      });
+  // React.useEffect(() => {
+  //   const abortController = new AbortController();
+  //   const signal = abortController.signal;
+  //   axios
+  //     .get(process.env.PROJECT_TAGS, {
+  //       method: "GET",
+  //       signal: signal,
+  //     })
+  //     .then((res: AxiosResponse) => {
+  //       setTagData(
+  //         res.data.map((tag: TagDataTypes) => ({
+  //           title: tag.title,
+  //           icon: tag.icon,
+  //           _id: tag._id,
+  //         }))
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //       return;
+  //     });
 
-    return (): void => {
-      abortController.abort();
-    };
-  }, []);
+  //   return (): void => {
+  //     abortController.abort();
+  //   };
+  // }, []);
 
   const handleTags = (tags: string[], title: string) => {
     let titleText = title.toUpperCase();
