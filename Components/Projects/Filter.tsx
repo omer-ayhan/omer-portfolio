@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import type { ChangeEvent, KeyboardEvent } from "react";
+import { useState } from "react";
 import {
   Box,
   Chip,
@@ -6,11 +7,11 @@ import {
   Grid,
   MenuItem,
   Select,
-  SelectChangeEvent,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";

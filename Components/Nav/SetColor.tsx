@@ -1,4 +1,5 @@
-import { useState, SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
+import { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
+import { useState } from "react";
 import {
   Alert,
   Box,
@@ -8,12 +9,12 @@ import {
   InputAdornment,
   MenuItem,
   Select,
-  SelectChangeEvent,
   Snackbar,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import { Icon } from "@iconify/react";
 import MainButton from "../Utilities/MainButton";

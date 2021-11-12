@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { Link, Box } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { linksMain, props } from "../Utilities/StylesProvider";

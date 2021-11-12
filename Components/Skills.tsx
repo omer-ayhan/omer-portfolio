@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import MainTabs from "./Utilities/MainTabs";
 import { props as StyleProps } from "./Utilities/StylesProvider";

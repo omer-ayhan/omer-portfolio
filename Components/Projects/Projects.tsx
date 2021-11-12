@@ -1,4 +1,5 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
+import type { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import MainTabs from "../Utilities/MainTabs";

@@ -1,4 +1,5 @@
-import { ReactElement, useState, ReactNode, SyntheticEvent } from "react";
+import { useState } from "react";
+import type { ReactElement, ReactNode, SyntheticEvent } from "react";
 import {
   Tabs,
   Tab,

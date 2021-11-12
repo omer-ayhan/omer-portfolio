@@ -1,10 +1,6 @@
-import {
-  ReactElement,
-  cloneElement,
-  useState,
-  KeyboardEvent,
-  MouseEvent,
-} from "react";
+import type { ReactElement, KeyboardEvent, MouseEvent } from "react";
+import { cloneElement, useState } from "react";
+
 import {
   AppBar,
   Box,

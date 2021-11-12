@@ -1,12 +1,7 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Input,
-  Switch,
-  SwitchProps,
-  InputProps,
-  PaletteMode,
-} from "@mui/material";
+import type { SwitchProps, InputProps, PaletteMode } from "@mui/material";
+import { Input, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { useAppSelector } from "../../context/hooks";
 

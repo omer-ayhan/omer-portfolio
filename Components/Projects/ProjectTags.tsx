@@ -1,5 +1,6 @@
+import { useState } from "react";
+import type { ReactElement } from "react";
 import { Grid } from "@mui/material";
-import { ReactElement, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import MainTag from "../Utilities/MainTag";

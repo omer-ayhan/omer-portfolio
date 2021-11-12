@@ -1,4 +1,5 @@
-import { FC, ReactElement, MouseEvent, useState } from "react";
+import type { FC, ReactElement, MouseEvent } from "react";
+import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import { IconButton, IconButtonProps, Button, Box } from "@mui/material";
 import { ButtonProps } from "@mui/material/Button";

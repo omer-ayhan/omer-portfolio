@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { RefObject } from "react";
 import { animateScroll } from "./animateScroll";
 
 const logError = () =>
@@ -10,7 +10,7 @@ const getElementPosition = (element: HTMLElement) => element.offsetTop;
 
 interface Props {
   id?: string;
-  ref?: React.RefObject<HTMLElement> | null;
+  ref?: RefObject<HTMLElement> | null;
   duration?: number;
 }
 

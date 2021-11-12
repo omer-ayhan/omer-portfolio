@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Realtime, Types } from "ably";
+import { Realtime } from "ably";
+import type { Types } from "ably";
 import connectToAbly from "../../lib/connectToAbly";
 let cachedAbly: Realtime | undefined;
 const realtime = connectToAbly(process.env.ABLY_USER, cachedAbly);

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import MainButton from "../Utilities/MainButton";

@@ -1,4 +1,5 @@
-import { useState, MouseEvent, ReactElement, useEffect } from "react";
+import { useState, useEffect } from "react";
+import type { MouseEvent, ReactElement } from "react";
 import { Icon } from "@iconify/react";
 import { Typography, Box } from "@mui/material";
 import { props } from "./StylesProvider";

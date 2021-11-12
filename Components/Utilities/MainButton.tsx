@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactElement } from "react";
+import type { MouseEventHandler, ReactElement } from "react";
 import { Button, Link, Typography } from "@mui/material";
 import SmoothScroll from "./ScrollUtils/SmoothScroll";
 import { adjustTextColor } from "./ColorUtils/adjustColor";
