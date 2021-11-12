@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { linksMain } from "../../Components/Utilities/StylesProvider";
-// import { RootState } from "../store";
 
 export interface NavStates {
   [key: string | symbol]: any;
