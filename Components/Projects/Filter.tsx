@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
-import { useState } from "react";
 import {
   Box,
   Chip,
@@ -15,11 +15,14 @@ import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const { stylesAll } = props;
 function Filter() {
   const projectState = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [filterInput, setFilterInput] = useState<string>("");
   const [filterCats, setFilterCats] = useState({
     alphabetic: {
@@ -29,6 +32,22 @@ function Filter() {
       value: "desc",
     },
   });
+
+  useEffect(() => {
+    let isMounted = true;
+    console.log(router);
+    if (isMounted && Object.keys(router.query).length < 1) {
+      router.push({
+        query: {
+          time: filterCats.time.value,
+          alphabetic: filterCats.alphabetic.value,
+        },
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleInput = (event: KeyboardEvent<HTMLInputElement>) => {
     if (
@@ -134,6 +153,13 @@ function Filter() {
                 ...filterCats,
                 time: { value: event.target.value },
               });
+              router.push(
+                {
+                  query: { ...router.query, time: event.target.value },
+                },
+                undefined,
+                { scroll: false, shallow: true }
+              );
             }}
             sx={{
               ...stylesAll.filter.forms.select.text,
@@ -176,6 +202,13 @@ function Filter() {
                 ...filterCats,
                 alphabetic: { value: event.target.value },
               });
+              router.push(
+                {
+                  query: { ...router.query, alphabetic: event.target.value },
+                },
+                undefined,
+                { scroll: false, shallow: true }
+              );
             }}
             sx={{
               ...stylesAll.filter.forms.select.text,
