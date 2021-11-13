@@ -16,7 +16,6 @@ import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const { stylesAll } = props;
 function Filter() {
@@ -35,14 +34,17 @@ function Filter() {
 
   useEffect(() => {
     let isMounted = true;
-    console.log(router);
     if (isMounted && Object.keys(router.query).length < 1) {
-      router.push({
-        query: {
-          time: filterCats.time.value,
-          alphabetic: filterCats.alphabetic.value,
+      router.push(
+        {
+          query: {
+            time: filterCats.time.value,
+            alphabetic: filterCats.alphabetic.value,
+          },
         },
-      });
+        undefined,
+        { scroll: false, shallow: true }
+      );
     }
     return () => {
       isMounted = false;
