@@ -334,7 +334,7 @@ const stylesAll = {
       Laptop_M: 1140,
       FourK: 1690,
     },
-    projectsHeight: { xs: 525, Laptop: 530, FourK: 670 },
+    projectsHeight: { xs: 525, Laptop: 530, FourK: 680 },
 
     search: {
       transition: "all 250ms ease",

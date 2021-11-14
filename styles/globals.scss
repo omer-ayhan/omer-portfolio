@@ -37,6 +37,25 @@ textarea {
   object-fit: cover;
 }
 
+.slick-dots {
+  top: 75%;
+  left: 35%;
+}
+
+@media (min-width: 1900px) {
+  .slick-dots {
+    top: 80%;
+    left: 35%;
+    width: 100%;
+
+    & li {
+      width: 22px;
+      height: 22px;
+      margin: 0 5px;
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: 11px;
   height: 11px;
