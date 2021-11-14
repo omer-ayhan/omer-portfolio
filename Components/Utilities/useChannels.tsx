@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import { Realtime } from "ably";
 import type { Types } from "ably";
 import connectToAbly from "../../lib/connectToAbly";
-let cachedAbly: Realtime | undefined;
-const realtime = connectToAbly(process.env.ABLY_USER, cachedAbly);
+const realtime = connectToAbly(process.env.ABLY_USER);
 function useChannels(
   channelName: string,
   channelCallBack: (channel: Types.RealtimeChannelCallbacks) => void,

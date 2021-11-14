@@ -82,16 +82,13 @@ function App({ skillsData, projectsData, tagsData }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let cachedAbly: Realtime | undefined;
   const db: Db = await connectToDB();
-  const realtime = connectToAbly(process.env.ABLY_PUBLISH, cachedAbly);
-
+  const realtime = connectToAbly(process.env.ABLY_PUBLISH);
   const skillsData = await Definecollection(db, realtime, "skillCards");
 
   const projectsData = await Definecollection(db, realtime, "projectTabs");
 
   const tagsData = await Definecollection(db, realtime, "projectTags");
-
   return {
     props: {
       skillsData: skillsData.map((item) => ({
@@ -112,7 +109,6 @@ export const getStaticProps: GetStaticProps = async () => {
         icon: item.icon,
       })),
     },
-    revalidate: 10,
   };
 };
 

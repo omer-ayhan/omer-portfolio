@@ -14,42 +14,18 @@ import {
 import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
-import { addTag, removeTag } from "../../context/reducers/projectSlices";
+import {
+  addTag,
+  removeTag,
+  changeOrder,
+} from "../../context/reducers/projectSlices";
 import { useRouter } from "next/router";
 
 const { stylesAll } = props;
 function Filter() {
   const projectState = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const [filterInput, setFilterInput] = useState<string>("");
-  const [filterCats, setFilterCats] = useState({
-    alphabetic: {
-      value: "asc",
-    },
-    time: {
-      value: "desc",
-    },
-  });
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted && Object.keys(router.query).length < 1) {
-      router.push(
-        {
-          query: {
-            time: filterCats.time.value,
-            alphabetic: filterCats.alphabetic.value,
-          },
-        },
-        undefined,
-        { scroll: false, shallow: true }
-      );
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const handleInput = (event: KeyboardEvent<HTMLInputElement>) => {
     if (
@@ -149,19 +125,9 @@ function Filter() {
           variant="standard"
           sx={{ ...stylesAll.filter.forms.select.container }}>
           <Select
-            value={filterCats.time.value}
+            value={projectState.sortByTime}
             onChange={(event: SelectChangeEvent) => {
-              setFilterCats({
-                ...filterCats,
-                time: { value: event.target.value },
-              });
-              router.push(
-                {
-                  query: { ...router.query, time: event.target.value },
-                },
-                undefined,
-                { scroll: false, shallow: true }
-              );
+              dispatch(changeOrder({ sortTime: event.target.value }));
             }}
             sx={{
               ...stylesAll.filter.forms.select.text,
@@ -198,19 +164,9 @@ function Filter() {
           variant="standard"
           sx={{ ...stylesAll.filter.forms.select.container }}>
           <Select
-            value={filterCats.alphabetic.value}
+            value={projectState.sortByTitle}
             onChange={(event: SelectChangeEvent) => {
-              setFilterCats({
-                ...filterCats,
-                alphabetic: { value: event.target.value },
-              });
-              router.push(
-                {
-                  query: { ...router.query, alphabetic: event.target.value },
-                },
-                undefined,
-                { scroll: false, shallow: true }
-              );
+              dispatch(changeOrder({ sortAlphabet: event.target.value }));
             }}
             sx={{
               ...stylesAll.filter.forms.select.text,
