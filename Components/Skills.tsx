@@ -48,7 +48,7 @@ function Skills({ tabData }: Props): ReactElement {
           spacing={{ ...stylesAll.skills.spacings }}
           cardWidth={{ ...stylesAll.skills.skillsWidth }}
           cardHeight={{ ...stylesAll.skills.skillsHeight }}
-          apiRequest={{ url: process.env.SKILLS, category: "skills" }}
+          category="skills"
           channelName="skillCards"
           incomingData={tabData}
         />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
 import {
   Box,
@@ -19,7 +19,6 @@ import {
   removeTag,
   changeOrder,
 } from "../../context/reducers/projectSlices";
-import { useRouter } from "next/router";
 
 const { stylesAll } = props;
 function Filter() {

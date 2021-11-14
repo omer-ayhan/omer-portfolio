@@ -67,7 +67,7 @@ function Projects({ tabData }: Props): ReactElement {
           rowSpacing={{ ...stylesAll.projects.rowSpacing }}
           cardWidth={{ ...stylesAll.projects.projectsWidth }}
           cardHeight={{ ...stylesAll.projects.projectsHeight }}
-          apiRequest={{ url: process.env.PROJECTS, category: "projects" }}
+          category="projects"
           searchInput={searchInput}
           incomingData={tabData[0]}
           channelName="projectTabs">

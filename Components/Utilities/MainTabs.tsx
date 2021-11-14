@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactElement, ReactNode, SyntheticEvent } from "react";
 import {
   Tabs,
@@ -124,7 +124,7 @@ interface IAppProps {
   cardHeight: string | number | object;
   spacing?: object | { xs: number };
   rowSpacing?: object;
-  apiRequest: { url: string; category: string };
+  category: string;
   searchInput?: string;
   channelName: string;
   incomingData: Array<TabDataTypes>;
@@ -148,7 +148,7 @@ type TabDataItems = {
 function MainTabs({
   children,
   ariaName = "tabpanel",
-  apiRequest,
+  category,
   cardWidth,
   searchInput = "",
   cardHeight,
@@ -158,7 +158,7 @@ function MainTabs({
   incomingData,
 }: IAppProps): ReactElement {
   const [value, setValue] = useState(0);
-  const stateTags = useAppSelector((state) => state.projects.tags);
+  const stateTags = useAppSelector((state) => state.projects);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -191,17 +191,32 @@ function MainTabs({
     [incomingData]
   );
 
+  useEffect(() => {
+    if (category === "projects") {
+      setTabData(
+        incomingData.map((data) => {
+          data.items.sort((a, b) =>
+            stateTags.sortByTitle === "asc"
+              ? a.title.localeCompare(b.title)
+              : b.title.localeCompare(a.title)
+          );
+          return data;
+        })
+      );
+    }
+  }, [stateTags.sortByTitle || stateTags.sortByTime]);
+
   const setSectionContent = (items: Array<TabDataItems>) => {
-    switch (apiRequest.category) {
+    switch (category) {
       case "projects":
         return items
           .filter(
             ({ title, desc, tags }) =>
-              (stateTags.length === 0 ||
+              (stateTags.tags.length === 0 ||
                 tags.some(
                   ({ title }) =>
                     title.toUpperCase() ===
-                    stateTags[stateTags.indexOf(title.toUpperCase())]
+                    stateTags.tags[stateTags.tags.indexOf(title.toUpperCase())]
                 )) &&
               (searchInput === "" ||
                 title.toUpperCase().includes(searchInput.toUpperCase()) ||
