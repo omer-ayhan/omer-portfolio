@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type ProjectStates = {
   tags: string[];
   sortByTitle: string;
-  sortByTime: string;
 };
 
 type ProjectStatesPayload = {
@@ -13,7 +12,6 @@ type ProjectStatesPayload = {
 const initialState: ProjectStates = {
   tags: [],
   sortByTitle: "asc",
-  sortByTime: "asc",
 };
 
 export const projectSlices = createSlice({
@@ -28,12 +26,8 @@ export const projectSlices = createSlice({
       const title = action.payload.title;
       state.tags.splice(state.tags.indexOf(title), 1);
     },
-    changeOrder: (
-      state,
-      action: PayloadAction<{ sortAlphabet?: string; sortTime?: string }>
-    ) => {
+    changeOrder: (state, action: PayloadAction<{ sortAlphabet?: string }>) => {
       state.sortByTitle = action.payload.sortAlphabet || state.sortByTitle;
-      state.sortByTime = action.payload.sortTime || state.sortByTime;
     },
   },
 });

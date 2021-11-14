@@ -195,16 +195,17 @@ function MainTabs({
     if (category === "projects") {
       setTabData(
         incomingData.map((data) => {
-          data.items.sort((a, b) =>
-            stateTags.sortByTitle === "asc"
-              ? a.title.localeCompare(b.title)
-              : b.title.localeCompare(a.title)
-          );
+          if (data.items.length > 1)
+            data.items.sort((a, b) =>
+              stateTags.sortByTitle === "asc"
+                ? a.title.localeCompare(b.title)
+                : b.title.localeCompare(a.title)
+            );
           return data;
         })
       );
     }
-  }, [stateTags.sortByTitle || stateTags.sortByTime]);
+  }, [stateTags.sortByTitle]);
 
   const setSectionContent = (items: Array<TabDataItems>) => {
     switch (category) {

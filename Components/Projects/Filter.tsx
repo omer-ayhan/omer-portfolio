@@ -108,7 +108,7 @@ function Filter() {
         ))}
       </Grid>
 
-      <Box
+      {/* <Box
         sx={{
           ...stylesAll.utilities.flexDefault,
           ...stylesAll.filter.forms.container,
@@ -147,7 +147,7 @@ function Filter() {
             </MenuItem>
           </Select>
         </FormControl>
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
