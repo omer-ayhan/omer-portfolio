@@ -5,11 +5,12 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "POST":
       const { email, name, message, subject } = req.body;
-      await sendgrid.send({
-        to: "om.ay247@gmail.com", // Your email where you'll receive emails
-        from: "omya123@gmail.com", // your website email address here
-        subject: `Subject : ${req.body.subject}`,
-        html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      try {
+        await sendgrid.send({
+          to: "om.ay247@gmail.com", // Your email where you'll receive emails
+          from: "omya123@gmail.com", // your website email address here
+          subject: `Subject : ${subject}`,
+          html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
         <head>
           <meta charset="utf-8">
@@ -43,8 +44,11 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
                 </div>
         </body>
         </html>`,
-      });
-      res.status(201).json({ message: "Email successfully sent" });
+        });
+        res.status(201).json({ message: "Email successfully sent" });
+      } catch (err) {
+        res.status(500).json({ message: "Error sending email" });
+      }
       break;
 
     default:
