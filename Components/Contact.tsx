@@ -17,42 +17,36 @@ function Contact(): ReactElement {
   const [open, setOpen] = useState(false);
   const [snackType, setSnackType] = useState<AlertTypes>("success");
   const [snackMsg, setSnackMsg] = useState("");
-  const [count, setCount] = useState(0);
 
-  function timeout(delay: number): Promise<void> {
-    return new Promise((res) => setTimeout(res, delay));
-  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    setCount(count + 1);
     e.preventDefault();
-    const res = await fetch("/api/sendMail", {
-      body: JSON.stringify({
-        email: email,
-        name: name,
-        subject: subject,
-        message: msg,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    const { message } = await res.json();
+    if (!open) {
+      const res = await fetch("/api/sendMail", {
+        body: JSON.stringify({
+          email: email,
+          name: name,
+          subject: subject,
+          message: msg,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      const { message } = await res.json();
 
-    if (res.status === 200 || res.status === 201) {
-      setSnackType("success");
-      setSnackMsg(message);
-      setOpen(true);
-    } else {
-      setSnackType("error");
-      setSnackMsg(message);
-      setOpen(true);
+      if (res.status === 200 || res.status === 201) {
+        setSnackType("success");
+        setSnackMsg(message);
+        setOpen(true);
+      } else {
+        setSnackType("error");
+        setSnackMsg(message);
+        setOpen(true);
+      }
+      console.log(name, email, subject, msg);
     }
-
-    console.log(name, email, subject, msg);
   };
-
-  console.log(count);
 
   const handleClose = (event?: SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
