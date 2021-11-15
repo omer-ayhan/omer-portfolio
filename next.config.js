@@ -12,5 +12,6 @@ module.exports = {
     ABLY_PUBLISH: process.env.ABLY_PUBLISH,
     ABLY_USER: process.env.ABLY_USER,
     ABLY_CLIENT_ID: process.env.ABLY_CLIENT_ID,
+    SENDGRID_API: process.env.SENDGRID_API,
   },
 };

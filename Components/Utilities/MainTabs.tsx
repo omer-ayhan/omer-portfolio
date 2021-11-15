@@ -48,6 +48,9 @@ const settings = {
         ...stylesAll.utilities.flexDefault,
         ...stylesAll.projects.card.slider.container,
         position: "relative",
+        "& .slick-dots": {
+          left: 0,
+        },
       }}>
       <List
         sx={{

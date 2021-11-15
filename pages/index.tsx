@@ -51,12 +51,6 @@ function App({ skillsData, projectsData, tagsData }: Props) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
         <meta
           name="description"
           content="Web site created using create-react-app"
@@ -109,6 +103,7 @@ export const getStaticProps: GetStaticProps = async () => {
         icon: item.icon,
       })),
     },
+    revalidate: 15,
   };
 };
 

@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Ömer Ayhan</title>
       </Head>
+      {/* @ts-ignore */}
       <PersistGate persistor={store.__persistor}>
         {() => <Component {...pageProps} />}
       </PersistGate>

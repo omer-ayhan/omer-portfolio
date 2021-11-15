@@ -13,6 +13,7 @@
     "@iconify/react": "^3.0.1",
     "@mui/material": "^5.0.2",
     "@reduxjs/toolkit": "^1.6.2",
+    "@sendgrid/mail": "^7.6.0",
     "ably": "^1.2.14",
     "axios": "^0.24.0",
     "mongodb": "^4.1.3",

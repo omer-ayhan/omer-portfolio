@@ -11,6 +11,7 @@ declare global {
       ABLY_PUBLISH: process.env.ABLY_PUBLISH;
       ABLY_USER: process.env.ABLY_USER;
       ABLY_CLIENT_ID: string;
+      SENDGRID_API: string;
     }
   }
 }

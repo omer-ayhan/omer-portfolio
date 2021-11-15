@@ -1,11 +1,38 @@
-import type { ReactElement } from "react";
+import type { ReactElement, FormEvent } from "react";
+import { useState } from "react";
 import { Grid, Typography } from "@mui/material";
+import type { Theme } from "@mui/material";
 import { FormInput, props } from "./Utilities/StylesProvider";
-import MainButton from "./Utilities/MainButton";
 import { ImageSSR } from "./Utilities/ImageSSR";
+import { adjustTextColor } from "./Utilities/ColorUtils/adjustColor";
 
 function Contact(): ReactElement {
   const { stylesAll } = props;
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [msg, setMsg] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await fetch("/api/contactMe", {
+      body: JSON.stringify({
+        email: email,
+        name: name,
+        subject: subject,
+        message: msg,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    // const { message } = await res.json();
+    // console.log(res.status);
+
+    console.log(name, email, subject, msg);
+  };
+
   return (
     <Grid
       id="contact"
@@ -45,7 +72,7 @@ function Contact(): ReactElement {
         </Typography>
       </Grid>
       <Grid item xs={10} xl={7}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Grid
             container
             spacing={3.4}
@@ -54,17 +81,32 @@ function Contact(): ReactElement {
               position: "relative",
             }}>
             <Grid item xs={12} md={6}>
-              <FormInput placeholder="Name" className="contact-form" />
+              <FormInput
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+                className="contact-form"
+                required
+              />
             </Grid>
             <Grid item xs={12} md={6}>
               <FormInput
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 className="contact-form"
+                required
               />
             </Grid>
             <Grid item xs={12}>
-              <FormInput placeholder="Subject" className="contact-form" />
+              <FormInput
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder="Subject"
+                className="contact-form"
+                required
+              />
             </Grid>
             <Grid item xs={12}>
               <FormInput
@@ -74,29 +116,38 @@ function Contact(): ReactElement {
                     overflowY: "scroll",
                   },
                 }}
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
                 inputComponent="textarea"
                 fullWidth
                 multiline
                 placeholder="Message"
                 className="contact-form message-form"
+                required
               />
             </Grid>
             <Grid item xs={12} md={5}>
-              <MainButton
-                component="span"
-                sxButton={{
+              {/* @ts-ignore */}
+              <FormInput
+                type="submit"
+                sx={{
                   ...stylesAll.contact.button.container,
-                }}
-                sxLink={{
-                  ...stylesAll.utilities.buttons.link,
-                  textDecoration: "none",
-                }}
-                sxText={{
+                  color: (theme: Theme) =>
+                    adjustTextColor(theme.palette.primary.main),
                   ...stylesAll.contact.button.text,
-                  textAlign: "center",
-                  textTransform: "none",
+                  "&:focus": {
+                    outline: "none",
+                  },
+                  "&:hover": {
+                    color: (theme: Theme) =>
+                      adjustTextColor(theme.palette.secondary.main),
+                    outline: "none",
+                    backgroundColor: "secondary.main",
+                    boxShadow: (theme: Theme) =>
+                      `0 0 27px 5px ${theme.palette.secondary.main}80`,
+                  },
                 }}
-                btn_name={"Send Message"}
+                value="Send Message"
               />
             </Grid>
           </Grid>
