@@ -532,24 +532,17 @@ const stylesAll = {
         width: { xs: "100%" },
         height: "100%",
         borderRadius: "8px",
-        border: "none",
-        backgroundColor: "primary.main",
-        transition:
-          "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-        "&,& > *": {
-          outline: "none",
-          cursor: "pointer",
-        },
+        boxShadow: "none",
       },
 
       text: {
         fontSize: {
-          xs: "1.5rem",
-          Laptop_M: "1.6rem",
-          Laptop_L: "1.85rem",
-          FourK: "2.2rem",
+          xs: "1.6rem",
+          Tablet: "1.75rem",
+          Laptop_M: "1.85rem",
+          Laptop_L: "1.95rem",
+          FourK: "2.35rem",
         },
-        fontWeight: 500,
       },
     },
   },

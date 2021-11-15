@@ -9,11 +9,13 @@ interface Props {
   sxText: object;
   to?: string;
   btn_name: string;
-  component?: "a" | "span";
+  component?: "a" | "span" | "button";
+  btnComponent?: "button" | "span";
   variant?: "contained" | "outlined" | "text";
   textColor?: string;
   allowScroll?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 const MainButton = ({
@@ -24,13 +26,16 @@ const MainButton = ({
   sxText,
   textColor = undefined,
   component = "a",
+  btnComponent = "button",
   variant = "contained",
   allowScroll = false,
   onClick = undefined,
+  ...rest
 }: Props): ReactElement => {
   return (
     <SmoothScroll toId={to} duration={1500} allowScroll={allowScroll}>
       <Button
+        component={btnComponent}
         onClick={onClick}
         sx={{
           ...sxButton,
@@ -44,7 +49,8 @@ const MainButton = ({
           },
         }}
         variant={variant}
-        color="primary">
+        color="primary"
+        {...rest}>
         <Link
           component={component}
           sx={{ ...sxLink, color: "inherit" }}

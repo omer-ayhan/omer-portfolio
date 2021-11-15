@@ -1,10 +1,12 @@
-import type { ReactElement, FormEvent } from "react";
+import type { ReactElement, FormEvent, SyntheticEvent } from "react";
 import { useState } from "react";
-import { Grid, Typography } from "@mui/material";
-import type { Theme } from "@mui/material";
+import { Alert, Grid, IconButton, Snackbar, Typography } from "@mui/material";
 import { FormInput, props } from "./Utilities/StylesProvider";
 import { ImageSSR } from "./Utilities/ImageSSR";
-import { adjustTextColor } from "./Utilities/ColorUtils/adjustColor";
+import { Icon } from "@iconify/react";
+import MainButton from "./Utilities/MainButton";
+
+type AlertTypes = "success" | "warning" | "error";
 
 function Contact(): ReactElement {
   const { stylesAll } = props;
@@ -12,10 +14,18 @@ function Contact(): ReactElement {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [msg, setMsg] = useState("");
+  const [open, setOpen] = useState(false);
+  const [snackType, setSnackType] = useState<AlertTypes>("success");
+  const [snackMsg, setSnackMsg] = useState("");
+  const [count, setCount] = useState(0);
 
+  function timeout(delay: number): Promise<void> {
+    return new Promise((res) => setTimeout(res, delay));
+  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setCount(count + 1);
     e.preventDefault();
-    const res = await fetch("/api/contactMe", {
+    const res = await fetch("/api/sendMail", {
       body: JSON.stringify({
         email: email,
         name: name,
@@ -27,10 +37,28 @@ function Contact(): ReactElement {
       },
       method: "POST",
     });
-    // const { message } = await res.json();
-    // console.log(res.status);
+    const { message } = await res.json();
+
+    if (res.status === 200 || res.status === 201) {
+      setSnackType("success");
+      setSnackMsg(message);
+      setOpen(true);
+    } else {
+      setSnackType("error");
+      setSnackMsg(message);
+      setOpen(true);
+    }
 
     console.log(name, email, subject, msg);
+  };
+
+  console.log(count);
+
+  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -43,6 +71,31 @@ function Contact(): ReactElement {
         ...stylesAll.contact.container,
         position: "relative",
       }}>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert
+          variant="filled"
+          severity={snackType}
+          action={
+            <IconButton
+              onClick={handleClose}
+              size="medium"
+              sx={{
+                ...stylesAll.setColor.snackBar.action,
+              }}>
+              <Icon icon="entypo:cross" />
+            </IconButton>
+          }>
+          <Typography
+            variant="h6"
+            sx={{
+              ...stylesAll.setColor.snackBar.text,
+            }}
+            color="common.white">
+            {snackMsg}
+          </Typography>
+        </Alert>
+      </Snackbar>
+
       <ImageSSR className="contact-bg" path="/img/Background/bg_contact.svg" />
       <Grid
         item
@@ -127,27 +180,23 @@ function Contact(): ReactElement {
               />
             </Grid>
             <Grid item xs={12} md={5}>
-              {/* @ts-ignore */}
-              <FormInput
-                type="submit"
-                sx={{
+              <MainButton
+                btnComponent="span"
+                component="button"
+                sxButton={{
                   ...stylesAll.contact.button.container,
-                  color: (theme: Theme) =>
-                    adjustTextColor(theme.palette.primary.main),
-                  ...stylesAll.contact.button.text,
-                  "&:focus": {
-                    outline: "none",
-                  },
-                  "&:hover": {
-                    color: (theme: Theme) =>
-                      adjustTextColor(theme.palette.secondary.main),
-                    outline: "none",
-                    backgroundColor: "secondary.main",
-                    boxShadow: (theme: Theme) =>
-                      `0 0 27px 5px ${theme.palette.secondary.main}80`,
-                  },
                 }}
-                value="Send Message"
+                sxLink={{
+                  ...stylesAll.utilities.buttons.link,
+                  textDecoration: "none",
+                }}
+                sxText={{
+                  ...stylesAll.contact.button.text,
+                  textAlign: "center",
+                  textTransform: "none",
+                }}
+                btn_name={"Send Message"}
+                disabled={open}
               />
             </Grid>
           </Grid>
