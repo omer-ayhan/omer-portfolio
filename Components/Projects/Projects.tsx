@@ -6,7 +6,7 @@ import MainTabs from "../Utilities/MainTabs";
 import Popup from "../Utilities/Popup";
 import { FormInput, props } from "../Utilities/StylesProvider";
 import Filter from "./Filter";
-import { ImageSSR } from "../Utilities/ImageSSR";
+import ImageSSR from "../Utilities/ImageSSR";
 import ProjectTags from "./ProjectTags";
 
 type TabDataTypes = {

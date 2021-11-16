@@ -2,7 +2,7 @@ import type { ReactElement, FormEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { Alert, Grid, IconButton, Snackbar, Typography } from "@mui/material";
 import { FormInput, props } from "./Utilities/StylesProvider";
-import { ImageSSR } from "./Utilities/ImageSSR";
+import ImageSSR from "./Utilities/ImageSSR";
 import { Icon } from "@iconify/react";
 import MainButton from "./Utilities/MainButton";
 

@@ -1,4 +1,5 @@
 import type { ElementType } from "react";
+import { memo } from "react";
 import Image from "next/image";
 import { Box } from "@mui/material";
 
@@ -13,7 +14,7 @@ interface Props {
   priorty?: boolean;
 }
 
-export const ImageSSR = ({
+const ImageSSR = ({
   className = "",
   id = "",
   path,
@@ -36,3 +37,5 @@ export const ImageSSR = ({
     </Box>
   );
 };
+
+export default memo(ImageSSR);

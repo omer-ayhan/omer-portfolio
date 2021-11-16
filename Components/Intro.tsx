@@ -3,7 +3,7 @@ import { linksMain, props } from "./Utilities/StylesProvider";
 import MainButton from "./Utilities/MainButton";
 import SvgImages from "./Utilities/SvgImages";
 import Slider from "react-slick";
-import { ImageSSR } from "./Utilities/ImageSSR";
+import ImageSSR from "./Utilities/ImageSSR";
 
 const Intro = () => {
   const { stylesAll } = props;

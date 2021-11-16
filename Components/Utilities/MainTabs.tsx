@@ -16,7 +16,7 @@ import { props } from "./StylesProvider";
 import { useAppSelector } from "../../context/hooks";
 import useChannels from "./useChannels";
 import Slider from "react-slick";
-import { ImageSSR } from "./ImageSSR";
+import ImageSSR from "./ImageSSR";
 import Truncation from "../Projects/Truncation";
 import MainTag from "./MainTag";
 import MainButton from "./MainButton";

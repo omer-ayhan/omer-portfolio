@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { props, tabObjects } from "./Utilities/StylesProvider";
 import MainButton from "./Utilities/MainButton";
-import { ImageSSR } from "./Utilities/ImageSSR";
+import ImageSSR from "./Utilities/ImageSSR";
 
 function Blogs(): ReactElement {
   const { stylesAll, colors } = props;

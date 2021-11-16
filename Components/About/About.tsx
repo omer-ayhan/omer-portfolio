@@ -4,7 +4,7 @@ import { props } from "../Utilities/StylesProvider";
 import MainButton from "../Utilities/MainButton";
 import SvgImages from "../Utilities/SvgImages";
 import SocialIcons from "./SocialIcons";
-import { ImageSSR } from "../Utilities/ImageSSR";
+import ImageSSR from "../Utilities/ImageSSR";
 
 const { stylesAll } = props;
 function About(): ReactElement {
