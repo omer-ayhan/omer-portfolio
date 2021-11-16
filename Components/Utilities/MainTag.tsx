@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { MouseEvent, ReactElement } from "react";
 import { Icon } from "@iconify/react";
 import { Typography, Box } from "@mui/material";
@@ -15,6 +15,7 @@ interface Props {
   isClickable?: boolean;
   onClick?: (ev: MouseEvent<HTMLDivElement>) => void;
 }
+const { colors } = props;
 
 const MainTag = ({
   sxBox,
@@ -26,7 +27,6 @@ const MainTag = ({
   isClickable = false,
 }: Props): ReactElement => {
   const projectState = useAppSelector((state) => state.projects.tags);
-  const { colors } = props;
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -39,31 +39,35 @@ const MainTag = ({
     };
   }, [projectState]);
 
-  return (
-    <Box
-      component="span"
-      onClick={() => (isClickable ? setToggle(!toggle) : undefined)}>
+  return useMemo(
+    () => (
       <Box
-        onClick={onClick}
-        sx={{
-          ...sxBox,
-          ...(isClickable && toggle
-            ? {
-                backgroundColor: "secondary.main",
-                color: (theme) => adjustTextColor(theme.palette.secondary.main),
-              }
-            : {
-                backgroundColor: colors.ElBackground,
-                color: "text.primary",
-              }),
-          transition: "420ms ease",
-        }}>
-        <Icon icon={icon} className={className} />
-        <Typography variant="subtitle1" sx={{ ...sxText }}>
-          {title}
-        </Typography>
+        component="span"
+        onClick={() => (isClickable ? setToggle(!toggle) : undefined)}>
+        <Box
+          onClick={onClick}
+          sx={{
+            ...sxBox,
+            ...(isClickable && toggle
+              ? {
+                  backgroundColor: "secondary.main",
+                  color: (theme) =>
+                    adjustTextColor(theme.palette.secondary.main),
+                }
+              : {
+                  backgroundColor: colors.ElBackground,
+                  color: "text.primary",
+                }),
+            transition: "420ms ease",
+          }}>
+          <Icon icon={icon} className={className} />
+          <Typography variant="subtitle1" sx={{ ...sxText }}>
+            {title}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    ),
+    [toggle]
   );
 };
 

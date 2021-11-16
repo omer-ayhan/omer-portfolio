@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import type { ReactElement } from "react";
 import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
@@ -64,14 +64,14 @@ function ProjectTags({ incomingData }: Props): ReactElement {
     [incomingData]
   );
 
-  const handleTags = (tags: string[], title: string) => {
+  const handleTags = useCallback((tags: string[], title: string) => {
     let titleText = title.toUpperCase();
     if (tags.includes(titleText)) {
       dispatch(removeTag({ title: titleText }));
     } else {
       dispatch(addTag({ title: titleText }));
     }
-  };
+  }, []);
 
   return (
     <Grid container spacing={1} justifyContent="center" alignItems="center">
@@ -96,4 +96,4 @@ function ProjectTags({ incomingData }: Props): ReactElement {
   );
 }
 
-export default ProjectTags;
+export default memo(ProjectTags);

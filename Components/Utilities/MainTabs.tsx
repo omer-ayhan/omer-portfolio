@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, memo } from "react";
+import { useCallback, useEffect, useState, memo, useMemo } from "react";
 import type { ReactElement, ReactNode, SyntheticEvent } from "react";
 import {
   Tabs,
@@ -86,30 +86,33 @@ function TabPanel({
   rowSpacing,
   ...rest
 }: TabPanelProps): ReactElement {
-  return (
-    <Box
-      mt={0}
-      role="tabpanel"
-      hidden={value !== index}
-      id={`${ariaName}-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...rest}>
-      {value === index && (
-        <Grid
-          container
-          spacing={{ ...spacing }}
-          rowSpacing={{ ...(rowSpacing || spacing) }}
-          sx={{
-            ...stylesAll.mainTabs.tabPanel.container,
-            width: cardWidth,
-            height: cardHeight,
-            overflow: "hidden",
-            overflowY: "scroll",
-          }}>
-          {children}
-        </Grid>
-      )}
-    </Box>
+  return useMemo(
+    () => (
+      <Box
+        mt={0}
+        role="tabpanel"
+        hidden={value !== index}
+        id={`${ariaName}-${index}`}
+        aria-labelledby={`tab-${index}`}
+        {...rest}>
+        {value === index && (
+          <Grid
+            container
+            spacing={{ ...spacing }}
+            rowSpacing={{ ...(rowSpacing || spacing) }}
+            sx={{
+              ...stylesAll.mainTabs.tabPanel.container,
+              width: cardWidth,
+              height: cardHeight,
+              overflow: "hidden",
+              overflowY: "scroll",
+            }}>
+            {children}
+          </Grid>
+        )}
+      </Box>
+    ),
+    [value, children]
   );
 }
 

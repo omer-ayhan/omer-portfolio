@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Link, Typography } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 
@@ -10,7 +10,7 @@ const { stylesAll } = props;
 const Truncation = ({ text }: Props) => {
   const [showText, setShowText] = useState(false);
 
-  const truncate = () => {
+  const truncate = useCallback(() => {
     if (text.length > 99) {
       if (showText) {
         return (
@@ -45,7 +45,7 @@ const Truncation = ({ text }: Props) => {
         );
       }
     } else return <>{text}</>;
-  };
+  }, [showText]);
 
   return (
     <Typography
