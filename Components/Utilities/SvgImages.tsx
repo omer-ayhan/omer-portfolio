@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { useCallback } from "react";
 import type { FC, ReactElement } from "react";
 import { useAppSelector } from "../../context/hooks";
 
@@ -125,4 +125,4 @@ const SvgImages: FC<Props> = ({ svgType }): ReactElement => {
   return <>{handleSvg(svgType)}</>;
 };
 
-export default memo(SvgImages);
+export default SvgImages;

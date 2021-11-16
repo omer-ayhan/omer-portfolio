@@ -12,6 +12,9 @@ interface Props {
   objectFit?: "cover" | "contain" | "fill";
   comp?: ElementType<any>;
   priorty?: boolean;
+  layout?: "fill" | "fixed" | "intrinsic" | "responsive";
+  width?: number | string;
+  height?: number | string;
 }
 
 const ImageSSR = ({
@@ -23,17 +26,20 @@ const ImageSSR = ({
   comp = "span",
   objectFit = "cover",
   priorty = false,
+  layout = "fill",
+  ...rest
 }: Props) => {
   return useMemo(
     () => (
       <Box component={comp} className={className} id={id} sx={{ ...sx }}>
         <Image
           src={path}
-          layout="fill"
+          layout={layout}
           className="image-element"
           alt={alt}
           objectFit={objectFit}
           priority={priorty}
+          {...rest}
         />
       </Box>
     ),

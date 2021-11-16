@@ -96,4 +96,4 @@ function ProjectTags({ incomingData }: Props): ReactElement {
   );
 }
 
-export default memo(ProjectTags);
+export default ProjectTags;
