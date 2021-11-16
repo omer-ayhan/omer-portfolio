@@ -1,5 +1,5 @@
+import { cloneElement, useState, useCallback } from "react";
 import type { ReactElement, KeyboardEvent, MouseEvent } from "react";
-import { cloneElement, useState } from "react";
 import {
   AppBar,
   Box,
@@ -59,7 +59,7 @@ function Navbar(): ReactElement {
     right: false,
   });
 
-  const toggleDrawer =
+  const toggleDrawer = useCallback(
     (anchor: Anchor, open: boolean) => (event: KeyboardEvent | MouseEvent) => {
       if (
         event &&
@@ -71,7 +71,9 @@ function Navbar(): ReactElement {
       }
 
       setSwipe({ ...swipe, [anchor]: open });
-    };
+    },
+    []
+  );
 
   const mobileMenu = (anchor: Anchor) => (
     <Box role="presentation" onKeyDown={toggleDrawer(anchor, false)}>

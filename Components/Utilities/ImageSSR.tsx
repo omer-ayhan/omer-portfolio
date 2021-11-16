@@ -1,5 +1,5 @@
 import type { ElementType } from "react";
-import { memo } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import { Box } from "@mui/material";
 
@@ -24,18 +24,21 @@ const ImageSSR = ({
   objectFit = "cover",
   priorty = false,
 }: Props) => {
-  return (
-    <Box component={comp} className={className} id={id} sx={{ ...sx }}>
-      <Image
-        src={path}
-        layout="fill"
-        className="image-element"
-        alt={alt}
-        objectFit={objectFit}
-        priority={priorty}
-      />
-    </Box>
+  return useMemo(
+    () => (
+      <Box component={comp} className={className} id={id} sx={{ ...sx }}>
+        <Image
+          src={path}
+          layout="fill"
+          className="image-element"
+          alt={alt}
+          objectFit={objectFit}
+          priority={priorty}
+        />
+      </Box>
+    ),
+    [className, id, path, alt, comp, objectFit, priorty]
   );
 };
 
-export default memo(ImageSSR);
+export default ImageSSR;
