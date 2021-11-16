@@ -28,8 +28,8 @@ function Contact(): ReactElement {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCount(count + 1);
     if (!open) {
+      setCount(count + 1);
       const res = await fetch("/api/sendMail", {
         body: JSON.stringify({
           email: email,

@@ -5,9 +5,8 @@ import { Icon } from "@iconify/react";
 import SvgImages from "./Utilities/SvgImages";
 import SmoothScroll from "./Utilities/ScrollUtils/SmoothScroll";
 
+const { stylesAll, colors } = props;
 function Footer(): ReactElement {
-  const { stylesAll, colors } = props;
-
   return (
     <Paper
       sx={{
