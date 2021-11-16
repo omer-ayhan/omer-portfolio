@@ -122,6 +122,7 @@ function Blogs(): ReactElement {
                       }}
                       to={"#intro"}
                       btn_name={"Read More"}
+                      disabled
                     />
                   </CardActions>
                 </Card>

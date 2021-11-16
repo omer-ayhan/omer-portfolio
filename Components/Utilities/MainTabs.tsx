@@ -246,6 +246,10 @@ function MainTabs({
                       sx={{
                         position: "relative",
                         width: "100%",
+                        cursor: img.length > 1 && "grab",
+                        "&:active": {
+                          cursor: img.length > 1 && "grabbing",
+                        },
                         height: {
                           xs: "145px",
                           Mobile_L: "165px",

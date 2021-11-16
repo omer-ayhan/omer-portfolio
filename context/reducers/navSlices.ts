@@ -22,7 +22,7 @@ type PayloadTypesLang = {
 };
 
 const initialState: NavStates = {
-  isDarkMode: true,
+  isDarkMode: false,
   lang: linksMain.langs[0].label,
   langFlag: linksMain.langs[0].flag,
   Primary: "#f79c00",
