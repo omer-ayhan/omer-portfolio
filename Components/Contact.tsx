@@ -17,9 +17,18 @@ function Contact(): ReactElement {
   const [open, setOpen] = useState(false);
   const [snackType, setSnackType] = useState<AlertTypes>("success");
   const [snackMsg, setSnackMsg] = useState("");
+  const [count, setCount] = useState(0);
+
+  const cleanFields = () => {
+    setName("");
+    setEmail("");
+    setSubject("");
+    setMsg("");
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setCount(count + 1);
     if (!open) {
       const res = await fetch("/api/sendMail", {
         body: JSON.stringify({
@@ -33,6 +42,7 @@ function Contact(): ReactElement {
         },
         method: "POST",
       });
+      cleanFields();
       const { message } = await res.json();
 
       if (res.status === 200 || res.status === 201) {
@@ -44,9 +54,11 @@ function Contact(): ReactElement {
         setSnackMsg(message);
         setOpen(true);
       }
-      console.log(name, email, subject, msg);
     }
+    console.log(name, email, subject, msg);
   };
+
+  console.log(count);
 
   const handleClose = (event?: SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
