@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { scrollTo } from "./scrollTo";
 
 interface Props {
@@ -30,4 +31,4 @@ const SmoothScroll = ({
   );
 };
 
-export default SmoothScroll;
+export default memo(SmoothScroll);

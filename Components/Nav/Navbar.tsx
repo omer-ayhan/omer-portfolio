@@ -1,5 +1,5 @@
 import type { ReactElement, KeyboardEvent, MouseEvent } from "react";
-import { cloneElement, useState } from "react";
+import { cloneElement, useState, memo } from "react";
 
 import {
   AppBar,

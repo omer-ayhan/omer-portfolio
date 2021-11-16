@@ -1,5 +1,5 @@
-import { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
-import { useState } from "react";
+import type { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
+import { useState, useCallback } from "react";
 import {
   Alert,
   Box,
@@ -71,7 +71,7 @@ const SetColor = () => {
     return `#${hexColor}`;
   };
 
-  const applyColor = async () => {
+  const applyColor = useCallback(async () => {
     let hexColor = colorInput;
     let hexLength = hexColor.length;
     if (hexLength < 3 || (hexLength > 3 && hexLength < 6)) {
@@ -80,7 +80,7 @@ const SetColor = () => {
     } else {
       dispatch(changeColor({ [colorCat]: convertToHexSix(hexColor) }));
     }
-  };
+  }, [colorInput]);
 
   return (
     <Box
@@ -258,14 +258,14 @@ const SetColor = () => {
       />
       <MainButton
         variant="outlined"
-        onClick={() =>
+        onClick={useCallback(() => {
           dispatch(
             resetColor({
               Primary: colorsAll.Primary,
               Secondary: colorsAll.Secondary,
             })
-          )
-        }
+          );
+        }, [])}
         sxButton={{
           ...stylesAll.utilities.buttons.container,
           ...stylesAll.setColor.button.container,

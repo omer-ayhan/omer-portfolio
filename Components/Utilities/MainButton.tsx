@@ -1,4 +1,5 @@
 import type { MouseEventHandler, ReactElement } from "react";
+import { memo } from "react";
 import { Button, Link, Typography } from "@mui/material";
 import SmoothScroll from "./ScrollUtils/SmoothScroll";
 import { adjustTextColor } from "./ColorUtils/adjustColor";
@@ -71,4 +72,4 @@ const MainButton = ({
   );
 };
 
-export default MainButton;
+export default memo(MainButton);

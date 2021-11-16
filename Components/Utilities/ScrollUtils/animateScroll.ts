@@ -57,6 +57,10 @@ export function animateScroll({
     window.addEventListener("wheel", () =>
       cancelAnimationFrame(animationFrame)
     );
+
+    window.addEventListener("touchmove", () =>
+      cancelAnimationFrame(animationFrame)
+    );
   }
 
   animationFrame = requestAnimationFrame(step);
