@@ -22,9 +22,8 @@ interface Props {
   tabData: Array<TabDataTypes>;
 }
 
+const { stylesAll } = StyleProps;
 function Skills({ tabData }: Props): ReactElement {
-  const { stylesAll } = StyleProps;
-
   return (
     <Grid
       id="skills"

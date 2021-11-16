@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { ReactElement } from "react";
 import { Link, Box } from "@mui/material";
 import { Icon } from "@iconify/react";
@@ -38,4 +39,4 @@ function SocialIcons({ sxBox }: { sxBox: object }): ReactElement {
   );
 }
 
-export default SocialIcons;
+export default memo(SocialIcons);

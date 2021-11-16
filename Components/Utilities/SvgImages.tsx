@@ -1,4 +1,5 @@
-import { FC, ReactElement, useCallback, memo } from "react";
+import { memo, useCallback } from "react";
+import type { FC, ReactElement } from "react";
 import { useAppSelector } from "../../context/hooks";
 
 type Props = {
