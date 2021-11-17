@@ -131,7 +131,11 @@ function Contact(): ReactElement {
         </Typography>
       </Grid>
       <Grid item xs={10} xl={7}>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          onKeyDown={(e) =>
+            (e.key === "U+000A" || e.key === "Enter") && e.preventDefault()
+          }>
           <Grid
             container
             spacing={3.4}
