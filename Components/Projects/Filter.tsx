@@ -1,16 +1,11 @@
 import { useState } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
-import {
-  Box,
-  Chip,
-  FormControl,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, FormControl, Grid, MenuItem } from "@mui/material";
 import dynamic from "next/dynamic";
+import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 const Tooltip = dynamic(() => import("@mui/material/Tooltip"));
 import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";

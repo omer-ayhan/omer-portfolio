@@ -9,10 +9,10 @@ import {
   ListItem,
   ListItemText,
   SwipeableDrawer,
-  Theme,
   Typography,
   useScrollTrigger,
 } from "@mui/material";
+import type { Theme } from "@mui/material";
 import { linksMain, props } from "../Utilities/StylesProvider";
 import ThemeSwitch from "../Utilities/ThemeSwitch";
 import { Icon } from "@iconify/react";
