@@ -12,8 +12,8 @@ import { props, tabObjects } from "./Utilities/StylesProvider";
 import MainButton from "./Utilities/MainButton";
 import ImageSSR from "./Utilities/ImageSSR";
 
-const { stylesAll, colors } = props;
 function Blogs(): ReactElement {
+  const { stylesAll, colors } = props;
   return (
     <Grid
       id="blogs"

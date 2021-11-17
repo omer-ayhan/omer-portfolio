@@ -11,9 +11,10 @@ import {
   Select,
   Snackbar,
   TextField,
-  Tooltip,
   Typography,
 } from "@mui/material";
+import dynamic from "next/dynamic";
+const Tooltip = dynamic(() => import("@mui/material/Tooltip"));
 import type { SelectChangeEvent } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import { Icon } from "@iconify/react";

@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
-import MainTabs from "./Utilities/MainTabs";
+// import MainTabs from "./Utilities/MainTabs";
 import { props as StyleProps } from "./Utilities/StylesProvider";
+import dynamic from "next/dynamic";
+const MainTabs = dynamic(() => import("./Utilities/MainTabs"));
 
 type TabDataTypes = {
   title: string;

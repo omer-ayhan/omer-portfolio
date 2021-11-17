@@ -18,7 +18,11 @@ import ThemeSwitch from "../Utilities/ThemeSwitch";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
 import SvgImages from "../Utilities/SvgImages";
-import SetColor from "./SetColor";
+import dynamic from "next/dynamic";
+const SetColor = dynamic(() => import("./SetColor"), {
+  loading: () => <div>Loading...</div>,
+});
+// import SetColor from "./SetColor";
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import { changeLang } from "../../context/reducers/navSlices";
 import { useAppSelector, useAppDispatch } from "../../context/hooks";

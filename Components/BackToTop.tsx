@@ -2,7 +2,7 @@ import { Box, Fab, useScrollTrigger, Zoom } from "@mui/material";
 import SmoothScroll from "./Utilities/ScrollUtils/SmoothScroll";
 import { Icon } from "@iconify/react";
 
-export const BackToTop = () => {
+const BackToTop = () => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 280,
@@ -38,3 +38,4 @@ export const BackToTop = () => {
     </SmoothScroll>
   );
 };
+export default BackToTop;

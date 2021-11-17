@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import type { ReactElement } from "react";
 import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";

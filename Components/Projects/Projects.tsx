@@ -2,12 +2,18 @@ import { useState } from "react";
 import type { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
-import MainTabs from "../Utilities/MainTabs";
+// import MainTabs from "../Utilities/MainTabs";
 import Popup from "../Utilities/Popup";
 import { FormInput, props } from "../Utilities/StylesProvider";
-import Filter from "./Filter";
+// import Filter from "./Filter";
 import ImageSSR from "../Utilities/ImageSSR";
-import ProjectTags from "./ProjectTags";
+// import ProjectTags from "./ProjectTags";
+import dynamic from "next/dynamic";
+const MainTabs = dynamic(() => import("../Utilities/MainTabs"));
+const ProjectTags = dynamic(() => import("./ProjectTags"));
+const Filter = dynamic(() => import("./Filter"), {
+  loading: () => <div>Loading...</div>,
+});
 
 type TabDataTypes = {
   title: string;

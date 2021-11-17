@@ -1,23 +1,30 @@
-import React from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import Navbar from "../Components/Nav/Navbar";
 import Intro from "../Components/Intro";
 import StylesProvider, { props } from "../Components/Utilities/StylesProvider";
 import { Box } from "@mui/material";
 import About from "../Components/About/About";
-import Skills from "../Components/Skills";
-import Projects from "../Components/Projects/Projects";
-import Blogs from "../Components/Blogs";
-import Contact from "../Components/Contact";
-import Footer from "../Components/Footer";
+// import Skills from "../Components/Skills";
+// import Projects from "../Components/Projects/Projects";
+// import Blogs from "../Components/Blogs";
+// import Contact from "../Components/Contact";
+// import Footer from "../Components/Footer";
+// import BackToTop from "../Components/BackToTop";
 import { useAppSelector } from "../context/hooks";
-import { BackToTop } from "../Components/BackToTop";
 import connectToDB from "../lib/database";
 import type { Db } from "mongodb";
 import type { GetStaticProps } from "next";
 import cardEmitters from "../lib/changeEvents";
 import connectToAbly from "../lib/connectToAbly";
 import type { Realtime, Types } from "ably";
+import dynamic from "next/dynamic";
+const Skills = dynamic(() => import("../Components/Skills"));
+const Projects = dynamic(() => import("../Components/Projects/Projects"));
+const Blogs = dynamic(() => import("../Components/Blogs"));
+const Contact = dynamic(() => import("../Components/Contact"));
+const BackToTop = dynamic(() => import("../Components/BackToTop"));
+const Footer = dynamic(() => import("../Components/Footer"));
 
 type TabDataTypes = {
   title: string;
@@ -43,7 +50,7 @@ interface Props {
 function App({ skillsData, projectsData, tagsData }: Props) {
   const themeMode = useAppSelector((state) => state.nav.isDarkMode);
   const { colors } = props;
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.style.backgroundColor = themeMode ? colors.Darkdef : "#fff";
   }, [themeMode]);
 
@@ -101,7 +108,7 @@ export const getStaticProps: GetStaticProps = async () => {
         icon: item.icon,
       })),
     },
-    revalidate: 15,
+    revalidate: 2,
   };
 };
 

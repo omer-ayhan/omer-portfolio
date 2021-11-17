@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 require("dotenv").config();
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
@@ -14,4 +17,4 @@ module.exports = {
     ABLY_CLIENT_ID: process.env.ABLY_CLIENT_ID,
     SENDGRID_API: process.env.SENDGRID_API,
   },
-};
+});
