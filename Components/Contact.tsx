@@ -102,7 +102,7 @@ function Contact(): ReactElement {
         </Alert>
       </Snackbar>
 
-      <ImageSSR className="contact-bg" path="/img/Background/bg_contact.svg" />
+      <ImageSSR className="contact-bg" path="/img/Background/bg_contact.png" />
       <Grid
         item
         xs={12}

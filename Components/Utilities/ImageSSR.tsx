@@ -39,6 +39,7 @@ const ImageSSR = ({
           alt={alt}
           objectFit={objectFit}
           priority={priorty}
+          // placeholder="blur"
           {...rest}
         />
       </Box>

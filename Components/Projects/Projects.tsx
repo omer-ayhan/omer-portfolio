@@ -43,7 +43,7 @@ function Projects({ tabData }: Props): ReactElement {
       spacing={1}>
       <ImageSSR
         className="projects-bg"
-        path="/img/Background/bg_projects.svg"
+        path="/img/Background/bg_projects.png"
       />
       <Grid
         item

@@ -10,7 +10,7 @@ const Intro = () => {
   const [intro_svg, intro_img, bg_intro] = [
     "/img/Intro_Img/intro_illustration_animated2.svg",
     "/img/Intro_Img/intro_illustration_photo.png",
-    "/img/Background/bg_intro.svg",
+    "/img/Background/bg_intro.png",
   ];
   const settings = {
     className: "slides-wrapper",

@@ -50,13 +50,11 @@ function App({ skillsData, projectsData, tagsData }: Props) {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
           content="Web site created using create-react-app"
         />
         <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
-        <link rel="manifest" href="/manifest.json" />
       </Head>
       <StylesProvider>
         <Box className="App">

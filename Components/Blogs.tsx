@@ -21,7 +21,7 @@ function Blogs(): ReactElement {
       spacing={0}
       columnSpacing={{ Laptop: 5, FourK: 2 }}
       sx={{ ...stylesAll.utilities.gridContainer, position: "relative" }}>
-      <ImageSSR className="blogs-bg" path="/img/Background/bg_blogs.svg" />
+      <ImageSSR className="blogs-bg" path="/img/Background/bg_blogs.png" />
       <Grid item xs={12}>
         <Typography
           variant="h3"
