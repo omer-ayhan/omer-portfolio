@@ -24,6 +24,12 @@ function Contact(): ReactElement {
   const [open, setOpen] = useState(false);
   const [snackType, setSnackType] = useState<AlertTypes>("success");
   const [snackMsg, setSnackMsg] = useState("");
+  const [tooltipOpen, setTooltipOpen] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    message: false,
+  });
   const [count, setCount] = useState(0);
 
   const cleanFields = () => {
@@ -156,6 +162,26 @@ function Contact(): ReactElement {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
                 className="contact-form"
+                endAdornment={
+                  <Tooltip
+                    onClose={() =>
+                      setTooltipOpen({ ...tooltipOpen, name: false })
+                    }
+                    open={tooltipOpen.name}
+                    title={
+                      <Typography variant="body2">
+                        Name must be at least 2 characters
+                      </Typography>
+                    }>
+                    <Icon
+                      onClick={() =>
+                        setTooltipOpen({ ...tooltipOpen, name: true })
+                      }
+                      style={{ cursor: "pointer", zIndex: 15 }}
+                      icon="fe:warning"
+                    />
+                  </Tooltip>
+                }
                 required
               />
             </Grid>
@@ -166,6 +192,27 @@ function Contact(): ReactElement {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 className="contact-form"
+                endAdornment={
+                  <Tooltip
+                    onClose={() =>
+                      setTooltipOpen({ ...tooltipOpen, email: false })
+                    }
+                    open={tooltipOpen.email}
+                    title={
+                      <Typography variant="body2">
+                        Email must include @ and . and must be at least 5
+                        characters long
+                      </Typography>
+                    }>
+                    <Icon
+                      onClick={() =>
+                        setTooltipOpen({ ...tooltipOpen, email: true })
+                      }
+                      style={{ cursor: "pointer", zIndex: 15 }}
+                      icon="fe:warning"
+                    />
+                  </Tooltip>
+                }
                 required
               />
             </Grid>
@@ -175,6 +222,26 @@ function Contact(): ReactElement {
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="Subject"
                 className="contact-form"
+                endAdornment={
+                  <Tooltip
+                    onClose={() =>
+                      setTooltipOpen({ ...tooltipOpen, subject: false })
+                    }
+                    open={tooltipOpen.subject}
+                    title={
+                      <Typography variant="body2">
+                        Subject must contain at least 5 characters long
+                      </Typography>
+                    }>
+                    <Icon
+                      onClick={() =>
+                        setTooltipOpen({ ...tooltipOpen, subject: true })
+                      }
+                      style={{ cursor: "pointer", zIndex: 15 }}
+                      icon="fe:warning"
+                    />
+                  </Tooltip>
+                }
                 required
               />
             </Grid>
@@ -193,6 +260,30 @@ function Contact(): ReactElement {
                 multiline
                 placeholder="Message"
                 className="contact-form message-form"
+                endAdornment={
+                  <Tooltip
+                    onClose={() =>
+                      setTooltipOpen({ ...tooltipOpen, message: false })
+                    }
+                    open={tooltipOpen.message}
+                    title={
+                      <Typography variant="body2">
+                        Message must be at least 25 characters long
+                      </Typography>
+                    }>
+                    <Icon
+                      onClick={() =>
+                        setTooltipOpen({ ...tooltipOpen, message: true })
+                      }
+                      style={{
+                        marginBottom: "auto",
+                        cursor: "pointer",
+                        zIndex: 15,
+                      }}
+                      icon="fe:warning"
+                    />
+                  </Tooltip>
+                }
                 required
               />
             </Grid>
