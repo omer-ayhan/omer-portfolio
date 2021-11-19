@@ -68,9 +68,9 @@ function Contact(): ReactElement {
       const { message } = await res.json();
 
       if (res.status === 200 || res.status === 201) {
+        console.log(name, email, subject, msg, token);
         cleanFields();
         setToken(null);
-        recaptchaRef.current?.reset();
         setSnackType("success");
         setSnackMsg(message);
         setOpen(true);
@@ -80,11 +80,10 @@ function Contact(): ReactElement {
         setOpen(true);
       }
     }
-    console.log(name, email, subject, msg);
+    recaptchaRef.current?.reset();
   };
 
   const onReCAPTCHAChange = (captchaCode: string | null) => {
-    console.log(captchaCode);
     if (!captchaCode) {
       return;
     }
@@ -220,8 +219,8 @@ function Contact(): ReactElement {
                     open={tooltipOpen.email}
                     title={
                       <Typography variant="body2">
-                        Email must include @ and . and must be at least 5
-                        characters long
+                        Email must include @ and . characters and must be at
+                        least 5 characters long
                       </Typography>
                     }>
                     <Icon

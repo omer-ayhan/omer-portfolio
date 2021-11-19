@@ -4,7 +4,7 @@ import { RateLimiterMemory } from "rate-limiter-flexible";
 
 const rateLimiter = new RateLimiterMemory({
   points: 3,
-  duration: 30,
+  duration: 40,
 });
 
 sendgrid.setApiKey(process.env.SENDGRID_API);
@@ -73,7 +73,7 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
           })
           .catch((rej) => {
             res.status(429).json({
-              message: "Too many requests. Please try again in 30 seconds.",
+              message: `Too many requests. Please try again in ${rateLimiter.duration} seconds.`,
             });
           });
       } catch (err) {
@@ -117,7 +117,7 @@ const checkValidation = async (
     return {
       status: 400,
       message:
-        "Email must include @ and . and must be at least 5 characters long",
+        "Email must include @ and . characters and must be at least 5 characters long",
       isValid: false,
     };
   }
@@ -149,7 +149,7 @@ const validateCaptcha = async (response_key: string | null) => {
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
 
     fetch(url, {
-      method: "post",
+      method: "POST",
     })
       .then((response) => response.json())
       .then((google_response) => {
