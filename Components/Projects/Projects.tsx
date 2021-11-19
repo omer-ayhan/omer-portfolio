@@ -94,8 +94,8 @@ function Projects({ tabData }: Props): ReactElement {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setSearchInput(e.target.value)
                 }
+                startAdornment={<Icon id="search-icon" icon="fe:search" />}
               />
-              <Icon id="search-icon" icon="fe:search" />
               <span id="filter">
                 <Popup
                   btn={<Icon id="filter-icon" icon="fluent:filter-24-filled" />}

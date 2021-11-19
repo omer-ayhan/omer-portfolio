@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Link, Typography } from "@mui/material";
 import { props } from "../Utilities/StylesProvider";
 import MainButton from "../Utilities/MainButton";
 import SvgImages from "../Utilities/SvgImages";
@@ -100,7 +100,10 @@ function About(): ReactElement {
               marginTop: "10px",
             }}
             color="text.primary">
-            <b>Email:</b> om.ayhan247@gmail.com
+            <b>Email:</b>{" "}
+            <Link href="mailto:om.ayhan247@gmail.com">
+              om.ayhan247@gmail.com
+            </Link>
           </Typography>
         </Grid>
         <Grid item xs={12}>

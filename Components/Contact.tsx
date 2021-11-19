@@ -170,7 +170,7 @@ function Contact(): ReactElement {
                     open={tooltipOpen.name}
                     title={
                       <Typography variant="body2">
-                        Name must be at least 2 characters
+                        Name must be at least 2 characters long
                       </Typography>
                     }>
                     <Icon
@@ -230,7 +230,7 @@ function Contact(): ReactElement {
                     open={tooltipOpen.subject}
                     title={
                       <Typography variant="body2">
-                        Subject must contain at least 5 characters long
+                        Subject must be at least 5 characters long
                       </Typography>
                     }>
                     <Icon
