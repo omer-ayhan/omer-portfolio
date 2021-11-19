@@ -9,11 +9,15 @@ const rateLimiter = new RateLimiterMemory({
 
 sendgrid.setApiKey(process.env.SENDGRID_API);
 async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
-  const { email, name, message, subject } = req.body;
+  const { email, name, message, subject, token } = req.body;
+
   const checkValid = await checkValidation(email, name, message, subject);
   switch (req.method) {
     case "POST":
       try {
+        if (!(await validateCaptcha(token))) {
+          return res.status(400).json({ message: "captcha is invalid" });
+        }
         if (!checkValid.isValid) {
           return res
             .status(checkValid.status)
@@ -61,8 +65,10 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
             // </html>`,
             //   })
             //   .then(() =>
+            // delete req.body.token;
             //     res.status(201).json({ message: "Email successfully sent" })
             //   );
+            delete req.body.token;
             res.status(201).json({ message: "Email successfully sent" });
           })
           .catch((rej) => {
@@ -134,4 +140,28 @@ const checkValidation = async (
     message: "",
     isValid: true,
   };
+};
+
+const validateCaptcha = async (response_key: string | null) => {
+  return new Promise((resolve, reject) => {
+    const secret_key = process.env.RECAPTCHA_SECRET;
+
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
+
+    fetch(url, {
+      method: "post",
+    })
+      .then((response) => response.json())
+      .then((google_response) => {
+        if (google_response.success === true) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        resolve(false);
+      });
+  });
 };

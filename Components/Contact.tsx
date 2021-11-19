@@ -1,5 +1,5 @@
+import { useState, useRef } from "react";
 import type { ReactElement, FormEvent, SyntheticEvent } from "react";
-import { useState } from "react";
 import {
   Alert,
   Grid,
@@ -12,6 +12,7 @@ import { FormInput, props } from "./Utilities/StylesProvider";
 import ImageSSR from "./Utilities/ImageSSR";
 import { Icon } from "@iconify/react";
 import MainButton from "./Utilities/MainButton";
+import ReCAPTCHA from "react-google-recaptcha";
 
 type AlertTypes = "success" | "warning" | "error";
 
@@ -21,6 +22,7 @@ function Contact(): ReactElement {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [msg, setMsg] = useState("");
+  const [token, setToken] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [snackType, setSnackType] = useState<AlertTypes>("success");
   const [snackMsg, setSnackMsg] = useState("");
@@ -31,6 +33,7 @@ function Contact(): ReactElement {
     message: false,
   });
   const [count, setCount] = useState(0);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const cleanFields = () => {
     setName("");
@@ -41,6 +44,12 @@ function Contact(): ReactElement {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (token === null) {
+      setSnackType("error");
+      setSnackMsg("Please verify you are not a robot");
+      setOpen(true);
+      return;
+    }
     if (!open) {
       setCount(count + 1);
       const res = await fetch("/api/sendMail", {
@@ -49,6 +58,7 @@ function Contact(): ReactElement {
           name: name,
           subject: subject,
           message: msg,
+          token: token,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -59,6 +69,8 @@ function Contact(): ReactElement {
 
       if (res.status === 200 || res.status === 201) {
         cleanFields();
+        setToken(null);
+        recaptchaRef.current?.reset();
         setSnackType("success");
         setSnackMsg(message);
         setOpen(true);
@@ -69,6 +81,14 @@ function Contact(): ReactElement {
       }
     }
     console.log(name, email, subject, msg);
+  };
+
+  const onReCAPTCHAChange = (captchaCode: string | null) => {
+    console.log(captchaCode);
+    if (!captchaCode) {
+      return;
+    }
+    setToken(captchaCode);
   };
 
   console.log(count);
@@ -286,6 +306,19 @@ function Contact(): ReactElement {
                 }
                 required
               />
+            </Grid>
+            <Grid item xs={12}>
+              <span
+                style={{
+                  display: "grid",
+                  placeItems: "center",
+                }}>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.PUBLIC_RECAPTCHA_SITE_KEY}
+                  onChange={onReCAPTCHAChange}
+                />
+              </span>
             </Grid>
             <Grid item xs={12} md={5}>
               <MainButton

@@ -8,10 +8,12 @@ declare global {
       SKILLS: string;
       PROJECTS: string;
       PROJECT_TAGS: string;
-      ABLY_PUBLISH: process.env.ABLY_PUBLISH;
-      ABLY_USER: process.env.ABLY_USER;
+      ABLY_PUBLISH: string;
+      ABLY_USER: string;
       ABLY_CLIENT_ID: string;
       SENDGRID_API: string;
+      PUBLIC_RECAPTCHA_SITE_KEY: string;
+      RECAPTCHA_SECRET: string;
     }
   }
 }
