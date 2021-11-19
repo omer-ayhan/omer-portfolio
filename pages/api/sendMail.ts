@@ -2,10 +2,16 @@ import sendgrid from "@sendgrid/mail";
 import { NextApiRequest, NextApiResponse } from "next";
 sendgrid.setApiKey(process.env.SENDGRID_API);
 async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
+  const { email, name, message, subject } = req.body;
+  const checkValid = await checkValidation(email, name, message, subject);
   switch (req.method) {
     case "POST":
-      const { email, name, message, subject } = req.body;
       try {
+        if (!checkValid.isValid) {
+          return res
+            .status(checkValid.status)
+            .json({ message: checkValid.message });
+        }
         // await sendgrid.send({
         //   to: "om.ayhan247@gmail.com", // Your email where you'll receive emails
         //   from: "omya123@outlook.com", // your website email address here
@@ -48,7 +54,6 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
         res.status(500).json({ message: "Error sending email" });
       }
       break;
-
     default:
       res.status(405).json({ message: "Method not allowed" });
       break;
@@ -56,3 +61,56 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default sendEmail;
+
+const checkValidation = async (
+  email: string,
+  name: string,
+  message: string,
+  subject: string
+) => {
+  if (
+    name.length < 1 ||
+    email.length < 1 ||
+    message.length < 1 ||
+    subject.length < 1
+  ) {
+    return {
+      status: 400,
+      message: "Please fill all the fields",
+      isValid: false,
+    };
+  }
+  if (name.length < 2) {
+    return {
+      status: 400,
+      message: "Name must be at least 2 characters",
+      isValid: false,
+    };
+  }
+  if (!email.includes("@") || !email.includes(".")) {
+    return {
+      status: 400,
+      message: "Your email must contain '@' and '.' characters",
+      isValid: false,
+    };
+  }
+  if (message.length < 25) {
+    return {
+      status: 400,
+      message: "Message must be at least 25 characters",
+      isValid: false,
+    };
+  }
+  if (subject.length < 5) {
+    return {
+      status: 400,
+      message: "Subject must be at least 5 characters",
+      isValid: false,
+    };
+  }
+  return {
+    status: 200,
+    message: "",
+    isValid: true,
+  };
+};

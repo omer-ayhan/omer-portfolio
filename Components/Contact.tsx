@@ -1,6 +1,13 @@
 import type { ReactElement, FormEvent, SyntheticEvent } from "react";
 import { useState } from "react";
-import { Alert, Grid, IconButton, Snackbar, Typography } from "@mui/material";
+import {
+  Alert,
+  Grid,
+  IconButton,
+  Snackbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { FormInput, props } from "./Utilities/StylesProvider";
 import ImageSSR from "./Utilities/ImageSSR";
 import { Icon } from "@iconify/react";
@@ -42,10 +49,10 @@ function Contact(): ReactElement {
         },
         method: "POST",
       });
-      cleanFields();
       const { message } = await res.json();
 
       if (res.status === 200 || res.status === 201) {
+        cleanFields();
         setSnackType("success");
         setSnackMsg(message);
         setOpen(true);

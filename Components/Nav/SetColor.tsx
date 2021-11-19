@@ -185,7 +185,8 @@ const SetColor = () => {
                   {color}
                 </Typography>
               }
-              placement="bottom">
+              placement="bottom"
+              disableInteractive>
               <IconButton
                 sx={{
                   width: "100%",
