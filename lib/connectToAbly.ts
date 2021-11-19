@@ -1,6 +1,6 @@
 import { Realtime } from "ably";
 let cachedAbly: Realtime | undefined;
-const connectToAbly = (token: string) => {
+const connectToAbly = (token?: string) => {
   if (cachedAbly) {
     return cachedAbly;
   } else {

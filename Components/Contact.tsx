@@ -314,7 +314,7 @@ function Contact(): ReactElement {
                 }}>
                 <ReCAPTCHA
                   ref={recaptchaRef}
-                  sitekey={process.env.PUBLIC_RECAPTCHA_SITE_KEY}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                   onChange={onReCAPTCHAChange}
                 />
               </span>
