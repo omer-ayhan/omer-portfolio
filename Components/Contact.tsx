@@ -101,7 +101,7 @@ function Contact(): ReactElement {
               sx={{
                 ...stylesAll.setColor.snackBar.action,
               }}>
-              <Icon icon="entypo:cross" />
+              <Icon color="#fff" icon="entypo:cross" />
             </IconButton>
           }>
           <Typography
@@ -296,6 +296,7 @@ function Contact(): ReactElement {
                 }}
                 sxLink={{
                   ...stylesAll.utilities.buttons.link,
+                  padding: "12px 0",
                   textDecoration: "none",
                 }}
                 sxText={{

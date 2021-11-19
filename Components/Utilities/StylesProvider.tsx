@@ -528,7 +528,7 @@ const stylesAll = {
 
     button: {
       container: {
-        padding: "12px",
+        padding: "0",
         width: { xs: "100%" },
         height: "100%",
         borderRadius: "8px",
