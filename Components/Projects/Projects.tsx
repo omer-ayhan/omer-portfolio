@@ -79,7 +79,7 @@ function Projects({ tabData }: Props): ReactElement {
           category="projects"
           searchInput={searchInput}
           incomingData={tabData[0]}
-          channelName="projectTabs">
+          channelName={process.env.NEXT_PUBLIC_PROJECTS_CHANNEL}>
           <Grid
             container
             sx={{

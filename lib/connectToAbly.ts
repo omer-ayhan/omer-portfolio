@@ -4,7 +4,12 @@ const connectToAbly = (token?: string) => {
   if (cachedAbly) {
     return cachedAbly;
   } else {
-    const realtime = new Realtime({ key: token });
+    const realtime = new Realtime({
+      key: token,
+      log: {
+        level: 0,
+      },
+    });
     cachedAbly = realtime;
     return cachedAbly;
   }

@@ -46,11 +46,11 @@ function Skills({ tabData }: Props): ReactElement {
       </Grid>
       <Grid item xs={12}>
         <MainTabs
-          spacing={{ ...stylesAll.skills.spacings }}
-          cardWidth={{ ...stylesAll.skills.skillsWidth }}
-          cardHeight={{ ...stylesAll.skills.skillsHeight }}
+          spacing={stylesAll.skills.spacings}
+          cardWidth={stylesAll.skills.skillsWidth}
+          cardHeight={stylesAll.skills.skillsHeight}
           category="skills"
-          channelName="skillCards"
+          channelName={process.env.NEXT_PUBLIC_SKILLS_CHANNEL}
           incomingData={tabData}
         />
       </Grid>
