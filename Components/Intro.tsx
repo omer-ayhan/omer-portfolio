@@ -85,9 +85,9 @@ const Intro = () => {
               gridTemplateColumns: "repeat(2, 1fr)",
               gap: "24px",
             }}>
-            {linksMain.introLinks.map(({ btn_name, to }) => (
+            {linksMain.introLinks.map(({ btn_name, to }, index) => (
               <MainButton
-                key={btn_name}
+                key={`${btn_name}${index * 2}`}
                 component={btn_name === "My Portfolio" ? "a" : "span"}
                 sxButton={{
                   ...(btn_name === "My Portfolio"

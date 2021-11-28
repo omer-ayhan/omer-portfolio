@@ -1,13 +1,11 @@
-import { useState } from "react";
-import type { ReactElement } from "react";
+import React, { useState } from "react";
+import type { FormEvent, ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
-// import MainTabs from "../Utilities/MainTabs";
 import Popup from "../Utilities/Popup";
 import { FormInput, props } from "../Utilities/StylesProvider";
 // import Filter from "./Filter";
 import ImageSSR from "../Utilities/ImageSSR";
-// import ProjectTags from "./ProjectTags";
 import dynamic from "next/dynamic";
 const MainTabs = dynamic(() => import("../Utilities/MainTabs"));
 const ProjectTags = dynamic(() => import("./ProjectTags"));
@@ -37,6 +35,11 @@ interface Props {
 const { stylesAll } = props;
 function Projects({ tabData }: Props): ReactElement {
   const [searchInput, setSearchInput] = useState("");
+
+  const preventDefault = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchInput(e.target.value);
 
   return (
     <Grid
@@ -84,16 +87,11 @@ function Projects({ tabData }: Props): ReactElement {
               marginBottom: "50px",
               gap: "20px",
             }}>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              style={{ position: "relative" }}>
+            <form onSubmit={preventDefault} style={{ position: "relative" }}>
               <FormInput
                 placeholder="Search"
                 id="search"
-                value={searchInput}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSearchInput(e.target.value)
-                }
+                onChange={handleSearch}
                 startAdornment={<Icon id="search-icon" icon="fe:search" />}
               />
               <span id="filter">

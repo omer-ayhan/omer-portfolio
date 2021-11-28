@@ -64,21 +64,24 @@ function ProjectTags({ incomingData }: Props): ReactElement {
     [incomingData]
   );
 
-  const handleTags = useCallback((tags: string[], title: string) => {
-    let titleText = title.toUpperCase();
-    if (tags.includes(titleText)) {
-      dispatch(removeTag({ title: titleText }));
-    } else {
-      dispatch(addTag({ title: titleText }));
-    }
-  }, []);
+  const handleTags = useCallback(
+    (tags: string[], title: string) => () => {
+      let titleText = title.toUpperCase();
+      if (tags.includes(titleText)) {
+        dispatch(removeTag({ title: titleText }));
+      } else {
+        dispatch(addTag({ title: titleText }));
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <Grid container spacing={1} justifyContent="center" alignItems="center">
       {tagData.map(({ title, icon, _id }) => (
         <Grid key={_id} item xs={2} mx="3.5px">
           <MainTag
-            onClick={() => handleTags(stateTags, title)}
+            onClick={handleTags(stateTags, title)}
             sxBox={{
               ...stylesAll.projects.tags.container,
             }}

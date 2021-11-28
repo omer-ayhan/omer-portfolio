@@ -32,7 +32,6 @@ function Contact(): ReactElement {
     subject: false,
     message: false,
   });
-  const [count, setCount] = useState(0);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const cleanFields = () => {
@@ -51,7 +50,6 @@ function Contact(): ReactElement {
       return;
     }
     if (!open) {
-      setCount(count + 1);
       const res = await fetch("/api/sendMail", {
         body: JSON.stringify({
           email: email,
@@ -89,8 +87,6 @@ function Contact(): ReactElement {
     }
     setToken(captchaCode);
   };
-
-  console.log(count);
 
   const handleClose = (event?: SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {

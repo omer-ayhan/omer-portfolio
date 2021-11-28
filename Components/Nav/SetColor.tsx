@@ -1,4 +1,4 @@
-import type { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
+import { SyntheticEvent, KeyboardEvent, ChangeEvent, useRef } from "react";
 import { useState, useCallback } from "react";
 import {
   Box,
@@ -81,7 +81,19 @@ const SetColor = () => {
     } else {
       dispatch(changeColor({ [colorCat]: convertToHexSix(hexColor) }));
     }
-  }, [colorInput]);
+  }, [colorInput, dispatch]);
+
+  const handleColor = (color: string) => () =>
+    setColorInput(escapeNonHex(color));
+
+  const resetColors = useCallback(() => {
+    dispatch(
+      resetColor({
+        Primary: colorsAll.Primary,
+        Secondary: colorsAll.Secondary,
+      })
+    );
+  }, [dispatch]);
 
   return (
     <Box
@@ -178,7 +190,7 @@ const SetColor = () => {
               background: `${color}`,
               border: color === `#${colorInput}` ? `2.5px solid #fff` : "none",
             }}
-            onClick={() => setColorInput(escapeNonHex(color))}>
+            onClick={handleColor(color)}>
             <Tooltip
               title={
                 <Typography variant="body2" sx={{ userSelect: "none" }}>
@@ -260,14 +272,7 @@ const SetColor = () => {
       />
       <MainButton
         variant="outlined"
-        onClick={useCallback(() => {
-          dispatch(
-            resetColor({
-              Primary: colorsAll.Primary,
-              Secondary: colorsAll.Secondary,
-            })
-          );
-        }, [])}
+        onClick={resetColors}
         sxButton={{
           ...stylesAll.utilities.buttons.container,
           ...stylesAll.setColor.button.container,

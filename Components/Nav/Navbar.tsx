@@ -22,7 +22,6 @@ import dynamic from "next/dynamic";
 const SetColor = dynamic(() => import("./SetColor"), {
   loading: () => <div>Loading...</div>,
 });
-// import SetColor from "./SetColor";
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import { changeLang } from "../../context/reducers/navSlices";
 import { useAppSelector, useAppDispatch } from "../../context/hooks";
@@ -63,6 +62,83 @@ function Navbar(): ReactElement {
     right: false,
   });
 
+  const handleLang =
+    (lang: { label: string; flag: string; id: string }) => () => {
+      dispatch(
+        changeLang({
+          lang: lang.label,
+          langFlag: lang.flag,
+        })
+      );
+    };
+
+  const mapNavLinks = linksMain.navLinks.map(({ name, to }) => (
+    <SmoothScroll
+      key={name}
+      toId={to}
+      duration={1500}
+      allowScroll
+      sx={{
+        ...stylesAll.navbar.navLinks.container,
+      }}>
+      <Typography
+        variant="h5"
+        component="span"
+        sx={{
+          ...stylesAll.navbar.navLinks.text,
+          textTransform: "capitalize",
+        }}>
+        {name}
+      </Typography>
+    </SmoothScroll>
+  ));
+
+  const mapMobileNavLinks = linksMain.navLinks.map(({ name, to }) => (
+    <SmoothScroll
+      key={name}
+      toId={to}
+      duration={1500}
+      allowScroll
+      sx={{
+        ...stylesAll.navbar.navLinks.container,
+      }}
+      aria-label={name}>
+      <ListItem
+        button
+        role="button"
+        sx={{ ...stylesAll.navbar.mobileMenu.navLinks }}>
+        <ListItemText
+          role="textbox"
+          primary={<Typography variant="h6">{name}</Typography>}
+        />
+      </ListItem>
+    </SmoothScroll>
+  ));
+
+  const mapLangs = linksMain.langs.map((lang, index) => (
+    <Box key={`${lang.flag}${index}`}>
+      <Button
+        sx={{
+          padding: "5px 10px 5px 15px",
+        }}
+        onClick={handleLang(lang)}
+        variant="text"
+        startIcon={<Icon icon={lang.flag} className="nav-icons" />}
+        color="primary"
+        aria-describedby="select language button">
+        <Typography
+          sx={{
+            fontWeight: 500,
+            fontSize: stylesAll.navbar.lang.text.fontSize.xs,
+          }}
+          variant="h6"
+          color="text.primary">
+          {lang.label}
+        </Typography>
+      </Button>
+    </Box>
+  ));
+
   const toggleDrawer = useCallback(
     (anchor: Anchor, open: boolean) => (event: KeyboardEvent | MouseEvent) => {
       if (
@@ -76,7 +152,7 @@ function Navbar(): ReactElement {
 
       setSwipe({ ...swipe, [anchor]: open });
     },
-    []
+    [swipe]
   );
 
   const mobileMenu = (anchor: Anchor) => (
@@ -99,63 +175,15 @@ function Navbar(): ReactElement {
                 {theme.lang}
               </Typography>
             }
-            content={linksMain.langs.map((lang, index) => (
-              <Box key={`${lang.flag}${index}`}>
-                <Button
-                  sx={{
-                    padding: "5px 10px 5px 15px",
-                  }}
-                  onClick={() =>
-                    dispatch(
-                      changeLang({
-                        lang: lang.label,
-                        langFlag: lang.flag,
-                      })
-                    )
-                  }
-                  variant="text"
-                  startIcon={<Icon icon={lang.flag} className="nav-icons" />}
-                  color="primary"
-                  aria-describedby="select language button">
-                  <Typography
-                    sx={{
-                      fontWeight: 500,
-                      fontSize: stylesAll.navbar.lang.text.fontSize.xs,
-                    }}
-                    variant="h6"
-                    color="text.primary">
-                    {lang.label}
-                  </Typography>
-                </Button>
-              </Box>
-            ))}
+            content={mapLangs}
             isButton
           />
         </ListItem>
-        {linksMain.navLinks.map(({ name, to }, index) => (
-          <SmoothScroll
-            key={name}
-            toId={to}
-            duration={1500}
-            allowScroll
-            sx={{
-              ...stylesAll.navbar.navLinks.container,
-            }}
-            aria-label={name}>
-            <ListItem
-              button
-              role="button"
-              sx={{ ...stylesAll.navbar.mobileMenu.navLinks }}>
-              <ListItemText
-                role="textbox"
-                primary={<Typography variant="h6">{name}</Typography>}
-              />
-            </ListItem>
-          </SmoothScroll>
-        ))}
+        {mapMobileNavLinks}
       </List>
     </Box>
   );
+
   return (
     <>
       <ElevationScroll>
@@ -176,26 +204,7 @@ function Navbar(): ReactElement {
               <SvgImages svgType="logo" />
             </SmoothScroll>
             <Box sx={{ display: { xs: "none", Laptop: "block" } }}>
-              {linksMain.navLinks.map(({ name, to }) => (
-                <SmoothScroll
-                  key={name}
-                  toId={to}
-                  duration={1500}
-                  allowScroll
-                  sx={{
-                    ...stylesAll.navbar.navLinks.container,
-                  }}>
-                  <Typography
-                    variant="h5"
-                    component="span"
-                    sx={{
-                      ...stylesAll.navbar.navLinks.text,
-                      textTransform: "capitalize",
-                    }}>
-                    {name}
-                  </Typography>
-                </SmoothScroll>
-              ))}
+              {mapNavLinks}
             </Box>
             <Box
               sx={{
@@ -220,37 +229,7 @@ function Navbar(): ReactElement {
                       {theme.lang}
                     </Typography>
                   }
-                  content={linksMain.langs.map((lang, index) => (
-                    <Box key={`${lang.flag}${index}`}>
-                      <Button
-                        sx={{
-                          padding: "5px 10px 5px 15px",
-                        }}
-                        onClick={() =>
-                          dispatch(
-                            changeLang({
-                              lang: lang.label,
-                              langFlag: lang.flag,
-                            })
-                          )
-                        }
-                        variant="text"
-                        startIcon={
-                          <Icon icon={lang.flag} className="nav-icons" />
-                        }
-                        color="primary"
-                        aria-describedby="select language button">
-                        <Typography
-                          sx={{
-                            ...stylesAll.navbar.lang.content.text,
-                          }}
-                          variant="h6"
-                          color="text.primary">
-                          {lang.label}
-                        </Typography>
-                      </Button>
-                    </Box>
-                  ))}
+                  content={mapLangs}
                   isButton
                 />
               </Box>

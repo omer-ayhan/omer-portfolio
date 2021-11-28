@@ -32,9 +32,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# env ts files
-env-types.d.ts
-
 # vercel
 .vercel
 

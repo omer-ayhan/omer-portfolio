@@ -45,7 +45,7 @@ const Truncation = ({ text }: Props) => {
         );
       }
     } else return <>{text}</>;
-  }, [showText]);
+  }, [showText, text]);
 
   return (
     <Typography

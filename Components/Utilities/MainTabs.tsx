@@ -130,7 +130,7 @@ interface IAppProps {
   cardHeight: string | number | object;
   spacing?: object | { xs: number };
   rowSpacing?: object;
-  category: string;
+  category: "projects" | "skills";
   searchInput?: string;
   channelName: string;
   incomingData: Array<TabDataTypes>;

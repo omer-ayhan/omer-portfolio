@@ -121,7 +121,7 @@ function Blogs(): ReactElement {
                         textAlign: "center",
                       }}
                       to={"#intro"}
-                      btn_name={"Read More"}
+                      btn_name="Read More"
                       disabled
                     />
                   </CardActions>

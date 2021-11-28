@@ -1,8 +1,9 @@
 import type { FC, ReactElement, MouseEvent } from "react";
 import { useState, useMemo } from "react";
 import Popover from "@mui/material/Popover";
-import { IconButton, IconButtonProps, Button, Box } from "@mui/material";
-import { ButtonProps } from "@mui/material/Button";
+import { IconButton, Button, Box } from "@mui/material";
+import type { ButtonProps } from "@mui/material/Button";
+import type { IconButtonProps } from "@mui/material/IconButton";
 
 export interface Props {
   isButton: boolean;

@@ -39,11 +39,11 @@ const MainTag = ({
     };
   }, [projectState]);
 
+  const shouldAddToggle = () => (isClickable ? setToggle(!toggle) : undefined);
+
   return useMemo(
     () => (
-      <Box
-        component="span"
-        onClick={() => (isClickable ? setToggle(!toggle) : undefined)}>
+      <Box component="span" onClick={shouldAddToggle}>
         <Box
           onClick={onClick}
           sx={{

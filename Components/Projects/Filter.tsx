@@ -34,6 +34,17 @@ function Filter() {
       setFilterInput("");
     }
   };
+
+  const handleFilter = (event: ChangeEvent<HTMLInputElement>) =>
+    setFilterInput(event.target.value);
+
+  const handleRemoveTag = (text: string) => () =>
+    dispatch(removeTag({ title: text.toUpperCase() }));
+
+  const handleChangeOrder = (event: SelectChangeEvent) => {
+    dispatch(changeOrder({ sortAlphabet: event.target.value }));
+  };
+
   return (
     <Box
       sx={{
@@ -42,9 +53,7 @@ function Filter() {
         flexDirection: "column",
       }}>
       <TextField
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setFilterInput(event.target.value)
-        }
+        onChange={handleFilter}
         onKeyDown={handleInput}
         value={filterInput}
         label={
@@ -95,9 +104,7 @@ function Filter() {
                     {text}
                   </Typography>
                 }
-                onDelete={() =>
-                  dispatch(removeTag({ title: text.toUpperCase() }))
-                }
+                onDelete={handleRemoveTag(text)}
               />
             </Tooltip>
           </Grid>
@@ -160,9 +167,7 @@ function Filter() {
           sx={{ ...stylesAll.filter.forms.select.container }}>
           <Select
             value={projectState.sortByTitle}
-            onChange={(event: SelectChangeEvent) => {
-              dispatch(changeOrder({ sortAlphabet: event.target.value }));
-            }}
+            onChange={handleChangeOrder}
             sx={{
               ...stylesAll.filter.forms.select.text,
             }}>
