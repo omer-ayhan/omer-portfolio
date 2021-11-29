@@ -10,6 +10,8 @@ export default function ThemeSwitch(): ReactElement {
   const dispatch = useAppDispatch();
   const { stylesAll } = props;
 
+  const handleTheme = () => dispatch(changeTheme());
+
   return (
     <Box
       sx={{
@@ -35,7 +37,7 @@ export default function ThemeSwitch(): ReactElement {
       )}
       <StyledSwitch
         checked={themeMode}
-        onChange={() => dispatch(changeTheme())}
+        onChange={handleTheme}
         inputProps={{ "aria-label": "controlled" }}
       />
     </Box>

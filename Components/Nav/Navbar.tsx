@@ -78,9 +78,7 @@ function Navbar(): ReactElement {
       toId={to}
       duration={1500}
       allowScroll
-      sx={{
-        ...stylesAll.navbar.navLinks.container,
-      }}>
+      sx={stylesAll.navbar.navLinks.container}>
       <Typography
         variant="h5"
         component="span"
@@ -99,14 +97,9 @@ function Navbar(): ReactElement {
       toId={to}
       duration={1500}
       allowScroll
-      sx={{
-        ...stylesAll.navbar.navLinks.container,
-      }}
+      sx={stylesAll.navbar.navLinks.container}
       aria-label={name}>
-      <ListItem
-        button
-        role="button"
-        sx={{ ...stylesAll.navbar.mobileMenu.navLinks }}>
+      <ListItem button role="button" sx={stylesAll.navbar.mobileMenu.navLinks}>
         <ListItemText
           role="textbox"
           primary={<Typography variant="h6">{name}</Typography>}
@@ -158,10 +151,7 @@ function Navbar(): ReactElement {
   const mobileMenu = (anchor: Anchor) => (
     <Box role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
       <List>
-        <ListItem
-          sx={{
-            ...stylesAll.navbar.mobileMenu.container,
-          }}>
+        <ListItem sx={stylesAll.navbar.mobileMenu.container}>
           <Popup
             startIcon={<Icon icon={theme.langFlag} width="40" height="40" />}
             btn={
@@ -193,27 +183,18 @@ function Navbar(): ReactElement {
           }}
           position="fixed">
           <ThemeSwitch />
-          <Box
-            sx={{
-              ...stylesAll.navbar.container,
-            }}>
-            <SmoothScroll
-              toId="intro"
-              sx={{ ...stylesAll.navbar.logo }}
-              allowScroll>
+          <Box sx={stylesAll.navbar.container}>
+            <SmoothScroll toId="intro" sx={stylesAll.navbar.logo} allowScroll>
               <SvgImages svgType="logo" />
             </SmoothScroll>
             <Box sx={{ display: { xs: "none", Laptop: "block" } }}>
               {mapNavLinks}
             </Box>
-            <Box
-              sx={{
-                ...stylesAll.utilities.flexDefault,
-              }}>
+            <Box sx={stylesAll.utilities.flexDefault}>
               <Box
                 component="span"
                 sx={{
-                  display: { xs: "none", Mobile_L: "inline" },
+                  display: { xs: "none", Mobile_L: "inline-flex" },
                 }}>
                 <Popup
                   startIcon={
@@ -221,9 +202,7 @@ function Navbar(): ReactElement {
                   }
                   btn={
                     <Typography
-                      sx={{
-                        ...stylesAll.navbar.lang.text,
-                      }}
+                      sx={stylesAll.navbar.lang.text}
                       variant="h6"
                       color="text.primary">
                       {theme.lang}

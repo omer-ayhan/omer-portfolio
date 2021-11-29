@@ -108,16 +108,10 @@ function About(): ReactElement {
         </Grid>
         <Grid item xs={12}>
           <MainButton
-            sxButton={{
-              ...stylesAll.utilities.buttons.container,
-            }}
-            sxLink={{
-              ...stylesAll.utilities.buttons.link,
-            }}
-            sxText={{
-              ...stylesAll.utilities.buttons.text,
-            }}
-            btn_name={"My Portfolio"}
+            sxButton={stylesAll.utilities.buttons.container}
+            sxLink={stylesAll.utilities.buttons.link}
+            sxText={stylesAll.utilities.buttons.text}
+            btn_name="My Portfolio"
           />
           <SocialIcons
             sxBox={{

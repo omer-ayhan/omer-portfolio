@@ -101,7 +101,7 @@ const SetColor = () => {
         ...stylesAll.utilities.flexDefault,
         ...stylesAll.setColor.container,
         flexDirection: "column",
-        zIndex: 99999999,
+        zIndex: 35,
       }}>
       <Snackbar open={snack} autoHideDuration={4000} onClose={handleClose}>
         <Alert
@@ -111,17 +111,13 @@ const SetColor = () => {
             <IconButton
               onClick={handleClose}
               size="medium"
-              sx={{
-                ...stylesAll.setColor.snackBar.action,
-              }}>
+              sx={stylesAll.setColor.snackBar.action}>
               <Icon icon="entypo:cross" />
             </IconButton>
           }>
           <Typography
             variant="h6"
-            sx={{
-              ...stylesAll.setColor.snackBar.text,
-            }}
+            sx={stylesAll.setColor.snackBar.text}
             color="common.white">
             You need to write 3 digit or 6 digit hex value
           </Typography>
@@ -135,10 +131,10 @@ const SetColor = () => {
             fontWeight: 500,
             ...stylesAll.setColor.text,
           }}>
-          <MenuItem value="Primary" sx={{ ...stylesAll.setColor.text }}>
+          <MenuItem value="Primary" sx={stylesAll.setColor.text}>
             Primary
           </MenuItem>
-          <MenuItem value="Secondary" sx={{ ...stylesAll.setColor.text }}>
+          <MenuItem value="Secondary" sx={stylesAll.setColor.text}>
             Secondary
           </MenuItem>
         </Select>
@@ -150,9 +146,7 @@ const SetColor = () => {
           event.key === "Enter" && applyColor()
         }
         InputProps={{
-          sx: {
-            ...stylesAll.setColor.text,
-          },
+          sx: stylesAll.setColor.text,
           startAdornment: (
             <InputAdornment position="start">
               <Typography variant="h5" color="text.primary">
@@ -208,7 +202,7 @@ const SetColor = () => {
                 {color === `#${colorInput}` && (
                   <Icon
                     icon="ic:round-done"
-                    style={{ ...stylesAll.setColor.colorPalette.icon }}
+                    style={stylesAll.setColor.colorPalette.icon}
                   />
                 )}
               </IconButton>

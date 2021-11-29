@@ -32,16 +32,8 @@ function Blogs(): ReactElement {
           color="text.primary">
           Latest Blogs
         </Typography>
-        <Box
-          sx={{
-            ...stylesAll.blogs.link.flexContainer,
-          }}>
-          <Link
-            href="#"
-            rel="noreferrer"
-            sx={{
-              ...stylesAll.blogs.link.container,
-            }}>
+        <Box sx={stylesAll.blogs.link.flexContainer}>
+          <Link href="#" rel="noreferrer" sx={stylesAll.blogs.link.container}>
             <Typography
               variant="h6"
               color="primary"
@@ -61,18 +53,10 @@ function Blogs(): ReactElement {
           ...stylesAll.blogs.gridContainer,
           overflowY: "scroll",
         }}>
-        <Grid
-          container
-          item
-          sx={{
-            ...stylesAll.blogs.card.gridContainer,
-          }}>
+        <Grid container item sx={stylesAll.blogs.card.gridContainer}>
           {tabObjects.blogsCard.map(({ title, img }, index) => (
             <Grid key={`${title}-${index}`} item xs={12} lg={6} md={4}>
-              <Box
-                sx={{
-                  ...stylesAll.utilities.flexDefault,
-                }}>
+              <Box sx={stylesAll.utilities.flexDefault}>
                 <Card
                   sx={{
                     ...stylesAll.blogs.card.container,
@@ -110,17 +94,13 @@ function Blogs(): ReactElement {
                   </CardContent>
                   <CardActions sx={{ padding: 0 }}>
                     <MainButton
-                      sxButton={{
-                        ...stylesAll.projects.card.buttons.container,
-                      }}
-                      sxLink={{
-                        ...stylesAll.utilities.buttons.link,
-                      }}
+                      sxButton={stylesAll.projects.card.buttons.container}
+                      sxLink={stylesAll.utilities.buttons.link}
                       sxText={{
                         ...stylesAll.projects.card.buttons.text,
                         textAlign: "center",
                       }}
-                      to={"#intro"}
+                      to="#intro"
                       btn_name="Read More"
                       disabled
                     />

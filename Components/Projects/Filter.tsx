@@ -67,9 +67,7 @@ function Filter() {
           </Typography>
         }
         InputProps={{
-          sx: {
-            ...stylesAll.filter.input.text.main,
-          },
+          sx: stylesAll.filter.input.text.main,
         }}
         variant="standard"
         fullWidth
@@ -91,9 +89,7 @@ function Filter() {
             sx={{ marginBottom: "10px" }}>
             <Tooltip title={<Typography variant="body2">{text}</Typography>}>
               <Chip
-                sx={{
-                  ...stylesAll.filter.tags.container,
-                }}
+                sx={stylesAll.filter.tags.container}
                 label={
                   <Typography
                     variant="button"
@@ -111,78 +107,25 @@ function Filter() {
         ))}
       </Grid>
 
-      {/* <Box
-        sx={{
-          ...stylesAll.utilities.flexDefault,
-          ...stylesAll.filter.forms.container,
-        }}>
-        <Typography
-          variant="button"
-          sx={{
-            ...stylesAll.filter.forms.text.title,
-          }}>
-          Sort by Time
-        </Typography>
-        <FormControl
-          variant="standard"
-          sx={{ ...stylesAll.filter.forms.select.container }}>
-          <Select
-            value={projectState.sortByTime}
-            onChange={(event: SelectChangeEvent) => {
-              dispatch(changeOrder({ sortTime: event.target.value }));
-            }}
-            sx={{
-              ...stylesAll.filter.forms.select.text,
-            }}>
-            <MenuItem
-              value="asc"
-              sx={{
-                ...stylesAll.filter.forms.select.text,
-              }}>
-              Ascending
-            </MenuItem>
-            <MenuItem
-              value="desc"
-              sx={{
-                ...stylesAll.filter.forms.select.text,
-              }}>
-              Descending
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Box> */}
-
       <Box
         sx={{
           ...stylesAll.utilities.flexDefault,
           ...stylesAll.filter.forms.container,
         }}>
-        <Typography
-          variant="button"
-          sx={{ ...stylesAll.filter.forms.text.title }}>
+        <Typography variant="button" sx={stylesAll.filter.forms.text.title}>
           Sort Alphabetically
         </Typography>
         <FormControl
           variant="standard"
-          sx={{ ...stylesAll.filter.forms.select.container }}>
+          sx={stylesAll.filter.forms.select.container}>
           <Select
             value={projectState.sortByTitle}
             onChange={handleChangeOrder}
-            sx={{
-              ...stylesAll.filter.forms.select.text,
-            }}>
-            <MenuItem
-              value="asc"
-              sx={{
-                ...stylesAll.filter.forms.select.text,
-              }}>
+            sx={stylesAll.filter.forms.select.text}>
+            <MenuItem value="asc" sx={stylesAll.filter.forms.select.text}>
               Ascending
             </MenuItem>
-            <MenuItem
-              value="desc"
-              sx={{
-                ...stylesAll.filter.forms.select.text,
-              }}>
+            <MenuItem value="desc" sx={stylesAll.filter.forms.select.text}>
               Descending
             </MenuItem>
           </Select>

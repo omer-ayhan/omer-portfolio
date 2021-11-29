@@ -31,7 +31,7 @@ const ImageSSR = ({
 }: Props) => {
   return useMemo(
     () => (
-      <Box component={comp} className={className} id={id} sx={{ ...sx }}>
+      <Box component={comp} className={className} id={id} sx={sx}>
         <Image
           src={path}
           layout={layout}

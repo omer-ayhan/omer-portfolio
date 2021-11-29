@@ -296,12 +296,8 @@ function MainTabs({
                       {tags.map(({ title, icon }) => (
                         <Grid key={`${title}-${index}`} item xs={4}>
                           <MainTag
-                            sxBox={{
-                              ...stylesAll.projects.card.tags.container,
-                            }}
-                            sxText={{
-                              ...stylesAll.projects.card.tags.text,
-                            }}
+                            sxBox={stylesAll.projects.card.tags.container}
+                            sxText={stylesAll.projects.card.tags.text}
                             icon={icon}
                             title={title}
                             className={"card-tag-icons"}
@@ -312,17 +308,13 @@ function MainTabs({
                   </CardContent>
                   <CardActions sx={{ padding: 0 }}>
                     <MainButton
-                      sxButton={{
-                        ...stylesAll.projects.card.buttons.container,
-                      }}
-                      sxLink={{
-                        ...stylesAll.utilities.buttons.link,
-                      }}
+                      sxButton={stylesAll.projects.card.buttons.container}
+                      sxLink={stylesAll.utilities.buttons.link}
                       sxText={{
                         ...stylesAll.projects.card.buttons.text,
                         textAlign: "center",
                       }}
-                      btn_name={"See More"}
+                      btn_name="See More"
                       to={link}
                     />
                   </CardActions>
@@ -408,9 +400,7 @@ function MainTabs({
           {tabData.map(({ title, icon, _id }, index) => (
             <Tab
               key={`${icon}-${_id}`}
-              sx={{
-                ...stylesAll.mainTabs.tabs.element,
-              }}
+              sx={stylesAll.mainTabs.tabs.element}
               label={
                 <Typography
                   component="span"

@@ -29,7 +29,7 @@ function Skills({ tabData }: Props): ReactElement {
   return (
     <Grid
       id="skills"
-      sx={{ ...stylesAll.utilities.gridContainer }}
+      sx={stylesAll.utilities.gridContainer}
       container
       justifyContent="center"
       alignItems="center">

@@ -61,7 +61,7 @@ const MainTag = ({
             transition: "420ms ease",
           }}>
           <Icon icon={icon} className={className} />
-          <Typography variant="subtitle1" sx={{ ...sxText }}>
+          <Typography variant="subtitle1" sx={sxText}>
             {title}
           </Typography>
         </Box>

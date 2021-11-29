@@ -43,15 +43,11 @@ const Intro = () => {
           <Typography
             color="text.primary"
             variant="h5"
-            sx={{
-              ...stylesAll.intro.introBox.text1,
-            }}>
+            sx={stylesAll.intro.introBox.text1}>
             Hello! I am
           </Typography>
           <Typography
-            sx={{
-              ...stylesAll.intro.introBox.text2,
-            }}
+            sx={stylesAll.intro.introBox.text2}
             color="primary"
             variant="h2">
             Ömer Ayhan
@@ -105,9 +101,7 @@ const Intro = () => {
                   ...stylesAll.utilities.buttons.link,
                   textDecoration: "none",
                 }}
-                sxText={{
-                  ...stylesAll.utilities.buttons.text,
-                }}
+                sxText={stylesAll.utilities.buttons.text}
                 btn_name={btn_name}
                 to={to}
                 allowScroll={btn_name === "My Portfolio" ? false : true}

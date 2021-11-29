@@ -82,12 +82,8 @@ function ProjectTags({ incomingData }: Props): ReactElement {
         <Grid key={_id} item xs={2} mx="3.5px">
           <MainTag
             onClick={handleTags(stateTags, title)}
-            sxBox={{
-              ...stylesAll.projects.tags.container,
-            }}
-            sxText={{
-              ...stylesAll.projects.tags.text,
-            }}
+            sxBox={stylesAll.projects.tags.container}
+            sxText={stylesAll.projects.tags.text}
             icon={icon}
             title={title}
             className={"project-tag-icons"}

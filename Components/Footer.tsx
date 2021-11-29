@@ -18,7 +18,7 @@ function Footer(): ReactElement {
         position: "absolute",
         flexDirection: "column",
       }}>
-      <SmoothScroll toId="intro" sx={{ ...stylesAll.navbar.logo }} allowScroll>
+      <SmoothScroll toId="intro" sx={stylesAll.navbar.logo} allowScroll>
         <SvgImages svgType="logo" />
       </SmoothScroll>
       <Box

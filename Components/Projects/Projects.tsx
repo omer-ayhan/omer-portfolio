@@ -72,10 +72,10 @@ function Projects({ tabData }: Props): ReactElement {
       </Grid>
       <Grid item xs={12}>
         <MainTabs
-          spacing={{ ...stylesAll.projects.spacing }}
-          rowSpacing={{ ...stylesAll.projects.rowSpacing }}
-          cardWidth={{ ...stylesAll.projects.projectsWidth }}
-          cardHeight={{ ...stylesAll.projects.projectsHeight }}
+          spacing={stylesAll.projects.spacing}
+          rowSpacing={stylesAll.projects.rowSpacing}
+          cardWidth={stylesAll.projects.projectsWidth}
+          cardHeight={stylesAll.projects.projectsHeight}
           category="projects"
           searchInput={searchInput}
           incomingData={tabData[0]}

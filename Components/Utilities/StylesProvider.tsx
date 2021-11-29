@@ -446,6 +446,8 @@ const stylesAll = {
           height: { xs: 36, FourK: 50 },
           borderRadius: "12px",
           boxShadow: "none",
+          padding: 0,
+          margin: 0,
           "&:hover": {
             backgroundColor: "secondary.main",
           },
