@@ -4,8 +4,10 @@ import MainButton from "./Utilities/MainButton";
 import SvgImages from "./Utilities/SvgImages";
 import Slider from "react-slick";
 import ImageSSR from "./Utilities/ImageSSR";
+import useTranslation from "next-translate/useTranslation";
 
 const Intro = () => {
+  const { t } = useTranslation("common");
   const { stylesAll } = props;
   const [intro_svg, intro_img, bg_intro] = [
     "/img/Intro_Img/intro_illustration_animated2.svg",
@@ -44,7 +46,7 @@ const Intro = () => {
             color="text.primary"
             variant="h5"
             sx={stylesAll.intro.introBox.text1}>
-            Hello! I am
+            {t("intro_title")}
           </Typography>
           <Typography
             sx={stylesAll.intro.introBox.text2}

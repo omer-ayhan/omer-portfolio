@@ -25,6 +25,7 @@ const SetColor = dynamic(() => import("./SetColor"), {
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import { changeLang } from "../../context/reducers/navSlices";
 import { useAppSelector, useAppDispatch } from "../../context/hooks";
+import Link from "next/link";
 
 type Anchor = "right";
 
@@ -62,15 +63,14 @@ function Navbar(): ReactElement {
     right: false,
   });
 
-  const handleLang =
-    (lang: { label: string; flag: string; id: string }) => () => {
-      dispatch(
-        changeLang({
-          lang: lang.label,
-          langFlag: lang.flag,
-        })
-      );
-    };
+  const handleLang = (lang: { label: string; flag: string }) => () => {
+    dispatch(
+      changeLang({
+        lang: lang.label,
+        langFlag: lang.flag,
+      })
+    );
+  };
 
   const mapNavLinks = linksMain.navLinks.map(({ name, to }) => (
     <SmoothScroll
@@ -110,25 +110,27 @@ function Navbar(): ReactElement {
 
   const mapLangs = linksMain.langs.map((lang, index) => (
     <Box key={`${lang.flag}${index}`}>
-      <Button
-        sx={{
-          padding: "5px 10px 5px 15px",
-        }}
-        onClick={handleLang(lang)}
-        variant="text"
-        startIcon={<Icon icon={lang.flag} className="nav-icons" />}
-        color="primary"
-        aria-describedby="select language button">
-        <Typography
+      <Link href="/" locale={lang.label} passHref>
+        <Button
           sx={{
-            fontWeight: 500,
-            fontSize: stylesAll.navbar.lang.text.fontSize.xs,
+            padding: "5px 10px 5px 15px",
           }}
-          variant="h6"
-          color="text.primary">
-          {lang.label}
-        </Typography>
-      </Button>
+          onClick={handleLang(lang)}
+          variant="text"
+          startIcon={<Icon icon={lang.flag} className="nav-icons" />}
+          color="primary"
+          aria-describedby="select language button">
+          <Typography
+            sx={{
+              fontWeight: 500,
+              fontSize: stylesAll.navbar.lang.text.fontSize.xs,
+            }}
+            variant="h6"
+            color="text.primary">
+            {lang.label}
+          </Typography>
+        </Button>
+      </Link>
     </Box>
   ));
 

@@ -2,6 +2,9 @@
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
 //   enabled: process.env.ANALYZE === "true",
 // });
+
+const nextTranslate = require("next-translate");
+
 const security_headers = [
   {
     key: "X-DNS-Prefetch-Control",
@@ -26,4 +29,11 @@ module.exports = {
       },
     ];
   },
+  i18n: {
+    locales: ["en", "tr"],
+    defaultLocale: "en",
+    localeDetection: false,
+  },
 };
+
+module.exports = nextTranslate();
