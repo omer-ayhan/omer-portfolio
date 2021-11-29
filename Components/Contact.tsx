@@ -35,9 +35,13 @@ function Contact(): ReactElement {
   const [subject, setSubject] = useState("");
   const [msg, setMsg] = useState("");
   const [token, setToken] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
-  const [snackType, setSnackType] = useState<AlertTypes>("success");
-  const [snackMsg, setSnackMsg] = useState("");
+  const [snack, setSnack] = useState({
+    open: false,
+    type: "success",
+    msg: "",
+    disabledBtn: false,
+  });
+
   const [tooltipOpen, setTooltipOpen] = useState({
     name: false,
     email: false,
@@ -49,12 +53,19 @@ function Contact(): ReactElement {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (token === null) {
-      setSnackType("error");
-      setSnackMsg("Please verify you are not a robot");
-      setOpen(true);
+      setSnack({
+        open: true,
+        type: "error",
+        msg: "Please verify you are not a robot",
+        disabledBtn: false,
+      });
       return;
     }
-    if (!open) {
+    if (!snack.open) {
+      setSnack({
+        ...snack,
+        disabledBtn: true,
+      });
       const res = await fetch("/api/sendMail", {
         body: JSON.stringify({
           email: email,
@@ -74,13 +85,19 @@ function Contact(): ReactElement {
         console.log(name, email, subject, msg, token);
         (e.target as HTMLFormElement).reset();
         setToken(null);
-        setSnackType("success");
-        setSnackMsg(message);
-        setOpen(true);
+        setSnack({
+          open: true,
+          type: "success",
+          msg: message,
+          disabledBtn: false,
+        });
       } else {
-        setSnackType("error");
-        setSnackMsg(message);
-        setOpen(true);
+        setSnack({
+          open: true,
+          type: "error",
+          msg: message,
+          disabledBtn: false,
+        });
       }
     }
     recaptchaRef.current?.reset();
@@ -97,7 +114,10 @@ function Contact(): ReactElement {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setSnack({
+      ...snack,
+      open: false,
+    });
   };
 
   const handleTooltip = (tooltip: TooltipTypes) => () =>
@@ -125,10 +145,10 @@ function Contact(): ReactElement {
         ...stylesAll.contact.container,
         position: "relative",
       }}>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={snack.open} autoHideDuration={4000} onClose={handleClose}>
         <Alert
           variant="filled"
-          severity={snackType}
+          severity={snack.type as AlertTypes}
           action={
             <IconButton
               onClick={handleClose}
@@ -141,7 +161,7 @@ function Contact(): ReactElement {
             variant="h6"
             sx={stylesAll.setColor.snackBar.text}
             color="common.white">
-            {snackMsg}
+            {snack.msg}
           </Typography>
         </Alert>
       </Snackbar>
@@ -323,7 +343,7 @@ function Contact(): ReactElement {
                   textTransform: "none",
                 }}
                 btn_name="Send Message"
-                disabled={open}
+                disabled={snack.disabledBtn}
               />
             </Grid>
           </Grid>
