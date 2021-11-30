@@ -8,15 +8,15 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 const Tooltip = dynamic(() => import("@mui/material/Tooltip"));
 import type { SelectChangeEvent } from "@mui/material";
-import { props } from "../Utilities/StylesProvider";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import {
   addTag,
   removeTag,
   changeOrder,
 } from "../../context/reducers/projectSlices";
+import { filterStyles as styles } from "./Projects.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
-const { stylesAll } = props;
 function Filter() {
   const projectState = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
@@ -25,18 +25,20 @@ function Filter() {
   const handleInput = (event: KeyboardEvent<HTMLInputElement>) => {
     if (
       !projectState.tags.includes(filterInput.toUpperCase()) &&
+      !filterInput.includes(" ") &&
       (event.key === "Enter" ||
         event.key === " " ||
         event.key === "Spacebar") &&
-      filterInput !== ""
+      filterInput
     ) {
       dispatch(addTag({ title: filterInput.toUpperCase() }));
       setFilterInput("");
     }
   };
 
-  const handleFilter = (event: ChangeEvent<HTMLInputElement>) =>
-    setFilterInput(event.target.value);
+  const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilterInput(event.target.value.replace(/\s+/g, ""));
+  };
 
   const handleRemoveTag = (text: string) => () =>
     dispatch(removeTag({ title: text.toUpperCase() }));
@@ -47,10 +49,10 @@ function Filter() {
 
   return (
     <Box
+      flexDirection="column"
       sx={{
-        ...stylesAll.utilities.flexDefault,
-        ...stylesAll.filter.container,
-        flexDirection: "column",
+        ...stylesUtility.flexDefault,
+        ...styles.container,
       }}>
       <TextField
         onChange={handleFilter}
@@ -59,15 +61,13 @@ function Filter() {
         label={
           <Typography
             variant="button"
-            sx={{
-              ...stylesAll.filter.input.text.label,
-              textAlign: "center",
-            }}>
+            textAlign="center"
+            sx={styles.input.text.label}>
             Enter Tags
           </Typography>
         }
         InputProps={{
-          sx: stylesAll.filter.input.text.main,
+          sx: styles.input.text.main,
         }}
         variant="standard"
         fullWidth
@@ -75,28 +75,22 @@ function Filter() {
       <Grid
         container
         sx={{
-          ...stylesAll.utilities.gridContainer,
-          ...stylesAll.filter.tags.gridContainer,
+          ...stylesUtility.gridContainer,
+          ...styles.tags.gridContainer,
         }}
         spacing={{ xs: 0.5 }}>
         {projectState.tags.map((text, index) => (
-          <Grid
-            key={`${text}${index}`}
-            item
-            xs={6}
-            md={4}
-            xl={4}
-            sx={{ marginBottom: "10px" }}>
-            <Tooltip title={<Typography variant="body2">{text}</Typography>}>
+          <Grid key={`${text}|-${index}`} item xs={6} md={4} xl={4} mb="10px">
+            <Tooltip
+              title={<Typography variant="body2">{text}</Typography>}
+              disableInteractive>
               <Chip
-                sx={stylesAll.filter.tags.container}
+                sx={styles.tags.container}
                 label={
                   <Typography
                     variant="button"
-                    sx={{
-                      ...stylesAll.filter.input.text.label,
-                      textAlign: "center",
-                    }}>
+                    textAlign="center"
+                    sx={styles.input.text.label}>
                     {text}
                   </Typography>
                 }
@@ -109,23 +103,21 @@ function Filter() {
 
       <Box
         sx={{
-          ...stylesAll.utilities.flexDefault,
-          ...stylesAll.filter.forms.container,
+          ...stylesUtility.flexDefault,
+          ...styles.forms.container,
         }}>
-        <Typography variant="button" sx={stylesAll.filter.forms.text.title}>
+        <Typography variant="button" sx={styles.forms.text.title}>
           Sort Alphabetically
         </Typography>
-        <FormControl
-          variant="standard"
-          sx={stylesAll.filter.forms.select.container}>
+        <FormControl variant="standard" sx={styles.forms.select.container}>
           <Select
             value={projectState.sortByTitle}
             onChange={handleChangeOrder}
-            sx={stylesAll.filter.forms.select.text}>
-            <MenuItem value="asc" sx={stylesAll.filter.forms.select.text}>
+            sx={styles.forms.select.text}>
+            <MenuItem value="asc" sx={styles.forms.select.text}>
               Ascending
             </MenuItem>
-            <MenuItem value="desc" sx={stylesAll.filter.forms.select.text}>
+            <MenuItem value="desc" sx={styles.forms.select.text}>
               Descending
             </MenuItem>
           </Select>

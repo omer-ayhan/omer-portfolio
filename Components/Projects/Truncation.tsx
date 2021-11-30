@@ -1,14 +1,15 @@
 import { useCallback, useState } from "react";
 import { Link, Typography } from "@mui/material";
-import { props } from "../Utilities/StylesProvider";
+import styles from "./Projects.style";
 
 interface Props {
   text: string;
 }
 
-const { stylesAll } = props;
 const Truncation = ({ text }: Props) => {
   const [showText, setShowText] = useState(false);
+
+  const handleShowtext = () => setShowText(!showText);
 
   const truncate = useCallback(() => {
     if (text.length > 99) {
@@ -18,11 +19,9 @@ const Truncation = ({ text }: Props) => {
             {text}{" "}
             <Link
               component="button"
-              onClick={() => setShowText(!showText)}
-              sx={{
-                ...stylesAll.projects.card.text.desc,
-                color: "primary",
-              }}>
+              onClick={handleShowtext}
+              color="primary"
+              sx={styles.card.text.desc}>
               Show {showText ? "Less" : "More"}
             </Link>
           </>
@@ -34,11 +33,8 @@ const Truncation = ({ text }: Props) => {
             <Link
               component="button"
               color="primary"
-              onClick={() => setShowText(!showText)}
-              sx={{
-                ...stylesAll.projects.card.text.desc,
-                color: "primary",
-              }}>
+              onClick={handleShowtext}
+              sx={styles.card.text.desc}>
               Show {showText ? "Less" : "More"}
             </Link>
           </>
@@ -48,12 +44,7 @@ const Truncation = ({ text }: Props) => {
   }, [showText, text]);
 
   return (
-    <Typography
-      variant="body1"
-      sx={{
-        ...stylesAll.projects.card.text.desc,
-        textAlign: "start",
-      }}>
+    <Typography variant="body1" textAlign="start" sx={styles.card.text.desc}>
       {truncate()}
     </Typography>
   );

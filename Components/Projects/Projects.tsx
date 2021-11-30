@@ -3,7 +3,7 @@ import type { FormEvent, ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
-import { FormInput, props } from "../Utilities/StylesProvider";
+import { FormInput } from "../Utilities/StylesProvider";
 // import Filter from "./Filter";
 import ImageSSR from "../Utilities/ImageSSR";
 import dynamic from "next/dynamic";
@@ -12,6 +12,8 @@ const ProjectTags = dynamic(() => import("./ProjectTags"));
 const Filter = dynamic(() => import("./Filter"), {
   loading: () => <div>Loading...</div>,
 });
+import styles from "./Projects.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
 type TabDataTypes = {
   title: string;
@@ -32,7 +34,6 @@ interface Props {
   tabData: Array<TabDataTypes[]>;
 }
 
-const { stylesAll } = props;
 function Projects({ tabData }: Props): ReactElement {
   const [searchInput, setSearchInput] = useState("");
 
@@ -45,48 +46,33 @@ function Projects({ tabData }: Props): ReactElement {
     <Grid
       id="projects"
       container
-      sx={{
-        ...stylesAll.utilities.gridContainer,
-        position: "relative",
-      }}
+      position="relative"
+      sx={stylesUtility.gridContainer}
       spacing={1}>
       <ImageSSR
         className="projects-bg"
         path="/img/Background/bg_projects.png"
       />
-      <Grid
-        item
-        xs={12}
-        sx={{
-          marginBottom: "20px",
-        }}>
+      <Grid item xs={12} mb="20px">
         <Typography
           variant="h3"
-          sx={{
-            ...stylesAll.utilities.title,
-            textAlign: "center",
-          }}
+          textAlign="center"
+          sx={stylesUtility.title}
           color="text.primary">
           Projects
         </Typography>
       </Grid>
       <Grid item xs={12}>
         <MainTabs
-          spacing={stylesAll.projects.spacing}
-          rowSpacing={stylesAll.projects.rowSpacing}
-          cardWidth={stylesAll.projects.projectsWidth}
-          cardHeight={stylesAll.projects.projectsHeight}
+          spacing={styles.spacing}
+          rowSpacing={styles.rowSpacing}
+          cardWidth={styles.projectsWidth}
+          cardHeight={styles.projectsHeight}
           category="projects"
           searchInput={searchInput}
           incomingData={tabData[0]}
           channelName={process.env.NEXT_PUBLIC_PROJECTS_CHANNEL}>
-          <Grid
-            container
-            sx={{
-              ...stylesAll.utilities.gridDefault,
-              marginBottom: "50px",
-              gap: "20px",
-            }}>
+          <Grid container gap="20px" mb="50px" sx={stylesUtility.gridDefault}>
             <form onSubmit={preventDefault} style={{ position: "relative" }}>
               <FormInput
                 placeholder="Search"
@@ -106,10 +92,8 @@ function Projects({ tabData }: Props): ReactElement {
             <Grid
               item
               xs={12}
-              sx={{
-                ...stylesAll.projects.tags.gridContainer,
-                flexDirection: "row",
-              }}>
+              flexDirection="row"
+              sx={styles.tags.gridContainer}>
               <ProjectTags incomingData={tabData[1]} />
             </Grid>
           </Grid>

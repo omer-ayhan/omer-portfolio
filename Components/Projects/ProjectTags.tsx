@@ -4,8 +4,8 @@ import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import MainTag from "../Utilities/MainTag";
-import { props } from "../Utilities/StylesProvider";
 import useChannels from "../Utilities/useChannels";
+import styles from "./Projects.style";
 
 interface Props {
   incomingData: Array<TabDataTypes>;
@@ -31,8 +31,6 @@ type TagDataTypes = {
   title: string;
   icon: string;
 };
-
-const { stylesAll } = props;
 
 function ProjectTags({ incomingData }: Props): ReactElement {
   const stateTags = useAppSelector((state) => state.projects.tags);
@@ -82,8 +80,8 @@ function ProjectTags({ incomingData }: Props): ReactElement {
         <Grid key={_id} item xs={2} mx="3.5px">
           <MainTag
             onClick={handleTags(stateTags, title)}
-            sxBox={stylesAll.projects.tags.container}
-            sxText={stylesAll.projects.tags.text}
+            sxBox={styles.tags.container}
+            sxText={styles.tags.text}
             icon={icon}
             title={title}
             className={"project-tag-icons"}
