@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
-// import MainTabs from "./Utilities/MainTabs";
-import { props as StyleProps } from "./Utilities/StylesProvider";
 import dynamic from "next/dynamic";
-const MainTabs = dynamic(() => import("./Utilities/MainTabs"));
+const MainTabs = dynamic(() => import("../Utilities/MainTabs"));
+import styles from "./Skills.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
 type TabDataTypes = {
   title: string;
@@ -24,31 +24,28 @@ interface Props {
   tabData: Array<TabDataTypes>;
 }
 
-const { stylesAll } = StyleProps;
 function Skills({ tabData }: Props): ReactElement {
   return (
     <Grid
       id="skills"
-      sx={stylesAll.utilities.gridContainer}
+      sx={stylesUtility.gridContainer}
       container
       justifyContent="center"
       alignItems="center">
       <Grid item xs={12}>
         <Typography
           variant="h3"
-          sx={{
-            ...stylesAll.utilities.title,
-            textAlign: "center",
-          }}
+          textAlign="center"
+          sx={stylesUtility.title}
           color="text.primary">
           Skills
         </Typography>
       </Grid>
       <Grid item xs={12}>
         <MainTabs
-          spacing={stylesAll.skills.spacings}
-          cardWidth={stylesAll.skills.skillsWidth}
-          cardHeight={stylesAll.skills.skillsHeight}
+          spacing={styles.spacings}
+          cardWidth={styles.skillsWidth}
+          cardHeight={styles.skillsHeight}
           category="skills"
           channelName={process.env.NEXT_PUBLIC_SKILLS_CHANNEL}
           incomingData={tabData}
