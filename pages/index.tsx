@@ -4,7 +4,7 @@ import Navbar from "../Components/Navbar";
 import Intro from "../Components/Intro";
 import StylesProvider, { props } from "../Components/Utilities/StylesProvider";
 import { Box } from "@mui/material";
-import About from "../Components/About/About";
+import About from "../Components/About";
 import { useAppSelector } from "../context/hooks";
 import connectToDB from "../lib/database";
 import type { Db } from "mongodb";

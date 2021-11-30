@@ -1,4 +1,4 @@
-const styles = {
+const stylesMain = {
   mobileMenu: {
     menuLogoShow: {
       display: { xs: "inline", Laptop: "none" },
@@ -151,4 +151,4 @@ export const stylesSetColor = {
   },
 };
 
-export default styles;
+export default stylesMain;

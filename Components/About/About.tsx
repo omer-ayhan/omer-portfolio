@@ -1,12 +1,12 @@
 import type { ReactElement } from "react";
 import { Box, Grid, Link, Typography } from "@mui/material";
-import { props } from "../Utilities/StylesProvider";
 import MainButton from "../Utilities/MainButton";
 import SvgImages from "../Utilities/SvgImages";
 import SocialIcons from "./SocialIcons";
 import ImageSSR from "../Utilities/ImageSSR";
+import styles from "./About.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
-const { stylesAll } = props;
 function About(): ReactElement {
   return (
     <Grid
@@ -15,21 +15,10 @@ function About(): ReactElement {
       spacing={1}
       justifyContent="space-between"
       alignItems="center"
-      sx={{ marginTop: { Laptop: "40px" } }}>
-      <Grid item xs={12} md={2} order={{ xs: 3, Laptop: 2 }}>
-        <Box
-          sx={{
-            ...stylesAll.about.aboutImg.container,
-            flexDirection: "column",
-          }}>
-          <Box
-            sx={{
-              position: "relative",
-              display: {
-                xs: "none",
-                Laptop: "block",
-              },
-            }}>
+      mt={{ Laptop: "40px" }}>
+      <Grid item xs={12} md={2} order={styles.aboutImg.order}>
+        <Box sx={styles.aboutImg.container} flexDirection="column">
+          <Box position="relative" sx={styles.aboutImg.innerContainer}>
             <object
               id="about-illustration-bg"
               type="image/svg+xml"
@@ -42,7 +31,7 @@ function About(): ReactElement {
               path="/img/About_Img/about_illustration_photo.png"
             />
           </Box>
-          <SocialIcons sxBox={{ flexDirection: "column" }} />
+          <SocialIcons />
         </Box>
       </Grid>
       <Grid
@@ -53,19 +42,17 @@ function About(): ReactElement {
         justifyContent="center"
         flexDirection="column"
         spacing={3}
+        position="relative"
         sx={{
-          position: "relative",
-          alignItems: { xs: "center", Laptop: "start" },
+          alignItems: styles.aboutBox.alignText,
         }}
-        order={{ xs: 2, Laptop: 3 }}>
+        order={styles.aboutBox.order}>
         <ImageSSR className="about-bg" path="/img/Background/bg_about.svg" />
         <Grid item xs={12}>
           <Typography
             variant="h3"
-            sx={{
-              ...stylesAll.utilities.title,
-              textAlign: { xs: "center", Laptop: "start" },
-            }}
+            textAlign={styles.aboutBox.alignText as any}
+            sx={stylesUtility.title}
             color="text.primary">
             Who I Am
           </Typography>
@@ -73,13 +60,8 @@ function About(): ReactElement {
         <Grid item xs={12}>
           <Typography
             variant="h6"
-            sx={{
-              ...stylesAll.about.aboutBox.body,
-              textAlign: {
-                xs: "center",
-                Laptop: "start",
-              },
-            }}
+            textAlign={styles.aboutBox.alignText as any}
+            sx={styles.aboutBox.body}
             color="text.primary">
             I am Turkey-based Web Developer who’s designing and coding websites
             for over 2 years. My main focus is mostly on Front-End Development
@@ -91,14 +73,9 @@ function About(): ReactElement {
           </Typography>
           <Typography
             variant="h6"
-            sx={{
-              ...stylesAll.about.aboutBox.body,
-              textAlign: {
-                xs: "center",
-                Laptop: "start",
-              },
-              marginTop: "10px",
-            }}
+            mt="10px"
+            textAlign={styles.aboutBox.alignText as any}
+            sx={styles.aboutBox.body}
             color="text.primary">
             <b>Email:</b>{" "}
             <Link href="mailto:om.ayhan247@gmail.com">
@@ -108,18 +85,12 @@ function About(): ReactElement {
         </Grid>
         <Grid item xs={12}>
           <MainButton
-            sxButton={stylesAll.utilities.buttons.container}
-            sxLink={stylesAll.utilities.buttons.link}
-            sxText={stylesAll.utilities.buttons.text}
+            sxButton={stylesUtility.buttons.container}
+            sxLink={stylesUtility.buttons.link}
+            sxText={stylesUtility.buttons.text}
             btn_name="My Portfolio"
           />
-          <SocialIcons
-            sxBox={{
-              marginTop: "20px",
-              display: { xs: "flex", Laptop: "none" },
-              flexDirection: "column",
-            }}
-          />
+          <SocialIcons sxBox={styles.aboutBox.socialIcons} />
         </Grid>
       </Grid>
     </Grid>
