@@ -19,7 +19,7 @@ function Footer(): ReactElement {
             <Link
               key={`${color}-${index}`}
               mx="10px"
-              sx={{ padding: 0 }}
+              p={0}
               href={to}
               rel="noreferrer">
               <Box component="span" color="text.primary">

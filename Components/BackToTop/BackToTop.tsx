@@ -1,6 +1,7 @@
 import { Box, Fab, useScrollTrigger, Zoom } from "@mui/material";
-import SmoothScroll from "./Utilities/ScrollUtils/SmoothScroll";
+import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import { Icon } from "@iconify/react";
+import styles from "./BackToTop.style";
 
 const BackToTop = () => {
   const trigger = useScrollTrigger({
@@ -9,26 +10,16 @@ const BackToTop = () => {
   });
 
   return (
-    <SmoothScroll
-      sx={{ display: { xs: "none", Tablet: "block" } }}
-      toId="intro"
-      allowScroll>
+    <SmoothScroll sx={styles.show} toId="intro" allowScroll>
       <Zoom in={trigger}>
-        <Box
-          role="button container"
-          sx={{
-            position: "fixed",
-            bottom: 16,
-            right: 16,
-            zIndex: 10,
-          }}>
+        <Box role="button container" position="fixed" sx={styles.container}>
           <Fab
-            sx={{ width: { FourK: "67px" }, height: { FourK: "67px" } }}
+            sx={styles.buttonContainer}
             color="secondary"
             size="medium"
             aria-label="scroll back to top">
             <Icon
-              style={{ marginBottom: "6px" }}
+              style={styles.icon}
               className="social-icons"
               icon="bx:bxs-up-arrow"
             />

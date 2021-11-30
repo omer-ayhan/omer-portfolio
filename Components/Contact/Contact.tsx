@@ -101,8 +101,8 @@ function Contact(): ReactElement {
           disabledBtn: false,
         });
       }
+      recaptchaRef.current?.reset();
     }
-    recaptchaRef.current?.reset();
   };
 
   const onReCAPTCHAChange = (captchaCode: string | null) => {
@@ -320,7 +320,7 @@ function Contact(): ReactElement {
                 }}
                 sxText={styles.button.text}
                 btn_name="Send Message"
-                disabled={snack.disabledBtn}
+                disabled={snack.disabledBtn || snack.open}
               />
             </Grid>
           </Grid>
