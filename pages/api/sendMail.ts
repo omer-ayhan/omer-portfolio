@@ -4,7 +4,7 @@ import { RateLimiterMemory } from "rate-limiter-flexible";
 
 const rateLimiter = new RateLimiterMemory({
   points: 3,
-  duration: 40,
+  duration: 60,
 });
 
 sendgrid.setApiKey(process.env.SENDGRID_API);

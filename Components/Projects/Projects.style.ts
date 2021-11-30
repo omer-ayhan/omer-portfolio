@@ -133,7 +133,7 @@ const stylesMain = {
       desc: {
         fontFamily: "Rubik, sans-serif",
         fontSize: { xs: "1rem", FourK: "1.45rem" },
-        color: "inherit",
+        color: "primary",
       },
     },
     tags: {

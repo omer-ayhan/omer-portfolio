@@ -53,16 +53,11 @@ const MainButton = ({
         {...rest}>
         <Link
           component={component}
-          sx={{ ...sxLink, color: "inherit" }}
+          color="inherit"
+          sx={sxLink}
           href={to}
           rel="noreferrer">
-          <Typography
-            variant="h6"
-            sx={{
-              ...sxText,
-              color: "inherit",
-            }}
-            color="common.white">
+          <Typography variant="h6" sx={sxText} color="inherit">
             {btn_name}
           </Typography>
         </Link>

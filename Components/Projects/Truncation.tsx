@@ -20,9 +20,8 @@ const Truncation = ({ text }: Props) => {
             <Link
               component="button"
               onClick={handleShowtext}
-              color="primary"
               sx={styles.card.text.desc}>
-              Show {showText ? "Less" : "More"}
+              Show Less
             </Link>
           </>
         );
@@ -32,10 +31,9 @@ const Truncation = ({ text }: Props) => {
             {text.substring(0, 87)}...{" "}
             <Link
               component="button"
-              color="primary"
               onClick={handleShowtext}
               sx={styles.card.text.desc}>
-              Show {showText ? "Less" : "More"}
+              Show More
             </Link>
           </>
         );

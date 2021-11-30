@@ -14,11 +14,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FormInput, props } from "./Utilities/StylesProvider";
-import ImageSSR from "./Utilities/ImageSSR";
+import { FormInput } from "../Utilities/StylesProvider";
+import ImageSSR from "../Utilities/ImageSSR";
 import { Icon } from "@iconify/react";
-import MainButton from "./Utilities/MainButton";
+import MainButton from "../Utilities/MainButton";
 import ReCAPTCHA from "react-google-recaptcha";
+import styles from "./Contact.style";
+import stylesUtility from "../Utilities/Utilities.style";
+import { stylesSetColor } from "../Navbar/Navbar.style";
 
 type AlertTypes = "success" | "warning" | "error";
 type TooltipTypes = {
@@ -29,7 +32,6 @@ type TooltipTypes = {
 };
 
 function Contact(): ReactElement {
-  const { stylesAll } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -123,8 +125,11 @@ function Contact(): ReactElement {
   const handleTooltip = (tooltip: TooltipTypes) => () =>
     setTooltipOpen({ ...tooltipOpen, ...tooltip });
 
-  const disableKey = (e: KeyboardEvent<HTMLFormElement>) =>
-    (e.key === "U+000A" || e.key === "Enter") && e.preventDefault();
+  const disableKey = (e: KeyboardEvent<HTMLFormElement>) => {
+    (e.key === "U+000A" || e.key === "Enter") &&
+      (e.target as HTMLTextAreaElement).type !== "textarea" &&
+      e.preventDefault();
+  };
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
@@ -140,10 +145,10 @@ function Contact(): ReactElement {
       id="contact"
       container
       spacing={1}
+      position="relative"
       sx={{
-        ...stylesAll.utilities.gridContainer,
-        ...stylesAll.contact.container,
-        position: "relative",
+        ...stylesUtility.gridContainer,
+        ...styles.container,
       }}>
       <Snackbar open={snack.open} autoHideDuration={4000} onClose={handleClose}>
         <Alert
@@ -153,13 +158,13 @@ function Contact(): ReactElement {
             <IconButton
               onClick={handleClose}
               size="medium"
-              sx={stylesAll.setColor.snackBar.action}>
+              sx={stylesSetColor.snackBar.action}>
               <Icon color="#fff" icon="entypo:cross" />
             </IconButton>
           }>
           <Typography
             variant="h6"
-            sx={stylesAll.setColor.snackBar.text}
+            sx={stylesSetColor.snackBar.text}
             color="common.white">
             {snack.msg}
           </Typography>
@@ -167,42 +172,31 @@ function Contact(): ReactElement {
       </Snackbar>
 
       <ImageSSR className="contact-bg" path="/img/Background/bg_contact.png" />
-      <Grid
-        item
-        xs={12}
-        sx={{
-          marginBottom: "20px",
-        }}>
+      <Grid item xs={12} mb="20px">
         <Typography
           variant="h3"
-          sx={{
-            ...stylesAll.utilities.title,
-            textAlign: "center",
-          }}
-          color="text.primary">
+          textAlign="center"
+          color="text.primary"
+          sx={stylesUtility.title}>
           Contact Me
         </Typography>
         <Typography
           variant="body1"
-          sx={{
-            marginTop: "16px",
-            ...stylesAll.about.aboutBox.body,
-            textAlign: "center",
-          }}
-          color="text.primary">
+          mt="16px"
+          textAlign="center"
+          color="text.primary"
+          sx={styles.body}>
           You can reach me out for job offers, freelancing or other business
           inquires in here
         </Typography>
       </Grid>
-      <Grid item xs={10} xl={7}>
+      <Grid item xs={12} sm={11} xl={9}>
         <form onSubmit={handleSubmit} onKeyDown={disableKey}>
           <Grid
             container
             spacing={3.4}
-            sx={{
-              placeContent: "center",
-              position: "relative",
-            }}>
+            position="relative"
+            justifyContent="center">
             <Grid item xs={12} md={6}>
               <FormInput
                 onChange={handleName}
@@ -219,7 +213,7 @@ function Contact(): ReactElement {
                     }>
                     <Icon
                       onClick={handleTooltip({ name: true })}
-                      style={{ cursor: "pointer", zIndex: 15 }}
+                      style={styles.tooltip}
                       icon="fe:warning"
                     />
                   </Tooltip>
@@ -245,7 +239,7 @@ function Contact(): ReactElement {
                     }>
                     <Icon
                       onClick={handleTooltip({ email: true })}
-                      style={{ cursor: "pointer", zIndex: 15 }}
+                      style={styles.tooltip}
                       icon="fe:warning"
                     />
                   </Tooltip>
@@ -269,7 +263,7 @@ function Contact(): ReactElement {
                     }>
                     <Icon
                       onClick={handleTooltip({ subject: true })}
-                      style={{ cursor: "pointer", zIndex: 15 }}
+                      style={styles.tooltip}
                       icon="fe:warning"
                     />
                   </Tooltip>
@@ -279,12 +273,7 @@ function Contact(): ReactElement {
             </Grid>
             <Grid item xs={12}>
               <FormInput
-                sx={{
-                  "& textarea": {
-                    height: "100%",
-                    overflowY: "scroll",
-                  },
-                }}
+                sx={styles.textarea as any}
                 onChange={handleMsg}
                 inputComponent="textarea"
                 fullWidth
@@ -302,11 +291,7 @@ function Contact(): ReactElement {
                     }>
                     <Icon
                       onClick={handleTooltip({ message: true })}
-                      style={{
-                        marginBottom: "auto",
-                        cursor: "pointer",
-                        zIndex: 15,
-                      }}
+                      style={styles.tooltipTextArea}
                       icon="fe:warning"
                     />
                   </Tooltip>
@@ -315,11 +300,7 @@ function Contact(): ReactElement {
               />
             </Grid>
             <Grid item xs={12}>
-              <span
-                style={{
-                  display: "grid",
-                  placeItems: "center",
-                }}>
+              <span style={stylesUtility.gridDefault}>
                 <ReCAPTCHA
                   ref={recaptchaRef}
                   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
@@ -331,17 +312,13 @@ function Contact(): ReactElement {
               <MainButton
                 btnComponent="span"
                 component="button"
-                sxButton={stylesAll.contact.button.container}
+                sxButton={styles.button.container}
                 sxLink={{
-                  ...stylesAll.utilities.buttons.link,
+                  ...stylesUtility.buttons.link,
                   padding: "12px 0",
                   textDecoration: "none",
                 }}
-                sxText={{
-                  ...stylesAll.contact.button.text,
-                  textAlign: "center",
-                  textTransform: "none",
-                }}
+                sxText={styles.button.text}
                 btn_name="Send Message"
                 disabled={snack.disabledBtn}
               />
