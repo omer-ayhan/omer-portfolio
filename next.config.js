@@ -32,7 +32,7 @@ module.exports = {
   i18n: {
     locales: ["en", "tr"],
     defaultLocale: "en",
-    localeDetection: false,
+    localeDetection: true,
   },
 };
 

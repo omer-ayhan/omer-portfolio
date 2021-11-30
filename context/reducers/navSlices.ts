@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { linksMain } from "../../Components/Utilities/StylesProvider";
 
 export interface NavStates {
   [key: string | symbol]: any;
   isDarkMode: boolean;
-  lang: string;
-  langFlag: string;
   Primary: string;
   Secondary: string;
 }
@@ -16,15 +13,8 @@ type PayloadTypesColor = {
   Secondary?: string;
 };
 
-type PayloadTypesLang = {
-  lang: string;
-  langFlag: string;
-};
-
 const initialState: NavStates = {
   isDarkMode: false,
-  lang: linksMain.langs[0].label,
-  langFlag: linksMain.langs[0].flag,
   Primary: "#f79c00",
   Secondary: "#f44336",
 };
@@ -57,19 +47,9 @@ export const navSlices = createSlice({
         console.log("reset");
       }
     },
-    changeLang: (state, action: PayloadAction<PayloadTypesLang>) => {
-      if (
-        state.lang !== action.payload.lang &&
-        state.langFlag !== action.payload.langFlag
-      ) {
-        state.lang = action.payload.lang;
-        state.langFlag = action.payload.langFlag;
-      }
-    },
   },
 });
 
-export const { changeLang, changeTheme, changeColor, resetColor } =
-  navSlices.actions;
+export const { changeTheme, changeColor, resetColor } = navSlices.actions;
 
 export default navSlices.reducer;

@@ -13,7 +13,7 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import type { Theme } from "@mui/material";
-import { linksMain, props } from "../Utilities/StylesProvider";
+import { linksMain, mainLangs, props } from "../Utilities/StylesProvider";
 import ThemeSwitch from "../Utilities/ThemeSwitch";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
@@ -23,11 +23,12 @@ const SetColor = dynamic(() => import("./SetColor"), {
   loading: () => <div>Loading...</div>,
 });
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
-import { changeLang } from "../../context/reducers/navSlices";
-import { useAppSelector, useAppDispatch } from "../../context/hooks";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Anchor = "right";
+
+type Langs = "en" | "tr";
 
 interface Props {
   children: ReactElement;
@@ -57,20 +58,13 @@ const ElevationScroll = (Props: Props) => {
 };
 
 function Navbar(): ReactElement {
-  const theme = useAppSelector((state) => state.nav);
-  const dispatch = useAppDispatch();
+  const mainLangsArray = Object.values(mainLangs);
+  const router = useRouter();
+  // @ts-ignore
+  const langState: Langs = router.locale ?? "en";
   const [swipe, setSwipe] = useState({
     right: false,
   });
-
-  const handleLang = (lang: { label: string; flag: string }) => () => {
-    dispatch(
-      changeLang({
-        lang: lang.label,
-        langFlag: lang.flag,
-      })
-    );
-  };
 
   const mapNavLinks = linksMain.navLinks.map(({ name, to }) => (
     <SmoothScroll
@@ -108,14 +102,13 @@ function Navbar(): ReactElement {
     </SmoothScroll>
   ));
 
-  const mapLangs = linksMain.langs.map((lang, index) => (
+  const mapLangs = mainLangsArray.map((lang, index) => (
     <Box key={`${lang.flag}${index}`}>
       <Link href="/" locale={lang.label} passHref>
         <Button
           sx={{
             padding: "5px 10px 5px 15px",
           }}
-          onClick={handleLang(lang)}
           variant="text"
           startIcon={<Icon icon={lang.flag} className="nav-icons" />}
           color="primary"
@@ -155,7 +148,9 @@ function Navbar(): ReactElement {
       <List>
         <ListItem sx={stylesAll.navbar.mobileMenu.container}>
           <Popup
-            startIcon={<Icon icon={theme.langFlag} width="40" height="40" />}
+            startIcon={
+              <Icon icon={mainLangs[langState].flag} width="40" height="40" />
+            }
             btn={
               <Typography
                 sx={{
@@ -164,7 +159,7 @@ function Navbar(): ReactElement {
                 }}
                 variant="h6"
                 color="text.primary">
-                {theme.lang}
+                {mainLangs[langState].label}
               </Typography>
             }
             content={mapLangs}
@@ -200,14 +195,17 @@ function Navbar(): ReactElement {
                 }}>
                 <Popup
                   startIcon={
-                    <Icon icon={theme.langFlag} className="nav-icons" />
+                    <Icon
+                      icon={mainLangs[langState].flag}
+                      className="nav-icons"
+                    />
                   }
                   btn={
                     <Typography
                       sx={stylesAll.navbar.lang.text}
                       variant="h6"
                       color="text.primary">
-                      {theme.lang}
+                      {mainLangs[langState].label}
                     </Typography>
                   }
                   content={mapLangs}

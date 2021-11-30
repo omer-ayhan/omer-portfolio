@@ -808,14 +808,15 @@ const linksMain = {
     { icon_name: "fa-brands:behance-square", to: "#", color: "#1873EB" },
     { icon_name: "logos:twitter", to: "#", color: "#55ACEE" },
   ],
-  langs: [
-    {
-      label: "en",
-      flag: "emojione:flag-for-us-outlying-islands",
-      id: "a12YUaa_1221",
-    },
-    { label: "tr", flag: "emojione:flag-for-turkey", id: "u_21795b_Xcv" },
-  ],
+};
+
+const mainLangs = {
+  en: {
+    label: "en",
+    flag: "emojione:flag-for-us-outlying-islands",
+    id: "a12YUaa_1221",
+  },
+  tr: { label: "tr", flag: "emojione:flag-for-turkey", id: "u_21795b_Xcv" },
 };
 
 const tabObjects = {
@@ -1103,4 +1104,4 @@ const FormInput = styled(
 }));
 
 export default StylesProvider;
-export { FormInput, StyledSwitch, linksMain, tabObjects, props };
+export { FormInput, StyledSwitch, linksMain, mainLangs, tabObjects, props };
