@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Head from "next/head";
-import Navbar from "../Components/Nav/Navbar";
+import Navbar from "../Components/Navbar";
 import Intro from "../Components/Intro";
 import StylesProvider, { props } from "../Components/Utilities/StylesProvider";
 import { Box } from "@mui/material";

@@ -25,8 +25,10 @@ import {
   adjustTextColor,
   adjustColorShade,
 } from "../Utilities/ColorUtils/adjustColor";
+import { stylesSetColor as styles } from "./Navbar.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
-const { stylesAll, colors: colorsAll } = props;
+const { colors: colorsAll } = props;
 const SetColor = () => {
   const colors = useAppSelector((state) => state.nav);
   const dispatch = useAppDispatch();
@@ -98,8 +100,8 @@ const SetColor = () => {
   return (
     <Box
       sx={{
-        ...stylesAll.utilities.flexDefault,
-        ...stylesAll.setColor.container,
+        ...stylesUtility.flexDefault,
+        ...styles.container,
         flexDirection: "column",
         zIndex: 35,
       }}>
@@ -111,13 +113,13 @@ const SetColor = () => {
             <IconButton
               onClick={handleClose}
               size="medium"
-              sx={stylesAll.setColor.snackBar.action}>
+              sx={styles.snackBar.action}>
               <Icon icon="entypo:cross" />
             </IconButton>
           }>
           <Typography
             variant="h6"
-            sx={stylesAll.setColor.snackBar.text}
+            sx={styles.snackBar.text}
             color="common.white">
             You need to write 3 digit or 6 digit hex value
           </Typography>
@@ -129,12 +131,12 @@ const SetColor = () => {
           onChange={handleChange}
           sx={{
             fontWeight: 500,
-            ...stylesAll.setColor.text,
+            ...styles.text,
           }}>
-          <MenuItem value="Primary" sx={stylesAll.setColor.text}>
+          <MenuItem value="Primary" sx={styles.text}>
             Primary
           </MenuItem>
-          <MenuItem value="Secondary" sx={stylesAll.setColor.text}>
+          <MenuItem value="Secondary" sx={styles.text}>
             Secondary
           </MenuItem>
         </Select>
@@ -146,7 +148,7 @@ const SetColor = () => {
           event.key === "Enter" && applyColor()
         }
         InputProps={{
-          sx: stylesAll.setColor.text,
+          sx: styles.text,
           startAdornment: (
             <InputAdornment position="start">
               <Typography variant="h5" color="text.primary">
@@ -161,8 +163,8 @@ const SetColor = () => {
       <Grid
         container
         sx={{
-          ...stylesAll.utilities.gridContainer,
-          ...stylesAll.setColor.colorPalette.gridContainer,
+          ...stylesUtility.gridContainer,
+          ...styles.colorPalette.gridContainer,
         }}
         spacing={0}>
         {[
@@ -180,7 +182,7 @@ const SetColor = () => {
             item
             xs={3}
             sx={{
-              ...stylesAll.setColor.colorPalette.container,
+              ...styles.colorPalette.container,
               background: `${color}`,
               border: color === `#${colorInput}` ? `2.5px solid #fff` : "none",
             }}
@@ -200,10 +202,7 @@ const SetColor = () => {
                   "&:hover": { background: "transparent" },
                 }}>
                 {color === `#${colorInput}` && (
-                  <Icon
-                    icon="ic:round-done"
-                    style={stylesAll.setColor.colorPalette.icon}
-                  />
+                  <Icon icon="ic:round-done" style={styles.colorPalette.icon} />
                 )}
               </IconButton>
             </Tooltip>
@@ -214,8 +213,8 @@ const SetColor = () => {
       <Grid
         container
         sx={{
-          ...stylesAll.utilities.gridContainer,
-          ...stylesAll.setColor.preview.gridContainer,
+          ...stylesUtility.gridContainer,
+          ...styles.preview.gridContainer,
         }}
         spacing={0}>
         {[-40, 0, 40].map((shade) => (
@@ -224,12 +223,12 @@ const SetColor = () => {
             item
             xs={4}
             sx={{
-              ...stylesAll.setColor.preview.container,
+              ...styles.preview.container,
               background: `${
                 isColorValid &&
                 `${adjustColorShade(convertToHexSix(colorInput), shade)}`
               }`,
-              ...stylesAll.utilities.gridDefault,
+              ...stylesUtility.gridDefault,
             }}>
             <Typography
               variant="h6"
@@ -251,15 +250,15 @@ const SetColor = () => {
       <MainButton
         onClick={applyColor}
         sxButton={{
-          ...stylesAll.utilities.buttons.container,
-          ...stylesAll.setColor.button.container,
+          ...stylesUtility.buttons.container,
+          ...styles.button.container,
         }}
         sxLink={{
           textDecoration: "none",
         }}
         sxText={{
-          ...stylesAll.utilities.buttons.text,
-          ...stylesAll.setColor.button.text,
+          ...stylesUtility.buttons.text,
+          ...styles.button.text,
         }}
         component="span"
         btn_name={`Set as ${colorCat} Color`}
@@ -268,16 +267,16 @@ const SetColor = () => {
         variant="outlined"
         onClick={resetColors}
         sxButton={{
-          ...stylesAll.utilities.buttons.container,
-          ...stylesAll.setColor.button.container,
+          ...stylesUtility.buttons.container,
+          ...styles.button.container,
           borderWidth: "3.5px",
         }}
         sxLink={{
           textDecoration: "none",
         }}
         sxText={{
-          ...stylesAll.utilities.buttons.text,
-          ...stylesAll.setColor.button.text,
+          ...stylesUtility.buttons.text,
+          ...styles.button.text,
         }}
         component="span"
         btn_name="Reset Colors"

@@ -1,4 +1,4 @@
-import { cloneElement, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import type { ReactElement, KeyboardEvent, MouseEvent } from "react";
 import {
   AppBar,
@@ -10,10 +10,8 @@ import {
   ListItemText,
   SwipeableDrawer,
   Typography,
-  useScrollTrigger,
 } from "@mui/material";
-import type { Theme } from "@mui/material";
-import { linksMain, mainLangs, props } from "../Utilities/StylesProvider";
+import { linksMain, mainLangs } from "../Utilities/StylesProvider";
 import ThemeSwitch from "../Utilities/ThemeSwitch";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
@@ -25,37 +23,13 @@ const SetColor = dynamic(() => import("./SetColor"), {
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ElevationScroll from "./ElevationScroll";
+import styles from "./Navbar.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
 type Anchor = "right";
 
 type Langs = "en" | "tr";
-
-interface Props {
-  children: ReactElement;
-}
-const { colors, stylesAll } = props;
-
-const ElevationScroll = (Props: Props) => {
-  const { children } = Props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
-
-  return cloneElement(children, {
-    sx: {
-      ...stylesAll.navbar.appBar,
-      background: (theme: Theme) =>
-        theme.palette.mode === "dark" ? colors.Darkdef : "#fff",
-      boxShadow: (theme: Theme) =>
-        trigger
-          ? theme.palette.mode === "dark"
-            ? `0px -1.05px 15px ${colors.DarkModeShadow}`
-            : `0px -1.05px 15px ${colors.LightModeShadow}`
-          : "none",
-    },
-  });
-};
 
 function Navbar(): ReactElement {
   const mainLangsArray = Object.values(mainLangs);
@@ -72,12 +46,12 @@ function Navbar(): ReactElement {
       toId={to}
       duration={1500}
       allowScroll
-      sx={stylesAll.navbar.navLinks.container}>
+      sx={styles.navLinks.container}>
       <Typography
         variant="h5"
         component="span"
         sx={{
-          ...stylesAll.navbar.navLinks.text,
+          ...styles.navLinks.text,
           textTransform: "capitalize",
         }}>
         {name}
@@ -91,9 +65,9 @@ function Navbar(): ReactElement {
       toId={to}
       duration={1500}
       allowScroll
-      sx={stylesAll.navbar.navLinks.container}
+      sx={styles.navLinks.container}
       aria-label={name}>
-      <ListItem button role="button" sx={stylesAll.navbar.mobileMenu.navLinks}>
+      <ListItem button role="button" sx={styles.mobileMenu.navLinks}>
         <ListItemText
           role="textbox"
           primary={<Typography variant="h6">{name}</Typography>}
@@ -116,7 +90,7 @@ function Navbar(): ReactElement {
           <Typography
             sx={{
               fontWeight: 500,
-              fontSize: stylesAll.navbar.lang.text.fontSize.xs,
+              fontSize: styles.lang.text.fontSize.xs,
             }}
             variant="h6"
             color="text.primary">
@@ -146,7 +120,7 @@ function Navbar(): ReactElement {
   const mobileMenu = (anchor: Anchor) => (
     <Box role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
       <List>
-        <ListItem sx={stylesAll.navbar.mobileMenu.container}>
+        <ListItem sx={styles.mobileMenu.container}>
           <Popup
             startIcon={
               <Icon icon={mainLangs[langState].flag} width="40" height="40" />
@@ -155,7 +129,7 @@ function Navbar(): ReactElement {
               <Typography
                 sx={{
                   fontWeight: 500,
-                  fontSize: stylesAll.navbar.lang.text.fontSize.xs,
+                  fontSize: styles.lang.text.fontSize.xs,
                 }}
                 variant="h6"
                 color="text.primary">
@@ -174,25 +148,15 @@ function Navbar(): ReactElement {
   return (
     <>
       <ElevationScroll>
-        <AppBar
-          sx={{
-            ...stylesAll.navbar.appBar,
-          }}
-          position="fixed">
+        <AppBar sx={styles.appBar} position="fixed">
           <ThemeSwitch />
-          <Box sx={stylesAll.navbar.container}>
-            <SmoothScroll toId="intro" sx={stylesAll.navbar.logo} allowScroll>
+          <Box sx={styles.container}>
+            <SmoothScroll toId="intro" sx={styles.logo} allowScroll>
               <SvgImages svgType="logo" />
             </SmoothScroll>
-            <Box sx={{ display: { xs: "none", Laptop: "block" } }}>
-              {mapNavLinks}
-            </Box>
-            <Box sx={stylesAll.utilities.flexDefault}>
-              <Box
-                component="span"
-                sx={{
-                  display: { xs: "none", Mobile_L: "inline-flex" },
-                }}>
+            <Box sx={styles.navLinks.show}>{mapNavLinks}</Box>
+            <Box sx={stylesUtility.flexDefault}>
+              <Box component="span" sx={styles.lang.show}>
                 <Popup
                   startIcon={
                     <Icon
@@ -202,7 +166,7 @@ function Navbar(): ReactElement {
                   }
                   btn={
                     <Typography
-                      sx={stylesAll.navbar.lang.text}
+                      sx={styles.lang.text}
                       variant="h6"
                       color="text.primary">
                       {mainLangs[langState].label}
@@ -221,9 +185,7 @@ function Navbar(): ReactElement {
                   isMenuClosable={false}
                 />
               </Box>
-              <Box
-                component="span"
-                sx={{ display: { xs: "inline", Laptop: "none" } }}>
+              <Box component="span" sx={styles.mobileMenu.menuLogoShow}>
                 <IconButton
                   color="inherit"
                   onClick={toggleDrawer("right", true)}>
@@ -239,7 +201,7 @@ function Navbar(): ReactElement {
         </AppBar>
       </ElevationScroll>
       <SwipeableDrawer
-        sx={{ display: { xs: "block", Laptop: "none" } }}
+        sx={styles.mobileMenu.drawerShow}
         anchor={"right"}
         open={swipe["right"]}
         onClose={toggleDrawer("right", false)}
