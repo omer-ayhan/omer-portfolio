@@ -1,14 +1,15 @@
 import { Grid, Typography, Box } from "@mui/material";
-import { linksMain, props } from "./Utilities/StylesProvider";
-import MainButton from "./Utilities/MainButton";
-import SvgImages from "./Utilities/SvgImages";
+import { linksMain } from "../Utilities/StylesProvider";
+import MainButton from "../Utilities/MainButton";
+import SvgImages from "../Utilities/SvgImages";
 import Slider from "react-slick";
-import ImageSSR from "./Utilities/ImageSSR";
+import ImageSSR from "../Utilities/ImageSSR";
 import useTranslation from "next-translate/useTranslation";
+import styles from "./Intro.style";
+import stylesUtility from "../Utilities/Utilities.style";
 
 const Intro = () => {
   const { t } = useTranslation("common");
-  const { stylesAll } = props;
   const [intro_svg, intro_img, bg_intro] = [
     "/img/Intro_Img/intro_illustration_animated2.svg",
     "/img/Intro_Img/intro_illustration_photo.png",
@@ -37,55 +38,38 @@ const Intro = () => {
       <Grid item xs={12} md={6}>
         <ImageSSR className="intro-bg" path={bg_intro} priorty />
         <Box
-          sx={{
-            ...stylesAll.intro.introBox.container,
-            textAlign: "start",
-            flexDirection: "column",
-          }}>
+          flexDirection="column"
+          textAlign="start"
+          sx={styles.introBox.container}>
           <Typography
             color="text.primary"
             variant="h5"
-            sx={stylesAll.intro.introBox.text1}>
+            sx={styles.introBox.text1}>
             {t("intro_title")}
           </Typography>
-          <Typography
-            sx={stylesAll.intro.introBox.text2}
-            color="primary"
-            variant="h2">
+          <Typography sx={styles.introBox.text2} color="primary" variant="h2">
             Ömer Ayhan
           </Typography>
           {/* Slides */}
           <Slider {...settings}>
             <Typography
               color="secondary"
-              sx={{
-                ...stylesAll.intro.introBox.text3,
-                textAlign: { Mobile_L: "center", Laptop: "start" },
-              }}
+              sx={styles.introBox.text3 as any}
               variant="h4">
               UI/UX Designer
             </Typography>
             <Typography
               color="secondary"
-              sx={{
-                ...stylesAll.intro.introBox.text3,
-                textAlign: { Mobile_L: "center", Laptop: "start" },
-              }}
+              sx={styles.introBox.text3 as any}
               variant="h4">
               Front-End Dev
             </Typography>
           </Slider>
 
-          <Box
-            mt="8px"
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "24px",
-            }}>
+          <Box mt="8px" sx={styles.introButtons}>
             {linksMain.introLinks.map(({ btn_name, to }, index) => (
               <MainButton
-                key={`${btn_name}${index * 2}`}
+                key={`${btn_name}|${index * 2}`}
                 component={btn_name === "My Portfolio" ? "a" : "span"}
                 sxButton={{
                   ...(btn_name === "My Portfolio"
@@ -96,14 +80,14 @@ const Intro = () => {
                         },
                       }
                     : ""),
-                  ...stylesAll.utilities.buttons.container,
+                  ...stylesUtility.buttons.container,
                   zIndex: 5,
                 }}
                 sxLink={{
-                  ...stylesAll.utilities.buttons.link,
+                  ...stylesUtility.buttons.link,
                   textDecoration: "none",
                 }}
-                sxText={stylesAll.utilities.buttons.text}
+                sxText={stylesUtility.buttons.text}
                 btn_name={btn_name}
                 to={to}
                 allowScroll={btn_name === "My Portfolio" ? false : true}
@@ -113,11 +97,7 @@ const Intro = () => {
         </Box>
       </Grid>
       <Grid item xs={12} md={3}>
-        <Box
-          sx={{
-            position: "relative",
-            ...stylesAll.intro.introImg.container,
-          }}>
+        <Box position="relative" sx={styles.introImg.container}>
           <object id="illustration-bg" type="image/svg+xml" data={intro_svg}>
             svg-animation
           </object>
