@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, memo, useMemo } from "react";
+import { useCallback, useEffect, useState, memo } from "react";
 import type { ReactElement, ReactNode, SyntheticEvent } from "react";
 import {
   Tabs,
@@ -12,27 +12,19 @@ import {
   List,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { props } from "./StylesProvider";
-import { useAppSelector } from "../../context/hooks";
-import useChannels from "./useChannels";
+import { useAppSelector } from "../../../context/hooks";
+import useChannels from "../useChannels";
 import Slider from "react-slick";
-import ImageSSR from "./ImageSSR";
-import Truncation from "../Projects/Truncation";
-import MainTag from "./MainTag";
-import MainButton from "./MainButton";
-import { adjustTextColor } from "./ColorUtils/adjustColor";
+import ImageSSR from "../ImageSSR";
+import Truncation from "../../Projects/Truncation";
+import MainTag from "../MainTag";
+import MainButton from "../MainButton";
+import TabPanel from "./TabPanel";
+import styles from "./MainTabs.style";
+import stylesUtility from "../Utilities.style";
+import stylesProjects from "../../Projects/Projects.style";
+import stylesSkills from "../../Skills/Skills.style";
 
-interface TabPanelProps {
-  children?: ReactNode;
-  index: number;
-  value: number;
-  ariaName?: string | "tabpanel";
-  cardWidth: string | number | object;
-  cardHeight: string | number | object;
-  spacing?: object | { xs: 1 };
-  rowSpacing?: object;
-}
-const { stylesAll, colors } = props;
 const settings = {
   className: "image-slider",
   dots: true,
@@ -44,20 +36,17 @@ const settings = {
   slidesToScroll: 1,
   appendDots: (dots: HTMLElement) => (
     <Box
+      position="relative"
       sx={{
-        ...stylesAll.utilities.flexDefault,
-        ...stylesAll.projects.card.slider.container,
-        position: "relative",
-        "& .slick-dots": {
-          left: 0,
-        },
+        ...stylesUtility.flexDefault,
+        ...stylesProjects.card.slider.container,
       }}>
       <List
         sx={{
-          ...stylesAll.utilities.flexDefault,
-          ...stylesAll.projects.card.slider.list.container,
+          ...stylesUtility.flexDefault,
+          ...stylesProjects.card.slider.list.container,
           "& li": {
-            ...stylesAll.projects.card.slider.list.listChild.container,
+            ...stylesProjects.card.slider.list.listChild.container,
           },
           ".slick-active": {
             background: (theme) => theme.palette.secondary.main,
@@ -68,53 +57,9 @@ const settings = {
     </Box>
   ),
   customPaging: () => (
-    <Box
-      sx={{
-        ...stylesAll.projects.card.slider.list.listChild.dots,
-      }}></Box>
+    <Box sx={stylesProjects.card.slider.list.listChild.dots}></Box>
   ),
 };
-
-function TabPanel({
-  children,
-  index,
-  value,
-  ariaName = "tabpanel",
-  cardWidth,
-  cardHeight,
-  spacing = { xs: 1 },
-  rowSpacing,
-  ...rest
-}: TabPanelProps): ReactElement {
-  return useMemo(
-    () => (
-      <Box
-        mt={0}
-        role="tabpanel"
-        hidden={value !== index}
-        id={`${ariaName}-${index}`}
-        aria-labelledby={`tab-${index}`}
-        {...rest}>
-        {value === index && (
-          <Grid
-            container
-            spacing={{ ...spacing }}
-            rowSpacing={{ ...(rowSpacing || spacing) }}
-            sx={{
-              ...stylesAll.mainTabs.tabPanel.container,
-              width: cardWidth,
-              height: cardHeight,
-              overflow: "hidden",
-              overflowY: "scroll",
-            }}>
-            {children}
-          </Grid>
-        )}
-      </Box>
-    ),
-    [value, children]
-  );
-}
 
 function a11yProps(index: number, ariaName?: string | "tabpanel") {
   return {
@@ -234,15 +179,7 @@ function MainTabs({
             )
             .map(({ title, desc, img, tags, link }, index) => (
               <Grid key={`${title}-${index}`} item xs={12} lg={6} md={4}>
-                <Card
-                  sx={{
-                    ...stylesAll.projects.card.container,
-                    flexDirection: "column",
-                    boxShadow: (theme) =>
-                      theme.palette.mode === "dark"
-                        ? `0px 0px 16.3px ${colors.DarkModeShadow}`
-                        : `0px 0px 16.3px ${colors.LightModeShadow}`,
-                  }}>
+                <Card sx={styles.projectsSection.container as any}>
                   {/* Image slider */}
                   <Slider {...settings} lazyLoad="ondemand">
                     {img.map((imgFile, index) => (
@@ -250,17 +187,10 @@ function MainTabs({
                         key={`${imgFile}-${index}`}
                         comp="div"
                         sx={{
-                          position: "relative",
-                          width: "100%",
+                          ...styles.projectsSection.slider,
                           cursor: img.length > 1 ? "grab" : "default",
                           "&:active": {
                             cursor: img.length > 1 ? "grabbing" : "default",
-                          },
-                          height: {
-                            xs: "145px",
-                            Mobile_L: "165px",
-                            Laptop_M: "170px",
-                            FourK: "250px",
                           },
                         }}
                         path={imgFile}
@@ -269,35 +199,26 @@ function MainTabs({
                     ))}
                   </Slider>
 
-                  <CardContent
-                    sx={{ width: "100%", minHeight: "110px", padding: 0 }}>
+                  <CardContent sx={styles.projectsSection.content.title}>
                     <Typography
                       variant="h6"
-                      sx={{
-                        ...stylesAll.projects.card.text.title,
-                        textTransform: "capitalize",
-                        textAlign: "start",
-                      }}>
+                      textAlign="start"
+                      sx={stylesProjects.card.text.title as any}>
                       {title}
                     </Typography>
                     <Truncation text={desc} />
                   </CardContent>
-                  <CardContent
-                    sx={{
-                      width: "100%",
-                      transition: ".3s ease",
-                      padding: 0,
-                    }}>
+                  <CardContent sx={styles.projectsSection.content.tags}>
                     <Grid
                       container
-                      spacing={{ xs: 1, Laptop_M: 1 }}
+                      spacing={styles.projectsSection.content.spacing}
                       justifyContent="space-between"
                       alignItems="center">
                       {tags.map(({ title, icon }) => (
                         <Grid key={`${title}-${index}`} item xs={4}>
                           <MainTag
-                            sxBox={stylesAll.projects.card.tags.container}
-                            sxText={stylesAll.projects.card.tags.text}
+                            sxBox={stylesProjects.card.tags.container}
+                            sxText={stylesProjects.card.tags.text}
                             icon={icon}
                             title={title}
                             className={"card-tag-icons"}
@@ -308,12 +229,9 @@ function MainTabs({
                   </CardContent>
                   <CardActions sx={{ padding: 0 }}>
                     <MainButton
-                      sxButton={stylesAll.projects.card.buttons.container}
-                      sxLink={stylesAll.utilities.buttons.link}
-                      sxText={{
-                        ...stylesAll.projects.card.buttons.text,
-                        textAlign: "center",
-                      }}
+                      sxButton={stylesProjects.card.buttons.container}
+                      sxLink={stylesUtility.buttons.link}
+                      sxText={stylesProjects.card.buttons.text}
                       btn_name="See More"
                       to={link}
                     />
@@ -329,36 +247,14 @@ function MainTabs({
               xs={12}
               sm={6}
               md={3}
-              sx={{
-                transition: "inherit",
-                "&:hover": {
-                  marginTop: "-22px",
-                },
-              }}>
-              <Card
-                sx={{
-                  ...stylesAll.skills.card.container,
-                  boxShadow: (theme) =>
-                    theme.palette.mode === "dark"
-                      ? `0px 0px 16.3px ${colors.DarkModeShadow}`
-                      : `0px 0px 16.3px ${colors.LightModeShadow}`,
-                  position: "relative",
-                  flexDirection: "column",
-                  "&:hover": {
-                    backgroundColor: "secondary.main",
-                    boxShadow: "none",
-                    color: (theme) =>
-                      adjustTextColor(theme.palette.secondary.main),
-                  },
-                }}>
+              sx={styles.skillsSection.grid}>
+              <Card sx={styles.skillsSection.container as any}>
                 <Icon icon={icon} className="skills-icons" />
                 <CardContent sx={{ padding: 0 }}>
                   <Typography
                     variant="h5"
-                    sx={{
-                      ...stylesAll.skills.card.title,
-                      textAlign: "center",
-                    }}>
+                    textAlign="center"
+                    sx={stylesSkills.card.title}>
                     {title}
                   </Typography>
                 </CardContent>
@@ -372,19 +268,9 @@ function MainTabs({
 
   return (
     <Box>
-      <Box
-        sx={{
-          ...stylesAll.utilities.flexDefault,
-          flexDirection: "column",
-          border: "none",
-        }}>
+      <Box flexDirection="column" border="none" sx={stylesUtility.flexDefault}>
         <Tabs
-          sx={{
-            ...stylesAll.mainTabs.tabs.container,
-            "& .MuiTabs-scrollButtons": {
-              color: "text.primary",
-            },
-          }}
+          sx={styles.tabs.container}
           TabIndicatorProps={{
             style: {
               display: "none",
@@ -400,14 +286,14 @@ function MainTabs({
           {tabData.map(({ title, icon, _id }, index) => (
             <Tab
               key={`${icon}-${_id}`}
-              sx={stylesAll.mainTabs.tabs.element}
+              sx={styles.tabs.element}
               label={
                 <Typography
                   component="span"
+                  textAlign="center"
                   sx={{
-                    ...stylesAll.mainTabs.tabs.label,
+                    ...styles.tabs.label,
                     color: value === index ? "secondary.main" : "#82808B",
-                    textAlign: "center",
                     textTransform: "none",
                   }}>
                   <Icon icon={icon} color="inherit" className="tab-icons" />

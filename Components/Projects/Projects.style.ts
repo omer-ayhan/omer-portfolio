@@ -129,6 +129,7 @@ const stylesMain = {
         fontSize: { xs: "1.37rem", FourK: "2.1rem" },
         fontWeight: "600",
         color: "inherit",
+        textTransform: "capitalize",
       },
       desc: {
         fontFamily: "Rubik, sans-serif",
@@ -182,6 +183,7 @@ const stylesMain = {
       text: {
         textTransform: "none",
         fontSize: { xs: "1.35rem", FourK: "1.5rem" },
+        textAlign: "center",
       },
     },
   },
