@@ -7,11 +7,8 @@ import { Box } from "@mui/material";
 import About from "../Components/About";
 import { useAppSelector } from "../context/hooks";
 import connectToDB from "../lib/database";
-import type { Db } from "mongodb";
-import type { GetStaticProps } from "next";
 import cardEmitters from "../lib/changeEvents";
 import connectToAbly from "../lib/connectToAbly";
-import type { Realtime, Types } from "ably";
 import dynamic from "next/dynamic";
 const Skills = dynamic(() => import("../Components/Skills"));
 const Projects = dynamic(() => import("../Components/Projects/Projects"));
@@ -19,22 +16,11 @@ const Blogs = dynamic(() => import("../Components/Blogs"));
 const Contact = dynamic(() => import("../Components/Contact"));
 const BackToTop = dynamic(() => import("../Components/BackToTop"));
 const Footer = dynamic(() => import("../Components/Footer"));
+import type { Db } from "mongodb";
+import type { GetStaticProps } from "next";
+import type { TabDataTypes } from "../Components/Utilities/MainTabs/TabTypes";
+import type { Realtime, Types } from "ably";
 
-type TabDataTypes = {
-  title: string;
-  icon: string;
-  _id: string;
-  items: TabDataItems[];
-};
-
-type TabDataItems = {
-  title: string;
-  desc: string;
-  icon: string;
-  img: string[];
-  link: string;
-  tags: Array<TabDataItems>;
-};
 interface Props {
   skillsData: Array<TabDataTypes>;
   projectsData: Array<TabDataTypes>;

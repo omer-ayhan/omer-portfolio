@@ -14,22 +14,8 @@ const Filter = dynamic(() => import("./Filter"), {
 import styles from "./Projects.style";
 import stylesUtility from "../Utilities/Utilities.style";
 import FormInput from "../Utilities/FormInput";
+import type { TabDataTypes } from "../Utilities/MainTabs/TabTypes";
 
-type TabDataTypes = {
-  title: string;
-  icon: string;
-  _id: string;
-  items: TabDataItems[];
-};
-
-type TabDataItems = {
-  title: string;
-  desc: string;
-  icon: string;
-  img: string[];
-  link: string;
-  tags: Array<TabDataItems>;
-};
 interface Props {
   tabData: Array<TabDataTypes[]>;
 }

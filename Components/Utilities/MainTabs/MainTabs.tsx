@@ -24,6 +24,7 @@ import styles from "./MainTabs.style";
 import stylesUtility from "../Utilities.style";
 import stylesProjects from "../../Projects/Projects.style";
 import stylesSkills from "../../Skills/Skills.style";
+import type { TabDataItems, TabDataTypes } from "./TabTypes";
 
 const settings = {
   className: "image-slider",
@@ -80,21 +81,6 @@ interface IAppProps {
   channelName: string;
   incomingData: Array<TabDataTypes>;
 }
-type TabDataTypes = {
-  title: string;
-  icon: string;
-  _id: string;
-  items: TabDataItems[];
-};
-
-type TabDataItems = {
-  title: string;
-  desc: string;
-  icon: string;
-  img: string[];
-  link: string;
-  tags: Array<TabDataItems>;
-};
 
 function MainTabs({
   children,

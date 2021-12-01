@@ -1,5 +1,5 @@
 import type { Types } from "ably";
-import { ChangeStreamDocument, Collection } from "mongodb";
+import type { ChangeStreamDocument, Collection } from "mongodb";
 
 const cardEmitters = async (
   change: ChangeStreamDocument,

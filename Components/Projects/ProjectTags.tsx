@@ -6,25 +6,11 @@ import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import MainTag from "../Utilities/MainTag";
 import useChannels from "../Utilities/hooks/useChannels";
 import styles from "./Projects.style";
+import type { TabDataTypes } from "../Utilities/MainTabs/TabTypes";
 
 interface Props {
   incomingData: Array<TabDataTypes>;
 }
-type TabDataTypes = {
-  title: string;
-  icon: string;
-  _id: string;
-  items: TabDataItems[];
-};
-
-type TabDataItems = {
-  title: string;
-  desc: string;
-  icon: string;
-  img: string[];
-  link: string;
-  tags: Array<TabDataItems>;
-};
 
 type TagDataTypes = {
   _id: string;
