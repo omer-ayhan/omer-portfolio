@@ -1,23 +1,19 @@
 import type { ReactElement } from "react";
 import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { StyledSwitch, props } from "./StylesProvider";
-import { changeTheme } from "../../context/reducers/navSlices";
-import { useAppSelector, useAppDispatch } from "../../context/hooks";
+import { StyledSwitch } from "../StylesProvider";
+import { changeTheme } from "../../../context/reducers/navSlices";
+import { useAppSelector, useAppDispatch } from "../../../context/hooks";
+import styles from "./ThemeSwitch.style";
 
 export default function ThemeSwitch(): ReactElement {
   const themeMode = useAppSelector((state) => state.nav.isDarkMode);
   const dispatch = useAppDispatch();
-  const { stylesAll } = props;
 
   const handleTheme = () => dispatch(changeTheme());
 
   return (
-    <Box
-      sx={{
-        ...stylesAll.themeSwitch,
-        position: "absolute",
-      }}>
+    <Box position="absolute" sx={styles.container}>
       {themeMode ? (
         <Icon
           icon="bi:moon-fill"
