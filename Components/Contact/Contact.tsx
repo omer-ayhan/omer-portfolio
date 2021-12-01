@@ -14,7 +14,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FormInput } from "../Utilities/StylesProvider";
 import ImageSSR from "../Utilities/ImageSSR";
 import { Icon } from "@iconify/react";
 import MainButton from "../Utilities/MainButton";
@@ -22,6 +21,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./Contact.style";
 import stylesUtility from "../Utilities/Utilities.style";
 import { stylesSetColor } from "../Navbar/Navbar.style";
+import FormInput from "../Utilities/FormInput";
 
 type AlertTypes = "success" | "warning" | "error";
 type TooltipTypes = {

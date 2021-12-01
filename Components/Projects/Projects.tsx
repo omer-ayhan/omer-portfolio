@@ -3,7 +3,6 @@ import type { FormEvent, ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
-import { FormInput } from "../Utilities/StylesProvider";
 // import Filter from "./Filter";
 import ImageSSR from "../Utilities/ImageSSR";
 import dynamic from "next/dynamic";
@@ -14,6 +13,7 @@ const Filter = dynamic(() => import("./Filter"), {
 });
 import styles from "./Projects.style";
 import stylesUtility from "../Utilities/Utilities.style";
+import FormInput from "../Utilities/FormInput";
 
 type TabDataTypes = {
   title: string;

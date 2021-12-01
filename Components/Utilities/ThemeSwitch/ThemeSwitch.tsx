@@ -1,10 +1,10 @@
 import type { ReactElement } from "react";
 import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { StyledSwitch } from "../StylesProvider";
 import { changeTheme } from "../../../context/reducers/navSlices";
 import { useAppSelector, useAppDispatch } from "../../../context/hooks";
 import styles from "./ThemeSwitch.style";
+import StyledSwitch from "../StyledSwitch";
 
 export default function ThemeSwitch(): ReactElement {
   const themeMode = useAppSelector((state) => state.nav.isDarkMode);
