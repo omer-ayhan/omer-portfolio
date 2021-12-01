@@ -1,6 +1,5 @@
-import { props } from "../Utilities/StylesProvider";
+import { colors } from "../Utilities/StylesProvider";
 
-const { colors } = props;
 const stylesMain = {
   tags: {
     gridContainer: {

@@ -1,7 +1,5 @@
 import type { Theme } from "@mui/material";
-import { props } from "../Utilities/StylesProvider";
-
-const { colors } = props;
+import { colors } from "../Utilities/StylesProvider";
 
 const stylesMain = {
   link: {

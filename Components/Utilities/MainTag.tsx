@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import type { MouseEvent, ReactElement } from "react";
 import { Icon } from "@iconify/react";
 import { Typography, Box } from "@mui/material";
-import { props } from "./StylesProvider";
+import { colors } from "./StylesProvider";
 import { adjustTextColor } from "./ColorUtils/adjustColor";
 import { useAppSelector } from "../../context/hooks";
 
@@ -15,7 +15,6 @@ interface Props {
   isClickable?: boolean;
   onClick?: (ev: MouseEvent<HTMLDivElement>) => void;
 }
-const { colors } = props;
 
 const MainTag = ({
   sxBox,

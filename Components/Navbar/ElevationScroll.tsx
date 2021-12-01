@@ -2,12 +2,11 @@ import { useScrollTrigger } from "@mui/material";
 import { cloneElement } from "react";
 import type { ReactElement } from "react";
 import type { Theme } from "@mui/system";
-import { props } from "../Utilities/StylesProvider";
+import { colors } from "../Utilities/StylesProvider";
 import styles from "./Navbar.style";
 interface Props {
   children: ReactElement;
 }
-const { colors } = props;
 
 const ElevationScroll = (Props: Props) => {
   const { children } = Props;

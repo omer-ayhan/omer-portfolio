@@ -3,9 +3,7 @@ import { styled } from "@mui/system";
 import stylesProjects from "../Projects/Projects.style";
 import type { ReactElement } from "react";
 import type { InputProps } from "@mui/material";
-import { props } from "./StylesProvider";
-
-const { colors } = props;
+import { colors } from "./StylesProvider";
 
 const FormInput = styled(
   (props: InputProps): ReactElement => <Input disableUnderline {...props} />

@@ -1,10 +1,9 @@
 import type { Theme } from "@mui/material";
-import { props } from "../StylesProvider";
+import { colors } from "../StylesProvider";
 import { adjustTextColor } from "../ColorUtils/adjustColor";
 import stylesProjects from "../../Projects/Projects.style";
 import stylesSkills from "../../Skills/Skills.style";
 
-const { colors } = props;
 const stylesMain = {
   tabs: {
     container: {

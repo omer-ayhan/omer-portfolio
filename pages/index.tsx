@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Head from "next/head";
 import Navbar from "../Components/Navbar";
 import Intro from "../Components/Intro";
-import StylesProvider, { props } from "../Components/Utilities/StylesProvider";
+import StylesProvider, { colors } from "../Components/Utilities/StylesProvider";
 import { Box } from "@mui/material";
 import About from "../Components/About";
 import { useAppSelector } from "../context/hooks";
@@ -43,7 +43,6 @@ interface Props {
 
 function App({ skillsData, projectsData, tagsData }: Props) {
   const themeMode = useAppSelector((state) => state.nav.isDarkMode);
-  const { colors } = props;
   useEffect(() => {
     document.body.style.backgroundColor = themeMode ? colors.Darkdef : "#fff";
   }, [themeMode]);

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useAppSelector } from "../../../context/hooks";
-import useChannels from "../useChannels";
+import useChannels from "../hooks/useChannels";
 import Slider from "react-slick";
 import ImageSSR from "../ImageSSR";
 import Truncation from "../../Projects/Truncation";

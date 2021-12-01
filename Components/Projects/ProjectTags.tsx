@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { addTag, removeTag } from "../../context/reducers/projectSlices";
 import MainTag from "../Utilities/MainTag";
-import useChannels from "../Utilities/useChannels";
+import useChannels from "../Utilities/hooks/useChannels";
 import styles from "./Projects.style";
 
 interface Props {

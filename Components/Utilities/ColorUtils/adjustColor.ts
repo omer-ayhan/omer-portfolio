@@ -1,5 +1,4 @@
-import { props } from "../StylesProvider";
-const { colors } = props;
+import { colors } from "../StylesProvider";
 
 const trimHex = (h: string): string =>
   h.charAt(0) === "#" ? h.replace(/([^0-9A-F]+)/gi, "").substr(0, 6) : h;

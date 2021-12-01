@@ -1,7 +1,6 @@
-import { props } from "./StylesProvider";
+import { colors } from "./StylesProvider";
 
-const { colors } = props;
-const styles = {
+const stylesMain = {
   shadow: "0px 0px 16.3px",
   buttons: {
     container: {
@@ -47,4 +46,4 @@ const styles = {
   },
 };
 
-export default styles;
+export default stylesMain;

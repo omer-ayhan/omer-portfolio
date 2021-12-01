@@ -1,4 +1,4 @@
-import { SyntheticEvent, KeyboardEvent, ChangeEvent, useRef } from "react";
+import { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
 import { useState, useCallback } from "react";
 import {
   Box,
@@ -16,7 +16,7 @@ import TextField from "@mui/material/TextField";
 import dynamic from "next/dynamic";
 const Tooltip = dynamic(() => import("@mui/material/Tooltip"));
 import type { SelectChangeEvent } from "@mui/material";
-import { props } from "../Utilities/StylesProvider";
+import { colors as colorsAll } from "../Utilities/StylesProvider";
 import { Icon } from "@iconify/react";
 import MainButton from "../Utilities/MainButton";
 import { changeColor, resetColor } from "../../context/reducers/navSlices";
@@ -28,7 +28,6 @@ import {
 import { stylesSetColor as styles } from "./Navbar.style";
 import stylesUtility from "../Utilities/Utilities.style";
 
-const { colors: colorsAll } = props;
 const SetColor = () => {
   const colors = useAppSelector((state) => state.nav);
   const dispatch = useAppDispatch();
