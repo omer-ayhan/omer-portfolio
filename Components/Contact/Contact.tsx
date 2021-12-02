@@ -64,44 +64,56 @@ function Contact(): ReactElement {
       return;
     }
     if (!snack.open) {
-      setSnack({
-        ...snack,
-        disabledBtn: true,
-      });
-      const res = await fetch("/api/sendMail", {
-        body: JSON.stringify({
-          email: email,
-          name: name,
-          subject: subject,
-          message: msg,
-          token: token,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      const { message } = await res.json();
+      try {
+        setSnack({
+          ...snack,
+          disabledBtn: true,
+        });
+        const res = await fetch("/api/sendMail", {
+          body: JSON.stringify({
+            email: email,
+            name: name,
+            subject: subject,
+            message: msg,
+            token: token,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        });
 
-      if (res.status === 200 || res.status === 201) {
-        console.log(name, email, subject, msg, token);
-        (e.target as HTMLFormElement).reset();
+        const { message } = await res.json();
+        if (res.status >= 200 && res.status <= 299) {
+          console.log(res);
+          (e.target as HTMLFormElement).reset();
+          setToken(null);
+          setSnack({
+            open: true,
+            type: "success",
+            msg: message,
+            disabledBtn: false,
+          });
+        } else {
+          console.log("error", res.status, res.statusText);
+          setSnack({
+            open: true,
+            type: "error",
+            msg: message || res.statusText,
+            disabledBtn: false,
+          });
+        }
+      } catch {
         setToken(null);
         setSnack({
           open: true,
-          type: "success",
-          msg: message,
-          disabledBtn: false,
-        });
-      } else {
-        setSnack({
-          open: true,
           type: "error",
-          msg: message,
+          msg: "Server or Request Error",
           disabledBtn: false,
         });
+      } finally {
+        recaptchaRef.current?.reset();
       }
-      recaptchaRef.current?.reset();
     }
   };
 
