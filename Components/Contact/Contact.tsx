@@ -1,11 +1,5 @@
 import { useState, useRef } from "react";
-import type {
-  ReactElement,
-  FormEvent,
-  SyntheticEvent,
-  ChangeEvent,
-  KeyboardEvent,
-} from "react";
+import type { ReactElement, SyntheticEvent, KeyboardEvent } from "react";
 import {
   Alert,
   Grid,
@@ -22,6 +16,7 @@ import styles from "./Contact.style";
 import stylesUtility from "../Utilities/Utilities.style";
 import { stylesSetColor } from "../Navbar/Navbar.style";
 import FormInput from "../Utilities/FormInput";
+import { Formik, FormikHelpers } from "formik";
 
 type AlertTypes = "success" | "warning" | "error";
 type TooltipTypes = {
@@ -31,11 +26,14 @@ type TooltipTypes = {
   message?: boolean;
 };
 
+type Values = {
+  name: string;
+  email: string;
+  subject: string;
+  msg: string;
+};
+
 function Contact(): ReactElement {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [msg, setMsg] = useState("");
   const [token, setToken] = useState<string | null>(null);
   const [snack, setSnack] = useState({
     open: false,
@@ -43,6 +41,13 @@ function Contact(): ReactElement {
     msg: "",
     disabledBtn: false,
   });
+
+  const initialStates = {
+    name: "",
+    email: "",
+    subject: "",
+    msg: "",
+  };
 
   const [tooltipOpen, setTooltipOpen] = useState({
     name: false,
@@ -52,8 +57,11 @@ function Contact(): ReactElement {
   });
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmitForm = async (
+    values: Values,
+    { resetForm }: FormikHelpers<Values>
+  ) => {
+    const { name, email, subject, msg } = values;
     if (token === null) {
       setSnack({
         open: true,
@@ -85,8 +93,8 @@ function Contact(): ReactElement {
 
         const { message } = await res.json();
         if (res.status >= 200 && res.status <= 299) {
-          console.log(res);
-          (e.target as HTMLFormElement).reset();
+          console.log(values);
+          resetForm({});
           setToken(null);
           setSnack({
             open: true,
@@ -143,15 +151,6 @@ function Contact(): ReactElement {
       e.preventDefault();
   };
 
-  const handleName = (e: ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) =>
-    setEmail(e.target.value);
-  const handleSubject = (e: ChangeEvent<HTMLInputElement>) =>
-    setSubject(e.target.value);
-  const handleMsg = (e: ChangeEvent<HTMLInputElement>) =>
-    setMsg(e.target.value);
-
   return (
     <Grid
       id="contact"
@@ -203,140 +202,149 @@ function Contact(): ReactElement {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={11} xl={9}>
-        <form onSubmit={handleSubmit} onKeyDown={disableKey}>
-          <Grid
-            container
-            spacing={3.4}
-            position="relative"
-            justifyContent="center">
-            <Grid item xs={12} md={6}>
-              <FormInput
-                onChange={handleName}
-                placeholder="Name"
-                className="contact-form"
-                endAdornment={
-                  <Tooltip
-                    onClose={handleTooltip({ name: false })}
-                    open={tooltipOpen.name}
-                    title={
-                      <Typography variant="body2">
-                        Name must be at least 2 characters long
-                      </Typography>
-                    }>
-                    <Icon
-                      onClick={handleTooltip({ name: true })}
-                      style={styles.tooltip}
-                      icon="fe:warning"
+        <Formik initialValues={initialStates} onSubmit={handleSubmitForm}>
+          {({ values, handleChange, handleSubmit }) => (
+            <form onSubmit={handleSubmit} onKeyDown={disableKey}>
+              <Grid
+                container
+                spacing={3.4}
+                position="relative"
+                justifyContent="center">
+                <Grid item xs={12} md={6}>
+                  <FormInput
+                    value={values.name}
+                    onChange={handleChange("name")}
+                    placeholder="Name"
+                    className="contact-form"
+                    endAdornment={
+                      <Tooltip
+                        onClose={handleTooltip({ name: false })}
+                        open={tooltipOpen.name}
+                        title={
+                          <Typography variant="body2">
+                            Name must be at least 2 characters long
+                          </Typography>
+                        }>
+                        <Icon
+                          onClick={handleTooltip({ name: true })}
+                          style={styles.tooltip}
+                          icon="fe:warning"
+                        />
+                      </Tooltip>
+                    }
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <FormInput
+                    type="email"
+                    value={values.email}
+                    onChange={handleChange("email")}
+                    placeholder="Email"
+                    className="contact-form"
+                    endAdornment={
+                      <Tooltip
+                        onClose={handleTooltip({ email: false })}
+                        open={tooltipOpen.email}
+                        title={
+                          <Typography variant="body2">
+                            Email must include @ and . characters and must be at
+                            least 5 characters long
+                          </Typography>
+                        }>
+                        <Icon
+                          onClick={handleTooltip({ email: true })}
+                          style={styles.tooltip}
+                          icon="fe:warning"
+                        />
+                      </Tooltip>
+                    }
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormInput
+                    value={values.subject}
+                    onChange={handleChange("subject")}
+                    placeholder="Subject"
+                    className="contact-form"
+                    endAdornment={
+                      <Tooltip
+                        onClose={handleTooltip({ subject: false })}
+                        open={tooltipOpen.subject}
+                        title={
+                          <Typography variant="body2">
+                            Subject must be at least 5 characters long
+                          </Typography>
+                        }>
+                        <Icon
+                          onClick={handleTooltip({ subject: true })}
+                          style={styles.tooltip}
+                          icon="fe:warning"
+                        />
+                      </Tooltip>
+                    }
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormInput
+                    sx={styles.textarea as any}
+                    value={values.msg}
+                    onChange={handleChange("msg")}
+                    inputComponent="textarea"
+                    fullWidth
+                    multiline
+                    placeholder="Message"
+                    className="contact-form message-form"
+                    endAdornment={
+                      <Tooltip
+                        onClose={handleTooltip({ message: false })}
+                        open={tooltipOpen.message}
+                        title={
+                          <Typography variant="body2">
+                            Message must be at least 25 characters long
+                          </Typography>
+                        }>
+                        <Icon
+                          onClick={handleTooltip({ message: true })}
+                          style={styles.tooltipTextArea}
+                          icon="fe:warning"
+                        />
+                      </Tooltip>
+                    }
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <span style={stylesUtility.gridDefault}>
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                      onChange={onReCAPTCHAChange}
                     />
-                  </Tooltip>
-                }
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormInput
-                type="email"
-                onChange={handleEmail}
-                placeholder="Email"
-                className="contact-form"
-                endAdornment={
-                  <Tooltip
-                    onClose={handleTooltip({ email: false })}
-                    open={tooltipOpen.email}
-                    title={
-                      <Typography variant="body2">
-                        Email must include @ and . characters and must be at
-                        least 5 characters long
-                      </Typography>
-                    }>
-                    <Icon
-                      onClick={handleTooltip({ email: true })}
-                      style={styles.tooltip}
-                      icon="fe:warning"
-                    />
-                  </Tooltip>
-                }
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormInput
-                onChange={handleSubject}
-                placeholder="Subject"
-                className="contact-form"
-                endAdornment={
-                  <Tooltip
-                    onClose={handleTooltip({ subject: false })}
-                    open={tooltipOpen.subject}
-                    title={
-                      <Typography variant="body2">
-                        Subject must be at least 5 characters long
-                      </Typography>
-                    }>
-                    <Icon
-                      onClick={handleTooltip({ subject: true })}
-                      style={styles.tooltip}
-                      icon="fe:warning"
-                    />
-                  </Tooltip>
-                }
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormInput
-                sx={styles.textarea as any}
-                onChange={handleMsg}
-                inputComponent="textarea"
-                fullWidth
-                multiline
-                placeholder="Message"
-                className="contact-form message-form"
-                endAdornment={
-                  <Tooltip
-                    onClose={handleTooltip({ message: false })}
-                    open={tooltipOpen.message}
-                    title={
-                      <Typography variant="body2">
-                        Message must be at least 25 characters long
-                      </Typography>
-                    }>
-                    <Icon
-                      onClick={handleTooltip({ message: true })}
-                      style={styles.tooltipTextArea}
-                      icon="fe:warning"
-                    />
-                  </Tooltip>
-                }
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <span style={stylesUtility.gridDefault}>
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                  onChange={onReCAPTCHAChange}
-                />
-              </span>
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <MainButton
-                btnComponent="span"
-                component="button"
-                sxButton={styles.button.container}
-                sxLink={{
-                  ...stylesUtility.buttons.link,
-                  padding: "12px 0",
-                  textDecoration: "none",
-                }}
-                sxText={styles.button.text}
-                btn_name="Send Message"
-                disabled={snack.disabledBtn || snack.open}
-              />
-            </Grid>
-          </Grid>
-        </form>
+                  </span>
+                </Grid>
+                <Grid item xs={12} md={5}>
+                  <MainButton
+                    type="submit"
+                    btnComponent="span"
+                    component="button"
+                    sxButton={styles.button.container}
+                    sxLink={{
+                      ...stylesUtility.buttons.link,
+                      padding: "12px 0",
+                      textDecoration: "none",
+                    }}
+                    sxText={styles.button.text}
+                    btn_name="Send Message"
+                    disabled={snack.disabledBtn || snack.open}
+                  />
+                </Grid>
+              </Grid>
+            </form>
+          )}
+        </Formik>
       </Grid>
     </Grid>
   );

@@ -16,6 +16,7 @@ interface Props {
   allowScroll?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 const MainButton = ({
