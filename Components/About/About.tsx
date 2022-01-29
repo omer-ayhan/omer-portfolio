@@ -54,7 +54,7 @@ function About(): ReactElement {
             textAlign={styles.aboutBox.alignText as any}
             sx={stylesUtility.title}
             color="text.primary">
-            Who I Am
+            Who am I?
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -63,13 +63,14 @@ function About(): ReactElement {
             textAlign={styles.aboutBox.alignText as any}
             sx={styles.aboutBox.body}
             color="text.primary">
-            I am Turkey-based Web Developer who’s designing and coding websites
-            for over 2 years. My main focus is mostly on Front-End Development
-            but when it requires I can also do Full-Stack Development as well.
+            Web Developer and freelancer who’s based in Turkey designing and
+            coding websites. He primarily works on Front-End Development but
+            when it requires he can also focus on the Full-Stack Development as
+            well.
             <br />
-            <br />I am always open to learn new things to be able to adapt
-            myself to the new technologies. I value team work because I get to
-            have new valuable experiences.
+            <br />
+            He is always open to learn new things to be able to adapt the new
+            technologies. he especially values teamwork.
           </Typography>
           <Typography
             variant="h6"
