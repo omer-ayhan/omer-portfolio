@@ -40,7 +40,7 @@ function Filter() {
     setFilterInput(event.target.value.replace(/\s+/g, ""));
   };
 
-  const handleRemoveTag = (text: string) => () =>
+  const handleRemoveTag = (text: string) =>
     dispatch(removeTag({ title: text.toUpperCase() }));
 
   const handleChangeOrder = (event: SelectChangeEvent) => {
@@ -94,7 +94,7 @@ function Filter() {
                     {text}
                   </Typography>
                 }
-                onDelete={handleRemoveTag(text)}
+                onDelete={() => handleRemoveTag(text)}
               />
             </Tooltip>
           </Grid>

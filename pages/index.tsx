@@ -16,6 +16,7 @@ const Blogs = dynamic(() => import("../Components/Blogs"));
 const Contact = dynamic(() => import("../Components/Contact"));
 const BackToTop = dynamic(() => import("../Components/BackToTop"));
 const Footer = dynamic(() => import("../Components/Footer"));
+import { adjustTextColor } from "../Components/Utilities/ColorUtils/adjustColor";
 import type { Db } from "mongodb";
 import type { GetStaticProps } from "next";
 import type { TabDataTypes } from "../Components/Utilities/MainTabs/TabTypes";
@@ -28,13 +29,20 @@ interface Props {
 }
 
 function App({ skillsData, projectsData, tagsData }: Props) {
-  const themeMode = useAppSelector((state) => state.nav.isDarkMode);
-  useEffect(() => {
-    document.body.style.backgroundColor = themeMode ? colors.Darkdef : "#fff";
-  }, [themeMode]);
+  const themeMode = useAppSelector((state) => state.nav);
 
   return (
     <>
+      <style jsx global>{`
+        body {
+          background-color: ${themeMode.isDarkMode ? colors.Darkdef : "#fff"};
+        }
+
+        ::selection {
+          background: ${themeMode.Primary};
+          color: ${adjustTextColor(themeMode.Primary)};
+        }
+      `}</style>
       <Head>
         <meta
           name="description"

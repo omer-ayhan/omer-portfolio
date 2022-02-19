@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import type { FormEvent, ReactElement } from "react";
 import { Grid, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
-import Popup from "../Utilities/Popup";
-// import Filter from "./Filter";
-import ImageSSR from "../Utilities/ImageSSR";
 import dynamic from "next/dynamic";
+
+import Popup from "../Utilities/Popup";
+import ImageSSR from "../Utilities/ImageSSR";
 const MainTabs = dynamic(() => import("../Utilities/MainTabs"));
 const ProjectTags = dynamic(() => import("./ProjectTags"));
-const Filter = dynamic(() => import("./Filter"), {
-  loading: () => <div>Loading...</div>,
-});
+import Filter from "./Filter";
 import styles from "./Projects.style";
 import stylesUtility from "../Utilities/Utilities.style";
 import FormInput from "../Utilities/FormInput";

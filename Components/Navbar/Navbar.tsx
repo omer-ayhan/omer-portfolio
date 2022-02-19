@@ -16,10 +16,7 @@ import ThemeSwitch from "../Utilities/ThemeSwitch";
 import { Icon } from "@iconify/react";
 import Popup from "../Utilities/Popup";
 import SvgImages from "../Utilities/SvgImages";
-import dynamic from "next/dynamic";
-const SetColor = dynamic(() => import("./SetColor"), {
-  loading: () => <div>Loading...</div>,
-});
+import SetColor from "./SetColor";
 import SmoothScroll from "../Utilities/ScrollUtils/SmoothScroll";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -102,7 +99,7 @@ function Navbar(): ReactElement {
   ));
 
   const toggleDrawer = useCallback(
-    (anchor: Anchor, open: boolean) => (event: KeyboardEvent | MouseEvent) => {
+    (event: KeyboardEvent | MouseEvent, anchor: Anchor, open: boolean) => () => {
       if (
         event &&
         event.type === "keydown" &&
@@ -118,7 +115,11 @@ function Navbar(): ReactElement {
   );
 
   const mobileMenu = (anchor: Anchor) => (
-    <Box role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
+    <Box
+      role="presentation"
+      onKeyDown={(event: KeyboardEvent | MouseEvent) =>
+        toggleDrawer(event, anchor, false)
+      }>
       <List>
         <ListItem sx={styles.mobileMenu.container}>
           <Popup
@@ -188,7 +189,9 @@ function Navbar(): ReactElement {
               <Box component="span" sx={styles.mobileMenu.menuLogoShow}>
                 <IconButton
                   color="inherit"
-                  onClick={toggleDrawer("right", true)}>
+                  onClick={(event: KeyboardEvent | MouseEvent) =>
+                    toggleDrawer(event, "right", true)
+                  }>
                   <Icon
                     icon="icon-park-outline:hamburger-button"
                     width="40"
@@ -204,8 +207,12 @@ function Navbar(): ReactElement {
         sx={styles.mobileMenu.drawerShow}
         anchor={"right"}
         open={swipe["right"]}
-        onClose={toggleDrawer("right", false)}
-        onOpen={toggleDrawer("right", true)}>
+        onClose={(event: KeyboardEvent | MouseEvent) =>
+          toggleDrawer(event, "right", false)
+        }
+        onOpen={(event: KeyboardEvent | MouseEvent) =>
+          toggleDrawer(event, "right", true)
+        }>
         {mobileMenu("right")}
       </SwipeableDrawer>
     </>

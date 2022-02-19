@@ -26,10 +26,10 @@ function ProjectTags({ incomingData }: Props): ReactElement {
   useChannels(
     "projectTags",
     (channel) => {
-      channel.subscribe("insertCard", (tag) => {
+      channel.subscribe("insertCard", (tag: any) => {
         setTagData([...tag.data]);
       });
-      channel.subscribe("updateCard", (tag) => {
+      channel.subscribe("updateCard", (tag: any) => {
         setTagData((tagData) => [
           ...tagData.map((item) => {
             if (item._id === tag.data._id) {
@@ -39,7 +39,7 @@ function ProjectTags({ incomingData }: Props): ReactElement {
           }),
         ]);
       });
-      channel.subscribe("deleteCard", (tag) => {
+      channel.subscribe("deleteCard", (tag: any) => {
         setTagData((tagData) =>
           tagData.filter((item) => item._id !== tag.data._id)
         );
@@ -49,7 +49,7 @@ function ProjectTags({ incomingData }: Props): ReactElement {
   );
 
   const handleTags = useCallback(
-    (tags: string[], title: string) => () => {
+    (tags: string[], title: string) => {
       let titleText = title.toUpperCase();
       if (tags.includes(titleText)) {
         dispatch(removeTag({ title: titleText }));
@@ -65,7 +65,7 @@ function ProjectTags({ incomingData }: Props): ReactElement {
       {tagData.map(({ title, icon, _id }) => (
         <Grid key={_id} item xs={2} mx="3.5px">
           <MainTag
-            onClick={handleTags(stateTags, title)}
+            onClick={() => handleTags(stateTags, title)}
             sxBox={styles.tags.container}
             sxText={styles.tags.text}
             icon={icon}

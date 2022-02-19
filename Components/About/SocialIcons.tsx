@@ -33,7 +33,10 @@ function SocialIcons({ sxBox }: Props): ReactElement {
         {linksMain.socialLinks
           .slice(3, 6)
           .map(({ icon_name, to, color }, index) => (
-            <Link key={icon_name} href={to} sx={{ margin: "0 9px" }}>
+            <Link
+              key={`${icon_name}._${index}`}
+              href={to}
+              sx={{ margin: "0 9px" }}>
               <Box component="span" color="text.primary">
                 <Icon icon={icon_name} className="social-icons" color={color} />
               </Box>

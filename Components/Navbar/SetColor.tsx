@@ -1,4 +1,4 @@
-import { SyntheticEvent, KeyboardEvent, ChangeEvent } from "react";
+import { KeyboardEvent, ChangeEvent } from "react";
 import { useState, useCallback } from "react";
 import {
   Box,
@@ -49,7 +49,7 @@ const SetColor = () => {
     setColorInput(escapeNonHex(event.target.value));
   };
 
-  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+  const handleClose = (_: any, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -84,8 +84,7 @@ const SetColor = () => {
     }
   }, [colorInput, dispatch]);
 
-  const handleColor = (color: string) => () =>
-    setColorInput(escapeNonHex(color));
+  const handleColor = (color: string) => setColorInput(escapeNonHex(color));
 
   const resetColors = useCallback(() => {
     dispatch(
@@ -185,7 +184,7 @@ const SetColor = () => {
               background: `${color}`,
               border: color === `#${colorInput}` ? `2.5px solid #fff` : "none",
             }}
-            onClick={handleColor(color)}>
+            onClick={() => handleColor(color)}>
             <Tooltip
               title={
                 <Typography variant="body2" sx={{ userSelect: "none" }}>

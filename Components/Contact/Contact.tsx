@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import type { ReactElement, SyntheticEvent, KeyboardEvent } from "react";
+import type { ReactElement, KeyboardEvent } from "react";
 import {
   Alert,
   Grid,
@@ -8,15 +8,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import ImageSSR from "../Utilities/ImageSSR";
-import { Icon } from "@iconify/react";
-import MainButton from "../Utilities/MainButton";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Formik, FormikHelpers } from "formik";
+import { Icon } from "@iconify/react";
+
+import ImageSSR from "../Utilities/ImageSSR";
+import MainButton from "../Utilities/MainButton";
 import styles from "./Contact.style";
 import stylesUtility from "../Utilities/Utilities.style";
 import { stylesSetColor } from "../Navbar/Navbar.style";
 import FormInput from "../Utilities/FormInput";
-import { Formik, FormikHelpers } from "formik";
 
 type AlertTypes = "success" | "warning" | "error";
 type TooltipTypes = {
@@ -132,7 +133,7 @@ function Contact(): ReactElement {
     setToken(captchaCode);
   };
 
-  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+  const handleClose = (_: any, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -142,7 +143,7 @@ function Contact(): ReactElement {
     });
   };
 
-  const handleTooltip = (tooltip: TooltipTypes) => () =>
+  const handleTooltip = (tooltip: TooltipTypes) =>
     setTooltipOpen({ ...tooltipOpen, ...tooltip });
 
   const disableKey = (e: KeyboardEvent<HTMLFormElement>) => {
@@ -218,7 +219,7 @@ function Contact(): ReactElement {
                     className="contact-form"
                     endAdornment={
                       <Tooltip
-                        onClose={handleTooltip({ name: false })}
+                        onClose={() => handleTooltip({ name: false })}
                         open={tooltipOpen.name}
                         title={
                           <Typography variant="body2">
@@ -226,7 +227,7 @@ function Contact(): ReactElement {
                           </Typography>
                         }>
                         <Icon
-                          onClick={handleTooltip({ name: true })}
+                          onClick={() => handleTooltip({ name: true })}
                           style={styles.tooltip}
                           icon="fe:warning"
                         />
@@ -244,7 +245,7 @@ function Contact(): ReactElement {
                     className="contact-form"
                     endAdornment={
                       <Tooltip
-                        onClose={handleTooltip({ email: false })}
+                        onClose={() => handleTooltip({ email: false })}
                         open={tooltipOpen.email}
                         title={
                           <Typography variant="body2">
@@ -253,7 +254,7 @@ function Contact(): ReactElement {
                           </Typography>
                         }>
                         <Icon
-                          onClick={handleTooltip({ email: true })}
+                          onClick={() => handleTooltip({ email: true })}
                           style={styles.tooltip}
                           icon="fe:warning"
                         />
@@ -270,7 +271,7 @@ function Contact(): ReactElement {
                     className="contact-form"
                     endAdornment={
                       <Tooltip
-                        onClose={handleTooltip({ subject: false })}
+                        onClose={() => handleTooltip({ subject: false })}
                         open={tooltipOpen.subject}
                         title={
                           <Typography variant="body2">
@@ -278,7 +279,7 @@ function Contact(): ReactElement {
                           </Typography>
                         }>
                         <Icon
-                          onClick={handleTooltip({ subject: true })}
+                          onClick={() => handleTooltip({ subject: true })}
                           style={styles.tooltip}
                           icon="fe:warning"
                         />
@@ -299,7 +300,7 @@ function Contact(): ReactElement {
                     className="contact-form message-form"
                     endAdornment={
                       <Tooltip
-                        onClose={handleTooltip({ message: false })}
+                        onClose={() => handleTooltip({ message: false })}
                         open={tooltipOpen.message}
                         title={
                           <Typography variant="body2">
@@ -307,7 +308,7 @@ function Contact(): ReactElement {
                           </Typography>
                         }>
                         <Icon
-                          onClick={handleTooltip({ message: true })}
+                          onClick={() => handleTooltip({ message: true })}
                           style={styles.tooltipTextArea}
                           icon="fe:warning"
                         />
